@@ -75,8 +75,8 @@
                 android:layout_marginTop="32dp"
                 android:text="toque para ver detalhes..."
                 android:textStyle="italic"
-                android:textColor="@color/light_gray"
-                android:textSize="22sp" />
+                android:textColor="@color/white"
+                android:textSize="18sp" />
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>
