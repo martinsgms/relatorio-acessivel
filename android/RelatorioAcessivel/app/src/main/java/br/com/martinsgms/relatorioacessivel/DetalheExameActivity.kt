@@ -19,6 +19,12 @@ class DetalheExameActivity : AppCompatActivity(R.layout.activity_detalhe_exame) 
             startActivity(intent)
         }
 
+        val btnNovaAtividade = findViewById<Button>(R.id.activity_detalhe_atividade_registrar)
+        btnNovaAtividade.setOnClickListener() {
+            val intent = Intent(this, NovaAtividadeActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 
     override fun onSupportNavigateUp(): Boolean {
