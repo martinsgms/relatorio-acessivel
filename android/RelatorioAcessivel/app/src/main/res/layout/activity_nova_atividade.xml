@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".NovaAtividadeActivity">
+        tools:context=".ui.activity.NovaAtividadeActivity">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/atividade"
@@ -71,7 +71,7 @@
             app:layout_constraintTop_toBottomOf="@id/switch_horario" />
 
         <Button
-            android:id="@+id/activity_detalhe_atividade_relatorio"
+            android:id="@+id/activity_nova_atividade_registrar"
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:layout_marginStart="16dp"

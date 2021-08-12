@@ -1,9 +1,10 @@
-package br.com.martinsgms.relatorioacessivel
+package br.com.martinsgms.relatorioacessivel.ui.activity
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.cardview.widget.CardView
+import br.com.martinsgms.relatorioacessivel.R
 
 class HomeActivity : AppCompatActivity(R.layout.activity_home) {
     override fun onCreate(savedInstanceState: Bundle?) {

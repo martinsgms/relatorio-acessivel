@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.RelatorioAcessivel">
 
-        <activity android:name=".HomeActivity">
+        <activity android:name=".ui.activity.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -18,13 +18,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".RelatorioActivity"
+            android:name=".ui.activity.RelatorioActivity"
             android:label="Meu relatório"/>
         <activity
-            android:name=".DetalheExameActivity"
+            android:name=".ui.activity.DetalheExameActivity"
             android:label="Detalhes do seu exame"/>
         <activity
-            android:name=".NovaAtividadeActivity"
+            android:name=".ui.activity.NovaAtividadeActivity"
             android:label="Nova atividade"/>
     </application>
 

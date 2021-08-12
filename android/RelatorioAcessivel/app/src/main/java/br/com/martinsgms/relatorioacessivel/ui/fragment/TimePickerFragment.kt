@@ -1,4 +1,4 @@
-package br.com.martinsgms.relatorioacessivel
+package br.com.martinsgms.relatorioacessivel.ui.fragment
 
 import android.os.Bundle
 import android.text.format.DateFormat
