@@ -6,6 +6,6 @@ data class AtividadeModel (
 
     val hora : LocalTime,
     val atividade : String,
-    val sintomas : String
-
+    val sintomas : String,
+    val medicamentos : String
 )

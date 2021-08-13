@@ -8,7 +8,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import br.com.martinsgms.relatorioacessivel.R
 import br.com.martinsgms.relatorioacessivel.model.AtividadeModel
-import java.text.SimpleDateFormat
 
 class RelatorioAdapter(
     val context: Context,
@@ -19,15 +18,20 @@ class RelatorioAdapter(
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bind(atividade: AtividadeModel) {
-            val hourFormatter = SimpleDateFormat("HH:mm")
             val horaView = itemView.findViewById<TextView>(R.id.hora)
-            horaView.text = hourFormatter.format(atividade.hora)
+            horaView.text = atividade.hora.toString()
 
             val atividadeView = itemView.findViewById<TextView>(R.id.atividade)
             atividadeView.text = atividade.atividade
 
             val sintomasView = itemView.findViewById<TextView>(R.id.sintomas)
             sintomasView.text = atividade.sintomas
+
+            if (atividade.medicamentos.isNotBlank() && atividade.sintomas.isNotBlank())
+                sintomasView.text = sintomasView.text.toString().plus(" • ${atividade.medicamentos}")
+
+            else if (atividade.sintomas.isBlank())
+                sintomasView.text = atividade.medicamentos
         }
     }
 

@@ -11,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentContainerView
 import androidx.fragment.app.commit
 import br.com.martinsgms.relatorioacessivel.R
-import br.com.martinsgms.relatorioacessivel.databinding.ActivityNovaAtividadeBinding
 import br.com.martinsgms.relatorioacessivel.model.AtividadeModel
 import br.com.martinsgms.relatorioacessivel.ui.dao.RelatorioDAO
 import br.com.martinsgms.relatorioacessivel.ui.fragment.TimePickerFragment
@@ -52,22 +51,28 @@ class NovaAtividadeActivity : AppCompatActivity(R.layout.activity_nova_atividade
         val sintomaEditText = findViewById<TextInputLayout>(R.id.sintoma)
         val sintoma = sintomaEditText.editText?.text.toString()
 
+        val medicamentosEditText = findViewById<TextInputLayout>(R.id.medicamento)
+        val medicamento = medicamentosEditText.editText?.text.toString()
+
         var hora = ""
         if (switch.isChecked) {
             val date = Calendar.getInstance().time
             val formatter = SimpleDateFormat("HH:mm") //or use getDateInstance()
             hora = formatter.format(date)
+
         } else {
             val horaEditText = findViewById<EditText>(R.id.hora)
             hora = horaEditText.text.toString()
+
             if (hora.split(":")[1].length == 1)
                 hora = hora.replace(":", ":0")
-            else (hora.split(":")[0].length == 1)
-            hora = "0".plus(hora)
+
+            if (hora.split(":")[0].length == 1)
+                hora = "0".plus(hora)
         }
 
-        Log.d("AA", "$atividade $sintoma ${LocalTime.parse(hora)}")
-        return AtividadeModel(LocalTime.parse(hora), atividade, sintoma)
+        Log.d("AA", "${LocalTime.parse(hora)} $atividade $sintoma $medicamento")
+        return AtividadeModel(LocalTime.parse(hora), atividade, sintoma, medicamento)
     }
 
     private fun configuraSwitch() {
