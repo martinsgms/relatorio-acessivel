@@ -3,11 +3,13 @@ package br.com.martinsgms.relatorioacessivel.ui.fragment
 import android.os.Bundle
 import android.text.format.DateFormat
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import androidx.fragment.app.Fragment
 import br.com.martinsgms.relatorioacessivel.databinding.FragmentTimePickerBinding
+import br.com.martinsgms.relatorioacessivel.ui.activity.NovaAtividadeActivity
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 
@@ -26,6 +28,8 @@ class TimePickerFragment : Fragment() {
     private var _binding : FragmentTimePickerBinding? = null
     private val binding get() = _binding!!
 
+    var horaEditText : EditText? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -33,7 +37,7 @@ class TimePickerFragment : Fragment() {
         // Inflate the layout for this fragment
         _binding = FragmentTimePickerBinding.inflate(inflater, container, false)
 
-        binding.hora.setOnClickListener {
+        binding.horaFragment.setOnClickListener {
             Log.d("TimePickerFragment", "aaaaaaaa")
             openTimePicker()
         }
@@ -56,8 +60,13 @@ class TimePickerFragment : Fragment() {
             val h = materialTimePicker.hour
             val m = materialTimePicker.minute
 
-            binding.hora.setText("$h:$m")
+            this.horaEditText = binding.horaFragment
+            horaEditText?.setText("$h:$m")
         }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        (activity as NovaAtividadeActivity)?.onFragmentViewCreated(view) // Metodo que deve ser implementado na Activity
     }
 
     companion object {

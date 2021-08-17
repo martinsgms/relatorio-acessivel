@@ -20,23 +20,44 @@ import java.text.SimpleDateFormat
 import java.time.LocalTime
 import java.util.*
 
+
 class NovaAtividadeActivity : AppCompatActivity(R.layout.activity_nova_atividade) {
+
+
+    private var atividadeEditText: TextInputLayout? = null
+    private var sintomaEditText: TextInputLayout? = null
+    private var medicamentosEditText: TextInputLayout? = null
+    private var horaEditText: EditText? = null
+    private var btnRegistrar: Button? = null
+
+    private val timePicker = TimePickerFragment()
+    private val relatorioDAO = RelatorioDAO()
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        configuraBotaoReturn()
+        atividadeEditText = findViewById(R.id.atividade)
+        sintomaEditText = findViewById(R.id.sintoma)
+        medicamentosEditText = findViewById(R.id.medicamento)
+        horaEditText = findViewById(R.id.hora)
+        btnRegistrar = findViewById(R.id.activity_nova_atividade_registrar)
 
+        configuraBotaoReturn()
         configuraTimePicker(savedInstanceState)
 
-        configuraSwitch()
+        val editAtividade = intent.getParcelableExtra<AtividadeModel>("atividade")
+        configuraSwitch(editAtividade)
 
-        val relatorioDAO = RelatorioDAO()
-        val btnRegistrar = findViewById<Button>(R.id.activity_nova_atividade_registrar)
-        btnRegistrar.setOnClickListener {
+        btnRegistrar?.setOnClickListener {
             relatorioDAO.save(criaAtividade())
             finish()
+        }
+
+        if (editAtividade != null) {
+            atividadeEditText?.editText?.setText(editAtividade.atividade)
+            sintomaEditText?.editText?.setText(editAtividade.sintomas)
+            medicamentosEditText?.editText?.setText(editAtividade.medicamentos)
         }
 
     }
@@ -45,14 +66,9 @@ class NovaAtividadeActivity : AppCompatActivity(R.layout.activity_nova_atividade
     private fun criaAtividade() : AtividadeModel {
         val switch = findViewById<SwitchMaterial>(R.id.switch_horario)
 
-        val atividadeEditText = findViewById<TextInputLayout>(R.id.atividade)
-        val atividade = atividadeEditText.editText?.text.toString()
-
-        val sintomaEditText = findViewById<TextInputLayout>(R.id.sintoma)
-        val sintoma = sintomaEditText.editText?.text.toString()
-
-        val medicamentosEditText = findViewById<TextInputLayout>(R.id.medicamento)
-        val medicamento = medicamentosEditText.editText?.text.toString()
+        val atividade = atividadeEditText?.editText?.text.toString()
+        val sintoma = sintomaEditText?.editText?.text.toString()
+        val medicamento = medicamentosEditText?.editText?.text.toString()
 
         var hora = ""
         if (switch.isChecked) {
@@ -61,9 +77,9 @@ class NovaAtividadeActivity : AppCompatActivity(R.layout.activity_nova_atividade
             hora = formatter.format(date)
 
         } else {
-            val horaEditText = findViewById<EditText>(R.id.hora)
-            hora = horaEditText.text.toString()
+            hora = horaEditText?.text.toString()
 
+            //tratar hora em ponto ex 8:00
             if (hora.split(":")[1].length == 1)
                 hora = hora.replace(":", ":0")
 
@@ -75,10 +91,16 @@ class NovaAtividadeActivity : AppCompatActivity(R.layout.activity_nova_atividade
         return AtividadeModel(LocalTime.parse(hora), atividade, sintoma, medicamento)
     }
 
-    private fun configuraSwitch() {
+    private fun configuraSwitch(editAtividade: AtividadeModel?) {
         val switch = findViewById<SwitchMaterial>(R.id.switch_horario)
+
         switch.setOnClickListener {
             changeTimePickerVisibility(switch.isChecked)
+        }
+
+        if (editAtividade != null) {
+            switch.isChecked = false
+            return
         }
 
         changeTimePickerVisibility(switch.isChecked)
@@ -88,7 +110,7 @@ class NovaAtividadeActivity : AppCompatActivity(R.layout.activity_nova_atividade
         if (savedInstanceState == null) {
             supportFragmentManager.commit {
                 setReorderingAllowed(true)
-                add(R.id.tp_aqui, TimePickerFragment(), "a")
+                add(R.id.tp_aqui, timePicker, "a")
             }
         }
     }
@@ -106,5 +128,12 @@ class NovaAtividadeActivity : AppCompatActivity(R.layout.activity_nova_atividade
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return true
+    }
+
+    fun onFragmentViewCreated(view: View) {
+        val editAtividade = intent.getParcelableExtra<AtividadeModel>("atividade") ?: return
+
+        val horaFrag = findViewById<EditText>(R.id.hora_fragment)
+        horaFrag.setText(editAtividade.hora.toString())
     }
 }
