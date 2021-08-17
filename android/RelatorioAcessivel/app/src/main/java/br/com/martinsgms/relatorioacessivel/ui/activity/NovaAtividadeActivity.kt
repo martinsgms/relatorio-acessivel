@@ -58,6 +58,8 @@ class NovaAtividadeActivity : AppCompatActivity(R.layout.activity_nova_atividade
             atividadeEditText?.editText?.setText(editAtividade.atividade)
             sintomaEditText?.editText?.setText(editAtividade.sintomas)
             medicamentosEditText?.editText?.setText(editAtividade.medicamentos)
+
+            supportActionBar?.title = "Editar atividade"
         }
 
     }
