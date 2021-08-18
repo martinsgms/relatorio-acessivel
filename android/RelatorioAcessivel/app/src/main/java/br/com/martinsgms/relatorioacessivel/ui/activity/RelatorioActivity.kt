@@ -4,6 +4,9 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.ContextMenu
+import android.view.MenuItem
+import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
@@ -15,10 +18,15 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import java.time.LocalTime
 
 class RelatorioActivity : AppCompatActivity(R.layout.activity_relatorio),
-    RelatorioAdapter.OnClickAtividadeListener {
+    RelatorioAdapter.OnClickAtividadeListener, RelatorioAdapter.OnLongClickAtividadeListener {
 
+    private var atividadePressionada: AtividadeModel ?= null
     private val relatorioDAO = RelatorioDAO()
-    private val adapter = RelatorioAdapter(context = this, onClickAtividadeListener = this)
+    private val adapter = RelatorioAdapter(
+        context = this,
+        onClickAtividadeListener = this,
+        onLongClickAtividadeListener = this
+    )
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,6 +45,16 @@ class RelatorioActivity : AppCompatActivity(R.layout.activity_relatorio),
         adapter.atualiza(relatorioDAO.findAll())
     }
 
+    override fun onCreateContextMenu(
+        menu: ContextMenu?,
+        v: View?,
+        menuInfo: ContextMenu.ContextMenuInfo?
+    ) {
+        super.onCreateContextMenu(menu, v, menuInfo)
+
+        menu?.add("Remover")
+    }
+
     private fun configuraFab() {
         val fab = findViewById<FloatingActionButton>(R.id.floatingActionButton)
         fab.setOnClickListener {
@@ -53,7 +71,7 @@ class RelatorioActivity : AppCompatActivity(R.layout.activity_relatorio),
     private fun configuraRecyclerView() {
         val relatorioRecyclerView = findViewById<RecyclerView>(R.id.activity_relatorio_rv)
         relatorioRecyclerView.adapter = adapter
-
+        registerForContextMenu(relatorioRecyclerView)
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -68,5 +86,18 @@ class RelatorioActivity : AppCompatActivity(R.layout.activity_relatorio),
         intent.putExtra("atividade", atividade)
 
         startActivity(intent)
+    }
+
+    override fun OnLongClickAtividadeListener(atividade: AtividadeModel): Boolean {
+        Log.d("long-click", "lg click - ${atividade.toString()}")
+        this.atividadePressionada = atividade
+
+        return false
+    }
+
+    override fun onContextItemSelected(item: MenuItem): Boolean {
+        Log.d("remover", "rm - $atividadePressionada")
+
+        return super.onContextItemSelected(item)
     }
 }

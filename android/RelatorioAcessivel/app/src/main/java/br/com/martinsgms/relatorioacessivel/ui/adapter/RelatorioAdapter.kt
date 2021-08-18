@@ -13,7 +13,8 @@ import br.com.martinsgms.relatorioacessivel.model.AtividadeModel
 class RelatorioAdapter(
     val context: Context,
     atividades: List<AtividadeModel> = emptyList(),
-    var onClickAtividadeListener: OnClickAtividadeListener
+    var onClickAtividadeListener: OnClickAtividadeListener,
+    var onLongClickAtividadeListener: OnLongClickAtividadeListener
 ) : RecyclerView.Adapter<RelatorioAdapter.ViewHolder>() {
 
     private val atividades = atividades.toMutableList()
@@ -43,6 +44,9 @@ class RelatorioAdapter(
         fun OnClickAtividadeListener(atividade: AtividadeModel)
     }
 
+    interface OnLongClickAtividadeListener {
+        fun OnLongClickAtividadeListener(atividade: AtividadeModel) : Boolean
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(context)
@@ -56,6 +60,10 @@ class RelatorioAdapter(
 
         holder.cardView.setOnClickListener {
             onClickAtividadeListener.OnClickAtividadeListener(atividade)
+        }
+
+        holder.cardView.setOnLongClickListener {
+            onLongClickAtividadeListener.OnLongClickAtividadeListener(atividade)
         }
 
         holder.bind(atividade)
