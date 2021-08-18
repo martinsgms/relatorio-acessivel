@@ -52,7 +52,7 @@ class RelatorioActivity : AppCompatActivity(R.layout.activity_relatorio),
     ) {
         super.onCreateContextMenu(menu, v, menuInfo)
 
-        menu?.add("Remover")
+        menuInflater.inflate(R.menu.activity_relatorio_menu, menu)
     }
 
     private fun configuraFab() {
