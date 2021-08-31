@@ -40,7 +40,6 @@ class NovaAtividadeActivity : AppCompatActivity(R.layout.activity_nova_atividade
         atividadeEditText = findViewById(R.id.atividade)
         sintomaEditText = findViewById(R.id.sintoma)
         medicamentosEditText = findViewById(R.id.medicamento)
-        horaEditText = findViewById(R.id.hora)
         btnRegistrar = findViewById(R.id.activity_nova_atividade_registrar)
 
         configuraBotaoReturn()
@@ -79,8 +78,11 @@ class NovaAtividadeActivity : AppCompatActivity(R.layout.activity_nova_atividade
             hora = formatter.format(date)
 
         } else {
-            hora = horaEditText?.text.toString()
 
+            horaEditText = findViewById(R.id.hora_fragment)
+            
+            hora = horaEditText?.text.toString()
+            Log.d("hora", hora);
             //tratar hora em ponto ex 8:00
             if (hora.split(":")[1].length == 1)
                 hora = hora.replace(":", ":0")

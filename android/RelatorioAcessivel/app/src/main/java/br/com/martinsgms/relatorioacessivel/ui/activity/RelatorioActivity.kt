@@ -36,8 +36,8 @@ class RelatorioActivity : AppCompatActivity(R.layout.activity_relatorio),
         configuraBotaoReturn()
         configuraFab()
 
-        relatorioDAO.save(AtividadeModel(LocalTime.now(), "café", "dor de cabeça", "dipirona"))
-        relatorioDAO.save(AtividadeModel(LocalTime.now(), "almoco", "enjoo", "paracetamol"))
+        //relatorioDAO.save(AtividadeModel(LocalTime.now(), "café", "dor de cabeça", "dipirona"))
+        //relatorioDAO.save(AtividadeModel(LocalTime.now(), "almoco", "enjoo", "paracetamol"))
     }
 
     override fun onResume() {
