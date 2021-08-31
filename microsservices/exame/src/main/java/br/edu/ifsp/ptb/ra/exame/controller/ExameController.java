@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import br.edu.ifsp.ptb.ra.exame.dto.ExameDTO;
+import br.edu.ifsp.ptb.ra.exame.model.ExameModel;
 import br.edu.ifsp.ptb.ra.exame.service.ExameService;
 
 @Controller
@@ -19,10 +20,10 @@ public class ExameController
     private ExameService exameService;
 
     @PostMapping
-    public ResponseEntity<?> novoExame(@RequestBody ExameDTO exame)
+    public ResponseEntity<ExameModel> novoExame(@RequestBody ExameDTO exame)
     {
-        exameService.novoExame(exame);
+        ExameModel novoExame = exameService.novoExame(exame);
         
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(novoExame);
     }
 }
