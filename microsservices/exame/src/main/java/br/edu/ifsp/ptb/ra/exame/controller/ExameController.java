@@ -1,5 +1,7 @@
 package br.edu.ifsp.ptb.ra.exame.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import br.edu.ifsp.ptb.ra.exame.dto.EventoDTO;
 import br.edu.ifsp.ptb.ra.exame.dto.ExameDTO;
@@ -34,7 +37,7 @@ public class ExameController
     @PostMapping("/{idExame}/evento")
     public ResponseEntity<?> novoEvento(@RequestBody EventoDTO evento, @PathVariable Long idExame)
     {
-        ExameModel exame = exameService.consultaExame(idExame);
+        var exame = exameService.consultaExame(idExame);
 
         if (exame == null)
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Exame não encontrado!");
@@ -47,8 +50,19 @@ public class ExameController
     @GetMapping("/{idExame}")
     public ResponseEntity<ExameModel> consultaExame(@PathVariable Long idExame)
     {
-        ExameModel exame = exameService.consultaExame(idExame);
+        var exame = exameService.consultaExame(idExame);
 
         return ResponseEntity.ok(exame);
+    }
+
+    @GetMapping("/usuario/{idUsuario}")
+    public ResponseEntity<?> consultaExamesUsuario(@PathVariable Long idUsuario, @RequestParam(defaultValue = "false") boolean apenasMaisRecente)
+    {
+        if (apenasMaisRecente)
+            return ResponseEntity.ok(exameService.consultaExameMaisRecenteUsuario(idUsuario));
+
+        List<ExameModel> exames = exameService.consultaExamesUsuario(idUsuario);
+
+        return ResponseEntity.ok(exames);
     }
 }

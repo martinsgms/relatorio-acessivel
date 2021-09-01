@@ -37,22 +37,28 @@ public class ExameService
         return agendaNovoExame(new ExameModel(usuario, dto));
     }
 
-
     public ExameModel agendaNovoExame(ExameModel model)
     {
         return exameRepository.save(model);
     }
 
-    public List<ExameModel> consultaExames(Long idUsuario) {
-        return exameRepository.consultaExames(idUsuario);
+    public List<ExameModel> consultaExamesUsuario(Long idUsuario)
+    {
+        return exameRepository.consultaExamesUsuario(idUsuario);
     }
 
-    public ExameModel consultaExame(Long idExame) {
-        return exameRepository.consultaExame(idExame);
+    public ExameModel consultaExame(Long idExame)
+    {
+        return exameRepository.consultaExamePorId(idExame);
     }
 
-    public EventoModel novoEvento(EventoDTO evento) {
+    public EventoModel novoEvento(EventoDTO evento)
+    {
         return eventoRepository.save(new EventoModel(evento));
     }
 
+    public ExameModel consultaExameMaisRecenteUsuario(Long idUsuario)
+    {
+        return exameRepository.consultaExameMaisRecenteUsuario(idUsuario);
+    }
 }
