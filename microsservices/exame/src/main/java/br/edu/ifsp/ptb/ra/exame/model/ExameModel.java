@@ -32,6 +32,11 @@ public class ExameModel
         this.status = new StatusExameModel("AGE");
     }
 
+    public ExameModel(Long idExame)
+    {
+        this.id = idExame;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
@@ -121,5 +126,15 @@ public class ExameModel
 
     public void setIntervaloAfericoes(Integer intervaloAfericoes) {
         this.intervaloAfericoes = intervaloAfericoes;
+    }
+
+    public ExameDTO toDTO() {
+        var dto = new ExameDTO();
+
+        dto.setData(dataHoraExame);
+        dto.setIdExterno(idExterno);
+        dto.setIntervaloAfericaoPA(intervaloAfericoes);
+
+        return dto;
     }
 }

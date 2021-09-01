@@ -12,9 +12,27 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import br.edu.ifsp.ptb.ra.exame.dto.EventoDTO;
+
 @Entity
 @Table(name = "TRA_EVENTO")
-public class EventoModel {
+public class EventoModel
+{
+
+    public EventoModel()
+    {
+    }
+
+    public EventoModel(EventoDTO dto)
+    {
+        this.exame = new ExameModel(dto.getIdExame());
+        this.descricao = dto.getAtividade();
+        this.sintoma = dto.getSintoma();
+        this.medicamento = dto.getMedicamento();
+        this.dataHora = dto.getDataHora();
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,6 +45,9 @@ public class EventoModel {
     @Column(name = "DS_SINTOMA")
     private String sintoma;
 
+    @Column(name = "DS_MEDICAMENTO")
+    private String medicamento;
+
     @Column(name = "DH_EVENTO")
     private LocalDateTime dataHora;
 
@@ -36,6 +57,7 @@ public class EventoModel {
     @Column(name = "NU_PA_DIASTOLICA")
     private Integer paDiastolica;
 
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_EXAME")
     private ExameModel exame;
