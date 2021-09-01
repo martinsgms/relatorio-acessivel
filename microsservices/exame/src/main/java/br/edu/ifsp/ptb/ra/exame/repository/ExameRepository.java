@@ -12,12 +12,12 @@ import br.edu.ifsp.ptb.ra.exame.model.ExameModel;
 public interface ExameRepository extends JpaRepository<ExameModel, Long> {
 
     @Query(value = "SELECT * FROM RADB.TRA_EXAME WHERE ID_USUARIO = :idUsuario", nativeQuery = true)
-    List<ExameModel> consultaExamesUsuario(Long idUsuario);
+    List<ExameModel> listExamesUsuario(Long idUsuario);
 
     @Query(value = "SELECT * FROM RADB.TRA_EXAME WHERE ID_USUARIO = :idUsuario ORDER BY DH_EXAME DESC LIMIT 1", nativeQuery = true)
-    ExameModel consultaExameMaisRecenteUsuario(Long idUsuario);
+    ExameModel getExameMaisRecenteDoUsuario(Long idUsuario);
 
     @Query(value = "SELECT * FROM RADB.TRA_EXAME WHERE ID = :idExame", nativeQuery = true)
-    ExameModel consultaExamePorId(Long idExame);
+    ExameModel getExamePorId(Long idExame);
 
 }

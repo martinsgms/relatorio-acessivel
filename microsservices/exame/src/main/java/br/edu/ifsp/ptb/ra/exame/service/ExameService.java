@@ -42,23 +42,23 @@ public class ExameService
         return exameRepository.save(model);
     }
 
-    public List<ExameModel> consultaExamesUsuario(Long idUsuario)
+    public List<ExameModel> listaExamesUsuario(Long idUsuario)
     {
-        return exameRepository.consultaExamesUsuario(idUsuario);
+        return exameRepository.listExamesUsuario(idUsuario);
     }
 
-    public ExameModel consultaExame(Long idExame)
+    public ExameModel detalheExame(Long idExame)
     {
-        return exameRepository.consultaExamePorId(idExame);
+        return exameRepository.getExamePorId(idExame);
     }
 
-    public EventoModel novoEvento(EventoDTO evento)
+    public EventoModel novaAtividade(EventoDTO evento)
     {
         return eventoRepository.save(new EventoModel(evento));
     }
 
-    public ExameModel consultaExameMaisRecenteUsuario(Long idUsuario)
+    public ExameModel consultaExameMaisRecenteDoUsuario(Long idUsuario)
     {
-        return exameRepository.consultaExameMaisRecenteUsuario(idUsuario);
+        return exameRepository.getExameMaisRecenteDoUsuario(idUsuario);
     }
 }

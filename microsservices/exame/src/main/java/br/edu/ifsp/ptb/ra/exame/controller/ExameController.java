@@ -35,33 +35,34 @@ public class ExameController
     }
 
     @PostMapping("/{idExame}/evento")
-    public ResponseEntity<?> novoEvento(@RequestBody EventoDTO evento, @PathVariable Long idExame)
+    public ResponseEntity<?> novaAtividade(@RequestBody EventoDTO evento, @PathVariable Long idExame)
     {
-        var exame = exameService.consultaExame(idExame);
+        var exame = exameService.detalheExame(idExame);
 
         if (exame == null)
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Exame não encontrado!");
 
-        var novoEvento = exameService.novoEvento(evento);
+        evento.setIdExame(idExame);
+        var novoEvento = exameService.novaAtividade(evento);
 
         return ResponseEntity.ok(novoEvento);
     }
 
     @GetMapping("/{idExame}")
-    public ResponseEntity<ExameModel> consultaExame(@PathVariable Long idExame)
+    public ResponseEntity<ExameModel> detalheExame(@PathVariable Long idExame)
     {
-        var exame = exameService.consultaExame(idExame);
+        var exame = exameService.detalheExame(idExame);
 
         return ResponseEntity.ok(exame);
     }
 
     @GetMapping("/usuario/{idUsuario}")
-    public ResponseEntity<?> consultaExamesUsuario(@PathVariable Long idUsuario, @RequestParam(defaultValue = "false") boolean apenasMaisRecente)
+    public ResponseEntity<?> examesDoUsuario(@PathVariable Long idUsuario, @RequestParam(defaultValue = "false") boolean apenasMaisRecente)
     {
         if (apenasMaisRecente)
-            return ResponseEntity.ok(exameService.consultaExameMaisRecenteUsuario(idUsuario));
+            return ResponseEntity.ok(exameService.consultaExameMaisRecenteDoUsuario(idUsuario));
 
-        List<ExameModel> exames = exameService.consultaExamesUsuario(idUsuario);
+        List<ExameModel> exames = exameService.listaExamesUsuario(idUsuario);
 
         return ResponseEntity.ok(exames);
     }
