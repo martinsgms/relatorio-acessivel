@@ -8,7 +8,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.RelatorioAcessivel">
+        android:theme="@style/Theme.RelatorioAcessivel"
+        android:networkSecurityConfig="@xml/network_security_config">
 
         <activity android:name=".ui.activity.HomeActivity">
             <intent-filter>
@@ -27,5 +28,7 @@
             android:name=".ui.activity.NovaAtividadeActivity"
             android:label="Nova atividade"/>
     </application>
-
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 </manifest>
