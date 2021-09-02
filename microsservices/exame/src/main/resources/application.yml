@@ -1,14 +1,6 @@
 server:
   port: 8080
 
-spring:
-  application:
-    name: app-exame
-  datasource:
-    username: root
-    password:
-    url: jdbc:mysql://localhost:3306/radb
-
 eureka:
   client:
     register-with-eureka: true
