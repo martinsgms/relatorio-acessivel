@@ -2,6 +2,8 @@ package br.edu.ifsp.ptb.ra.exame.service;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,11 +32,19 @@ public class ExameService
     @Autowired
     private UsuarioService usuarioService;
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(ExameService.class);
+
     public ExameModel novoExame(ExameDTO dto) 
     {
+        LOGGER.info("criando novo exame para o usário {}", dto.getEmail());
+
         UsuarioDTO usuario = usuarioService.buscaUsuarioPorEmail(dto.getEmail());
 
-        return agendaNovoExame(new ExameModel(usuario, dto));
+        var agendaNovoExame = agendaNovoExame(new ExameModel(usuario, dto));
+
+        LOGGER.info("exame agendado com sucesso: {}", agendaNovoExame.getId());
+
+        return agendaNovoExame;
     }
 
     public ExameModel agendaNovoExame(ExameModel model)
