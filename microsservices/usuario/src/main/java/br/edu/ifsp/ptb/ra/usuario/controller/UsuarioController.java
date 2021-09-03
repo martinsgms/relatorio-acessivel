@@ -18,9 +18,9 @@ public class UsuarioController {
     private UsuarioService usuarioService;
 
     @GetMapping("/{email}")
-    public ResponseEntity<UsuarioModel> resgataUsuarioPorEmail(@PathVariable String email)
+    public ResponseEntity<UsuarioModel> buscaUsuarioPorEmail(@PathVariable String email)
     {
-        return ResponseEntity.ok(usuarioService.resgataUsuarioPorEmail(email));
+        return ResponseEntity.ok(usuarioService.buscaUsuarioPorEmail(email));
     }
 
 }

@@ -12,7 +12,7 @@ public class UsuarioService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    public UsuarioModel resgataUsuarioPorEmail(String chave) {
+    public UsuarioModel buscaUsuarioPorEmail(String chave) {
         return usuarioRepository.findByEmail(chave);
     }
 
