@@ -1,0 +1,12 @@
+server:
+  port: 8888
+
+spring:
+  application:    name: config-server
+  cloud:    config:
+      server:        git:
+          uri: git@github.com:martinsgms/relatorio-inteligente-config.git
+          search-paths: '{application}'
+          passphrase:
+          private-key: ${RA_SSH_KEY}
+
