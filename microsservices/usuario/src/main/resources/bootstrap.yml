@@ -1,6 +1,6 @@
 spring:
   application:
-    name: app-exame
+    name: app-usuario
   profiles:
     active: dev #local, dev
   cloud:
