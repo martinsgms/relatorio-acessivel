@@ -2,7 +2,7 @@ spring:
   application:
     name: app-exame
   profiles:
-    active: dev #local, dev
+    active: local #local, dev
   cloud:
     config:
       uri: http://localhost:8888
