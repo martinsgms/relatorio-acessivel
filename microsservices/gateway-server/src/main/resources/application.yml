@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: gateway-server
+  cloud:
+    gateway:      routes:      - id: app-exame
+        uri: http://localhost:8080/
+        predicates:          - Path=/exame/**
+      - id: app-usuario
+        uri: http://localhost:8081/
+        predicates:          - Path=/usuario/**
+
+server:
+  port: 5555
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - "gateway"
