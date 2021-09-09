@@ -1,122 +1,126 @@
-----------------------------------------------------------------------------------------------------------------------------------
-----------------------------------------------------------------------------------------------------------------------------------
+/*-----------------------------------------------------------------------------------------------*/
+/*-----------------------------------------------------------------------------------------------*/
 -- DDL FOR: TRA_USUARIO
-----------------------------------------------------------------------------------------------------------------------------------
-----------------------------------------------------------------------------------------------------------------------------------
+/*-----------------------------------------------------------------------------------------------*/
+/*-----------------------------------------------------------------------------------------------*/
 
-CREATE TABLE TRA_USUARIO (
-    ID BIGINT,
-    TE_EMAIL VARCHAR(100),
-    NM_NOME VARCHAR(100)
+create table tra_usuario (
+    id bigint,
+    te_email varchar(100),
+    nm_nome varchar(100)
 );
 
 -- PK
-ALTER TABLE TRA_USUARIO ADD CONSTRAINT PK_TRA_PACIENTE PRIMARY KEY (ID);
-ALTER TABLE TRA_USUARIO MODIFY ID BIGINT AUTO_INCREMENT;
+alter table tra_usuario add constraint pk_tra_paciente primary key (id);
+alter table tra_usuario modify id bigint auto_increment;
 
-----------------------------------------------------------------------------------------------------------------------------------
-----------------------------------------------------------------------------------------------------------------------------------
+/*-----------------------------------------------------------------------------------------------*/
+/*-----------------------------------------------------------------------------------------------*/
 -- DDL FOR: TRA_EVENTO
-----------------------------------------------------------------------------------------------------------------------------------
-----------------------------------------------------------------------------------------------------------------------------------
+/*-----------------------------------------------------------------------------------------------*/
+/*-----------------------------------------------------------------------------------------------*/
 
-CREATE TABLE TRA_EVENTO (
-    ID BIGINT,
-    DH_EVENTO TIMESTAMP,
-    DS_EVENTO VARCHAR(100),
-    NU_PA_DIASTOLICA INTEGER,
-    NU_PA_SISTOLICA INTEGER,
-    DS_SINTOMA VARCHAR(100),
-    DS_MEDICAMENTO VARCHAR(100),
-    ID_EXAME BIGINT
+create table tra_evento (
+    id bigint,
+    dh_evento timestamp,
+    ds_evento varchar(100),
+    nu_pa_diastolica integer,
+    nu_pa_sistolica integer,
+    ds_sintoma varchar(100),
+    ds_medicamento varchar(100),
+    id_exame bigint
 );
 
 -- PK
-ALTER TABLE TRA_EVENTO ADD CONSTRAINT PK_TRA_EVENTO PRIMARY KEY (ID);
-ALTER TABLE TRA_EVENTO MODIFY ID BIGINT AUTO_INCREMENT;
+alter table tra_evento add constraint pk_tra_evento primary key (id);
+alter table tra_evento modify id bigint auto_increment;
 
--- EVENTO [N] | EXAME [1]
-ALTER TABLE TRA_EVENTO 
-ADD CONSTRAINT FK_TRA_EVENTO_EXAME 
-FOREIGN KEY (ID_EXAME) 
-REFERENCES TRA_EXAME (ID); 
-
-----------------------------------------------------------------------------------------------------------------------------------
-----------------------------------------------------------------------------------------------------------------------------------
+/*-----------------------------------------------------------------------------------------------*/
+/*-----------------------------------------------------------------------------------------------*/
 -- DDL FOR: TRA_EXAME
-----------------------------------------------------------------------------------------------------------------------------------
-----------------------------------------------------------------------------------------------------------------------------------
+/*-----------------------------------------------------------------------------------------------*/
+/*-----------------------------------------------------------------------------------------------*/
 
-CREATE TABLE TRA_EXAME (
-    ID BIGINT,
-    DH_EXAME TIMESTAMP,
-    ID_EXTERNO VARCHAR(100),
-    NU_INTERVALO_AFERICAO INTEGER,
-    ID_PACIENTE BIGINT,
-    ID_SERVICO_SAUDE BIGINT,
-    CD_STATUS VARCHAR(3)
+create table tra_exame (
+    id bigint,
+    dh_exame timestamp,
+    id_externo varchar(100),
+    nu_intervalo_afericao integer,
+    id_usuario bigint,
+    id_servico_saude bigint,
+    cd_status varchar(3)
 );
 
 -- PK
-ALTER TABLE TRA_EXAME ADD CONSTRAINT PK_TRA_EXAME PRIMARY KEY (ID);
-ALTER TABLE TRA_EXAME MODIFY ID BIGINT AUTO_INCREMENT;
+alter table tra_exame add constraint pk_tra_exame primary key (id);
+alter table tra_exame modify id bigint auto_increment;
 
--- EXAME [N] | USUARIO [1]
-ALTER TABLE TRA_EXAME 
-ADD CONSTRAINT FK_TRA_EXAME_ID_USUARIO
-FOREIGN KEY (ID_USUARIO) 
-REFERENCES TRA_USUARIO (ID);
-
--- EXAME [N] | STATUS [1]
-ALTER TABLE TRA_EXAME
-ADD CONSTRAINT FK_TRA_EXAME_CD_STATUS
-FOREIGN KEY (CD_STATUS) 
-REFERENCES TRA_STATUS_EXAME (CD_STATUS);
-
-----------------------------------------------------------------------------------------------------------------------------------
-----------------------------------------------------------------------------------------------------------------------------------
+/*-----------------------------------------------------------------------------------------------*/
+/*-----------------------------------------------------------------------------------------------*/
 -- DDL FOR: TRA_STATUS_EXAME
-----------------------------------------------------------------------------------------------------------------------------------
-----------------------------------------------------------------------------------------------------------------------------------
+/*-----------------------------------------------------------------------------------------------*/
+/*-----------------------------------------------------------------------------------------------*/
 
-CREATE TABLE TRA_STATUS_EXAME (
-    CD_STATUS VARCHAR(3),
-    DS_DESCRICAO VARCHAR(100),
-    IN_PERMITE_ESCRITA BOOLEAN
+create table tra_status_exame (
+    cd_status varchar(3),
+    ds_descricao varchar(100),
+    in_permite_escrita boolean
 );
 
 -- PK
-ALTER TABLE TRA_STATUS_EXAME ADD CONSTRAINT PK_TRA_STATUS_EXAME PRIMARY KEY (CD_STATUS);
+alter table tra_status_exame add constraint pk_tra_status_exame primary key (cd_status);
 
 -- DATA
-INSERT INTO RADB.TRA_STATUS_EXAME (CD_STATUS, DS_DESCRICAO, IN_PERMITE_ESCRITA) VALUES ('AGE', 'AGENDADO', 0);
-INSERT INTO RADB.TRA_STATUS_EXAME (CD_STATUS, DS_DESCRICAO, IN_PERMITE_ESCRITA) VALUES ('AND', 'ANDAMENTO', 1);
-INSERT INTO RADB.TRA_STATUS_EXAME (CD_STATUS, DS_DESCRICAO, IN_PERMITE_ESCRITA) VALUES ('ENC', 'ENCERRADO', 0);
+insert into radb.tra_status_exame (cd_status, ds_descricao, in_permite_escrita) values ('AGE', 'AGENDADO', 0);
+insert into radb.tra_status_exame (cd_status, ds_descricao, in_permite_escrita) values ('AND', 'ANDAMENTO', 1);
+insert into radb.tra_status_exame (cd_status, ds_descricao, in_permite_escrita) values ('ENC', 'ENCERRADO', 0);
 
----------- GENERATED:
+/*-----------------------------------------------------------------------------------------------*/
+/*-----------------------------------------------------------------------------------------------*/
+-- DDL FOR: FK CONSTRAINS
+/*-----------------------------------------------------------------------------------------------*/
+/*-----------------------------------------------------------------------------------------------*/
 
-Hibernate: 
-    
-    create table tvamr_servico_saude (
-       id bigint generated by default as identity,
-        nm_bairro varchar(255),
-        te_cep varchar(255),
-        nm_cidade varchar(255),
-        nu_cnpj varchar(255),
-        nm_estado varchar(255),
-        nu_latitude bigint,
-        nm_logradouro varchar(255),
-        nu_longitude bigint,
-        nu_numero_lote bigint,
-        nm_completo varchar(255),
-        nm_curto varchar(255),
-        primary key (id)
-    )
-    
-Hibernate: 
-    
-    alter table tvamr_exame 
-       add constraint FK4bg7b7omwxi6tvcfohovul3u7 
-       foreign key (id_servico_saude) 
-       references tvamr_servico_saude
+-- EVENTO [N] | EXAME [1]
+alter table tra_evento
+add constraint fk_tra_evento_exame
+foreign key (id_exame)
+references tra_exame (id);
 
+-- EXAME [N] | USUARIO [1]
+alter table tra_exame
+add constraint fk_tra_exame_id_usuario
+foreign key (id_usuario)
+references tra_usuario (id);
+
+-- EXAME [N] | STATUS [1]
+alter table tra_exame
+add constraint fk_tra_exame_cd_status
+foreign key (cd_status)
+references tra_status_exame (cd_status);
+
+/*
+---------- TO-DO:
+
+create table tvamr_servico_saude (
+    id bigint generated by default as identity,
+    nm_bairro varchar(255),
+    te_cep varchar(255),
+    nm_cidade varchar(255),
+    nu_cnpj varchar(255),
+    nm_estado varchar(255),
+    nu_latitude bigint,
+    nm_logradouro varchar(255),
+    nu_longitude bigint,
+    nu_numero_lote bigint,
+    nm_completo varchar(255),
+    nm_curto varchar(255),
+    primary key (id)
+)
+
+alter table tvamr_exame
+add constraint FK4bg7b7omwxi6tvcfohovul3u7
+foreign key (id_servico_saude)
+references tvamr_servico_saude
+
+*/
