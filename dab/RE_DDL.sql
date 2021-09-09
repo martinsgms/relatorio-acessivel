@@ -99,6 +99,8 @@ add constraint fk_tra_exame_cd_status
 foreign key (cd_status)
 references tra_status_exame (cd_status);
 
+insert into tra_usuario (te_email, nm_nome) values('daiana@gmail.com', 'daiana');
+
 /*
 ---------- TO-DO:
 
