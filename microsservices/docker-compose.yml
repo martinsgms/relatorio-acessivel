@@ -1,0 +1,42 @@
+version: "3.9"
+services:
+    eureka-server:
+        build:
+            dockerfile: ./eureka-server/Dockerfile
+            context: .
+        image: martinsgms/ra-eureka-server:v0.1
+        container_name: ra-eureka-server
+        ports:
+            - "8761:8761"
+    config-server:
+        build:
+            dockerfile: ./config-server/Dockerfile
+            context: .
+        image: martinsgms/ra-config-server:v0.1
+        container_name: ra-config-server
+        ports:
+            - "8888:8888"
+    gateway-server:
+        build:
+            dockerfile: ./gateway-server/Dockerfile
+            context: .
+        image: martinsgms/ra-gateway-server:v0.1
+        container_name: ra-gateway-server
+        ports:
+            - "8888:8888"
+    app-exame:
+        build:
+            dockerfile: ./exame/Dockerfile
+            context: .
+        image: martinsgms/ra-app-exame:v0.1
+        container_name: ra-app-exame
+        ports:
+            - "8080:8080"
+    app-usuario:
+        build:
+            dockerfile: ./usuario/Dockerfile
+            context: .
+        image: martinsgms/ra-app-usuario:v0.1
+        container_name: ra-app-usuario
+        ports:
+            - "8081:8081"
