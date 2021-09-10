@@ -10,15 +10,25 @@ spec:
         app: app-usuario
     spec:
       containers:
-        - name: app-usuario
+        - name: ra-app-usuario
           image: martinsgms/ra-app-usuario:v0.1
           imagePullPolicy: Always
-          resources:
-            limits:
-              memory: "128Mi"
-              cpu: "500m"
           ports:
           - containerPort: 8081
   selector:
     matchLabels:
       app: app-usuario
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-app-usuario
+spec:
+  type: ClusterIP
+  selector:
+    app: app-usuario
+  ports:
+  - port: 80
+    targetPort: 8081

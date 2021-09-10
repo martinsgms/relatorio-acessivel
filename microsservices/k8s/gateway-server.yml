@@ -13,12 +13,22 @@ spec:
         - name: gateway-server
           image: martinsgms/ra-gateway-server:v0.1
           imagePullPolicy: Always
-          resources:
-            limits:
-              memory: "128Mi"
-              cpu: "500m"
           ports:
           - containerPort: 5555
   selector:
     matchLabels:
       app: gateway-server
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-gateway-server
+spec:
+  type: LoadBalancer
+  selector:
+    app: gateway-server
+  ports:
+  - port: 80
+    targetPort: 5555

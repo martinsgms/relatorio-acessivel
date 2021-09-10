@@ -13,12 +13,22 @@ spec:
         - name: app-exame
           image: martinsgms/ra-app-exame:v0.1
           imagePullPolicy: Always
-          resources:
-            limits:
-              memory: "128Mi"
-              cpu: "500m"
           ports:
           - containerPort: 8080
   selector:
     matchLabels:
       app: app-exame
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-app-exame
+spec:
+  type: ClusterIP
+  selector:
+    app: app-exame
+  ports:
+  - port: 80
+    targetPort: 8080

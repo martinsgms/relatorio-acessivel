@@ -3,10 +3,10 @@ server:
 
 eureka:
   instance:
-    prefer-ip-address: true
-    hostname: eureka-0
+    preferIpAddress: true
+    hostname: svc-app-usuario
   client:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defaultZone: http://eureka-0.eureka.default.svc.cluster.local:8761/eureka
+      defaultZone: http://svc-eureka-server/eureka

@@ -2,7 +2,7 @@ spring:
   application:
     name: app-exame
   profiles:
-    active: local #local, dev
+    active: dev #local, dev
   cloud:
     config:
-      uri: http://localhost:8888
+      uri: http://svc-config-server

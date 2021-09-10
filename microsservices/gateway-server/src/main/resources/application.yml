@@ -3,24 +3,21 @@ spring:
     name: gateway-server
   cloud:
     gateway:      routes:      - id: app-exame
-        uri: http://localhost:8080/
+        uri: http://svc-app-exame/
         predicates:          - Path=/exame/**
       - id: app-usuario
-        uri: http://localhost:8081/
+        uri: http://svc-app-usuario/
         predicates:          - Path=/usuario/**
 
 server:
   port: 5555
 
 eureka:
-  instance:
-    prefer-ip-address: true
-    hostname: eureka-0
   client:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defaultZone: http://eureka-0.eureka.default.svc.cluster.local:8761/eureka
+      defaultZone: http://svc-eureka-server/eureka
 
 management:
   endpoints:
