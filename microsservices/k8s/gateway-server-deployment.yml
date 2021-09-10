@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gateway-server-deployment
+spec:
+  template:
+    metadata:
+      name: gateway-server
+      labels:
+        app: gateway-server
+    spec:
+      containers:
+        - name: gateway-server
+          image: martinsgms/ra-gateway-server:v0.1
+          imagePullPolicy: Always
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          ports:
+          - containerPort: 5555
+  selector:
+    matchLabels:
+      app: gateway-server

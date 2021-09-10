@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-usuario-deployment
+spec:
+  template:
+    metadata:
+      name: app-usuario
+      labels:
+        app: app-usuario
+    spec:
+      containers:
+        - name: app-usuario
+          image: martinsgms/ra-app-usuario:v0.1
+          imagePullPolicy: Always
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          ports:
+          - containerPort: 8081
+  selector:
+    matchLabels:
+      app: app-usuario
