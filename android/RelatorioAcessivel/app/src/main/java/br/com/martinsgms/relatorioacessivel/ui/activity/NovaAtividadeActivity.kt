@@ -14,15 +14,17 @@ import br.com.martinsgms.relatorioacessivel.R
 import br.com.martinsgms.relatorioacessivel.model.AtividadeModel
 import br.com.martinsgms.relatorioacessivel.ui.dao.RelatorioDAO
 import br.com.martinsgms.relatorioacessivel.ui.fragment.TimePickerFragment
+import br.com.martinsgms.relatorioacessivel.ui.service.NovaAtividadeService
 import com.google.android.material.switchmaterial.SwitchMaterial
 import com.google.android.material.textfield.TextInputLayout
 import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.LocalTime
 import java.util.*
 
 
 class NovaAtividadeActivity : AppCompatActivity(R.layout.activity_nova_atividade) {
-
 
     private var atividadeEditText: TextInputLayout? = null
     private var sintomaEditText: TextInputLayout? = null
@@ -30,6 +32,7 @@ class NovaAtividadeActivity : AppCompatActivity(R.layout.activity_nova_atividade
     private var horaEditText: EditText? = null
     private var btnRegistrar: Button? = null
 
+    private var novaAtividadeService = NovaAtividadeService()
     private val timePicker = TimePickerFragment()
     private val relatorioDAO = RelatorioDAO()
 
@@ -49,14 +52,14 @@ class NovaAtividadeActivity : AppCompatActivity(R.layout.activity_nova_atividade
         configuraSwitch(editAtividade)
 
         btnRegistrar?.setOnClickListener {
-            relatorioDAO.save(criaAtividade())
+            novaAtividadeService.salvaAtividade(criaAtividade())
             finish()
         }
 
         if (editAtividade != null) {
             atividadeEditText?.editText?.setText(editAtividade.atividade)
-            sintomaEditText?.editText?.setText(editAtividade.sintomas)
-            medicamentosEditText?.editText?.setText(editAtividade.medicamentos)
+            sintomaEditText?.editText?.setText(editAtividade.sintoma)
+            medicamentosEditText?.editText?.setText(editAtividade.medicamento)
 
             supportActionBar?.title = "Editar atividade"
         }
@@ -91,8 +94,13 @@ class NovaAtividadeActivity : AppCompatActivity(R.layout.activity_nova_atividade
                 hora = "0".plus(hora)
         }
 
-        Log.d("AA", "${LocalTime.parse(hora)} $atividade $sintoma $medicamento")
-        return AtividadeModel(LocalTime.parse(hora), atividade, sintoma, medicamento)
+        Log.d("AA", "${LocalDateTime.of(LocalDate.now(), LocalTime.parse(hora))} $atividade $sintoma $medicamento")
+        return AtividadeModel(
+            LocalDateTime.of(LocalDate.now(), LocalTime.parse(hora)).toString(),
+            atividade,
+            sintoma,
+            medicamento
+        )
     }
 
     private fun configuraSwitch(editAtividade: AtividadeModel?) {
@@ -138,6 +146,6 @@ class NovaAtividadeActivity : AppCompatActivity(R.layout.activity_nova_atividade
         val editAtividade = intent.getParcelableExtra<AtividadeModel>("atividade") ?: return
 
         val horaFrag = findViewById<EditText>(R.id.hora_fragment)
-        horaFrag.setText(editAtividade.hora.toString())
+        horaFrag.setText(editAtividade.dataHora.toString())
     }
 }

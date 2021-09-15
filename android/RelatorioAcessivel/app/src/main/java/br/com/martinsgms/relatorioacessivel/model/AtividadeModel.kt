@@ -4,20 +4,19 @@ import android.os.Build
 import android.os.Parcel
 import android.os.Parcelable
 import androidx.annotation.RequiresApi
-import java.time.LocalTime
+import java.time.LocalDateTime
 
 data class AtividadeModel(
 
-    val hora: LocalTime,
+    val dataHora: String?,
     val atividade: String?,
-    val sintomas: String?,
-    val medicamentos: String?
+    val sintoma: String?,
+    val medicamento: String?
 
 ) : Parcelable {
 
-    @RequiresApi(Build.VERSION_CODES.O)
     constructor(parcel: Parcel) : this(
-        parcel.readSerializable() as LocalTime,
+        parcel.readString(),
         parcel.readString(),
         parcel.readString(),
         parcel.readString()
@@ -25,10 +24,10 @@ data class AtividadeModel(
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeSerializable(hora)
+        parcel.writeSerializable(dataHora)
         parcel.writeString(atividade)
-        parcel.writeString(sintomas)
-        parcel.writeString(medicamentos)
+        parcel.writeString(sintoma)
+        parcel.writeString(medicamento)
     }
 
     override fun describeContents(): Int {

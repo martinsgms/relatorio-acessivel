@@ -22,19 +22,19 @@ class RelatorioAdapter(
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bind(atividade: AtividadeModel) {
             val horaView = itemView.findViewById<TextView>(R.id.hora)
-            horaView.text = atividade.hora.toString()
+            horaView.text = atividade.dataHora.toString()
 
             val atividadeView = itemView.findViewById<TextView>(R.id.atividade)
             atividadeView.text = atividade.atividade
 
             val sintomasView = itemView.findViewById<TextView>(R.id.sintomas)
-            sintomasView.text = atividade.sintomas
+            sintomasView.text = atividade.sintoma
 
-            if (!atividade.medicamentos.isNullOrBlank() && !atividade.sintomas.isNullOrBlank())
+            if (!atividade.medicamento.isNullOrBlank() && !atividade.sintoma.isNullOrBlank())
                 sintomasView.text =
-                    sintomasView.text.toString().plus(" • ${atividade.medicamentos}")
-            else if (atividade.sintomas.isNullOrBlank())
-                sintomasView.text = atividade.medicamentos
+                    sintomasView.text.toString().plus(" • ${atividade.medicamento}")
+            else if (atividade.sintoma.isNullOrBlank())
+                sintomasView.text = atividade.medicamento
         }
 
         val cardView = itemView.findViewById<CardView>(R.id.card_view)
