@@ -55,7 +55,7 @@
                 android:id="@+id/clinica"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Clincoor"
+                tools:text="Clincoor"
                 android:textColor="@android:color/white"
                 android:textSize="27sp"
                 android:textStyle="bold" />
@@ -64,7 +64,7 @@
                 android:id="@+id/data_status"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="06/07/2021 • Em andamento"
+                tools:text="06/07/2021 • Em andamento"
                 android:textColor="@android:color/white"
                 android:textSize="22sp" />
 

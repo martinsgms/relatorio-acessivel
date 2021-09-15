@@ -2,6 +2,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
 
@@ -23,12 +24,13 @@
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/activity_detalhe_exame_clinica"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:layout_weight="1"
             android:gravity="start"
-            android:text="Clincoor"
+            tools:text="Clincoor"
             android:textColor="@android:color/background_dark"
             android:textSize="20sp" />
     </LinearLayout>
@@ -51,12 +53,13 @@
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/activity_detalhe_exame_id_exame"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:layout_weight="1"
             android:gravity="start"
-            android:text="128367"
+            tools:text="128367"
             android:textColor="@android:color/background_dark"
             android:textSize="20sp" />
 
@@ -80,12 +83,13 @@
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/activity_detalhe_exame_data"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:layout_weight="1"
             android:gravity="start"
-            android:text="06/06/2021"
+            tools:text="06/06/2021"
             android:textColor="@android:color/background_dark"
             android:textSize="20sp" />
 
@@ -109,13 +113,13 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/statusExame"
+            android:id="@+id/activity_detalhe_exame_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:layout_weight="1"
             android:gravity="start"
-            android:text="Em andamento"
+            tools:text="Em andamento"
             android:textColor="@android:color/background_dark"
             android:textSize="20sp" />
     </LinearLayout>

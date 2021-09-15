@@ -12,14 +12,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import br.com.martinsgms.relatorioacessivel.R
 import br.com.martinsgms.relatorioacessivel.model.AtividadeModel
+import br.com.martinsgms.relatorioacessivel.model.ExameModel
 import br.com.martinsgms.relatorioacessivel.ui.adapter.RelatorioAdapter
 import br.com.martinsgms.relatorioacessivel.ui.dao.RelatorioDAO
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import java.time.LocalTime
 
 class RelatorioActivity : AppCompatActivity(R.layout.activity_relatorio),
     RelatorioAdapter.OnClickAtividadeListener, RelatorioAdapter.OnLongClickAtividadeListener {
 
+    private var exameModel: ExameModel ?= null
     private var atividadePressionada: AtividadeModel ?= null
     private val relatorioDAO = RelatorioDAO()
     private val adapter = RelatorioAdapter(
@@ -36,13 +37,17 @@ class RelatorioActivity : AppCompatActivity(R.layout.activity_relatorio),
         configuraBotaoReturn()
         configuraFab()
 
+        this.exameModel = intent.getParcelableExtra("exameModel")
+        Log.d("ExameModel-->", exameModel.toString())
+
         //relatorioDAO.save(AtividadeModel(LocalTime.now(), "café", "dor de cabeça", "dipirona"))
         //relatorioDAO.save(AtividadeModel(LocalTime.now(), "almoco", "enjoo", "paracetamol"))
     }
 
     override fun onResume() {
         super.onResume()
-        adapter.atualiza(relatorioDAO.findAll())
+        // método para atualizar apenas a lista de exames aqui
+        adapter.atualiza(exameModel?.eventos)
     }
 
     override fun onCreateContextMenu(

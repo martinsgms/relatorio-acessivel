@@ -14,7 +14,7 @@ import br.com.martinsgms.relatorioacessivel.R
 import br.com.martinsgms.relatorioacessivel.model.AtividadeModel
 import br.com.martinsgms.relatorioacessivel.ui.dao.RelatorioDAO
 import br.com.martinsgms.relatorioacessivel.ui.fragment.TimePickerFragment
-import br.com.martinsgms.relatorioacessivel.ui.service.NovaAtividadeService
+import br.com.martinsgms.relatorioacessivel.service.NovaAtividadeService
 import com.google.android.material.switchmaterial.SwitchMaterial
 import com.google.android.material.textfield.TextInputLayout
 import java.text.SimpleDateFormat
@@ -57,7 +57,7 @@ class NovaAtividadeActivity : AppCompatActivity(R.layout.activity_nova_atividade
         }
 
         if (editAtividade != null) {
-            atividadeEditText?.editText?.setText(editAtividade.atividade)
+            atividadeEditText?.editText?.setText(editAtividade.descricao)
             sintomaEditText?.editText?.setText(editAtividade.sintoma)
             medicamentosEditText?.editText?.setText(editAtividade.medicamento)
 

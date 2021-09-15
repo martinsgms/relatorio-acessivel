@@ -25,7 +25,7 @@ class RelatorioAdapter(
             horaView.text = atividade.dataHora.toString()
 
             val atividadeView = itemView.findViewById<TextView>(R.id.atividade)
-            atividadeView.text = atividade.atividade
+            atividadeView.text = atividade.descricao
 
             val sintomasView = itemView.findViewById<TextView>(R.id.sintomas)
             sintomasView.text = atividade.sintoma
@@ -71,9 +71,9 @@ class RelatorioAdapter(
 
     override fun getItemCount(): Int = atividades.size
 
-    fun atualiza(atividades: List<AtividadeModel>) {
+    fun atualiza(atividades: List<AtividadeModel>?) {
         this.atividades.clear()
-        this.atividades.addAll(atividades)
+        this.atividades.addAll(atividades!!)
         notifyDataSetChanged()
     }
 }
