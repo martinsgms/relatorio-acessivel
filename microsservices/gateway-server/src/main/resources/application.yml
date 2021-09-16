@@ -1,23 +1,5 @@
-spring:
-  application:
-    name: gateway-server
-  cloud:
-    gateway:      routes:      - id: app-exame
-        uri: http://svc-app-exame/
-        predicates:          - Path=/exame/**
-      - id: app-usuario
-        uri: http://svc-app-usuario/
-        predicates:          - Path=/usuario/**
-
 server:
   port: 5555
-
-eureka:
-  client:
-    register-with-eureka: true
-    fetch-registry: true
-    service-url:
-      defaultZone: http://svc-eureka-server/eureka
 
 management:
   endpoints:
