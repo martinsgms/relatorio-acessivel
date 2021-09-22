@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 public class EventoDTO 
 {
+    private Long id;
     private Long idExame;
     private String descricao;
     private String sintoma;
@@ -69,5 +70,15 @@ public class EventoDTO
     public void setHoraFormatada(String horaFormatada)
     {
         this.horaFormatada = horaFormatada;
+    }
+
+    public Long getId()
+    {
+        return id;
+    }
+
+    public void setId(Long id)
+    {
+        this.id = id;
     }
 }

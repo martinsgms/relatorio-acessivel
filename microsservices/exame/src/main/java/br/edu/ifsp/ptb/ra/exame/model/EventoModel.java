@@ -20,7 +20,6 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 @Table(name = "TRA_EVENTO")
 public class EventoModel
 {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
