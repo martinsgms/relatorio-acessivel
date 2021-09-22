@@ -27,7 +27,7 @@ public class ExameModel
     public ExameModel(UsuarioDTO usuario, ExameDTO dto) {
         this.usuario = usuario.getId();
         this.idExterno = dto.getIdExterno();
-        this.intervaloAfericoes = dto.getIntervaloAfericaoPA();
+        this.intervaloAfericoes = dto.getIntervaloAfericoes();
         this.dataHoraExame = dto.getData();
         this.status = new StatusExameModel("AGE");
     }
@@ -133,7 +133,7 @@ public class ExameModel
 
         dto.setData(dataHoraExame);
         dto.setIdExterno(idExterno);
-        dto.setIntervaloAfericaoPA(intervaloAfericoes);
+        dto.setIntervaloAfericoes(intervaloAfericoes);
 
         return dto;
     }

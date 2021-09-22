@@ -49,7 +49,7 @@ public class ExameController
     }
 
     @GetMapping("/{idExame}")
-    public ResponseEntity<ExameModel> detalheExame(@PathVariable Long idExame)
+    public ResponseEntity<ExameDTO> detalheExame(@PathVariable Long idExame)
     {
         var exame = exameService.detalheExame(idExame);
 

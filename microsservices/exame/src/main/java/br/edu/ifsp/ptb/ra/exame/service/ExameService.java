@@ -58,9 +58,9 @@ public class ExameService
         return exameRepository.listExamesUsuario(idUsuario);
     }
 
-    public ExameModel detalheExame(Long idExame)
+    public ExameDTO detalheExame(Long idExame)
     {
-        return exameRepository.getExamePorId(idExame);
+        return new ExameDTO(exameRepository.getExamePorId(idExame));
     }
 
     public EventoDTO novoEvento(EventoDTO eventoDto)
