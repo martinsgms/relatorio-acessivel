@@ -144,4 +144,14 @@ public class EventoModel
     {
         this.horaFormatada = DateTimeFormatter.ofPattern("HH:mm").format(dataHora);
     }
+
+    public String getMedicamento()
+    {
+        return medicamento;
+    }
+
+    public void setMedicamento(String medicamento)
+    {
+        this.medicamento = medicamento;
+    }
 }

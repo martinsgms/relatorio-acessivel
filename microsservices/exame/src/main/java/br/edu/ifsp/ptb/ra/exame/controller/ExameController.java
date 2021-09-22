@@ -12,8 +12,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import br.edu.ifsp.ptb.ra.exame.dto.EventoDTO;
 import br.edu.ifsp.ptb.ra.exame.dto.ExameDTO;
-import br.edu.ifsp.ptb.ra.exame.model.ExameModel;
+import br.edu.ifsp.ptb.ra.exame.exception.ExameNaoEncontradoException;
 import br.edu.ifsp.ptb.ra.exame.service.ExameService;
 
 @Controller
@@ -32,7 +33,7 @@ public class ExameController
     }
 
     @GetMapping("/{idExame}")
-    public ResponseEntity<ExameDTO> detalheExame(@PathVariable Long idExame)
+    public ResponseEntity<ExameDTO> detalheExame(@PathVariable Long idExame) throws ExameNaoEncontradoException
     {
         var exame = exameService.detalheExame(idExame);
 
@@ -42,11 +43,19 @@ public class ExameController
     @GetMapping("/usuario/{idUsuario}")
     public ResponseEntity<?> examesDoUsuario(@PathVariable Long idUsuario, @RequestParam(defaultValue = "false") boolean apenasMaisRecente)
     {
-        if (apenasMaisRecente)
-            return ResponseEntity.ok(exameService.consultaExameMaisRecenteDoUsuario(idUsuario));
+        List<ExameDTO> exames = exameService.listaExamesUsuario(idUsuario);
 
-        List<ExameModel> exames = exameService.listaExamesUsuario(idUsuario);
+        if (apenasMaisRecente)
+            return ResponseEntity.ok(exames.get(0));
 
         return ResponseEntity.ok(exames);
+    }
+
+    @GetMapping("/{idExame}/eventos")
+    public ResponseEntity<List<EventoDTO>> eventosDoExame(@PathVariable Long idExame) throws ExameNaoEncontradoException
+    {
+        var eventos = exameService.getEventoList(idExame);
+
+        return ResponseEntity.ok(eventos);
     }
 }
