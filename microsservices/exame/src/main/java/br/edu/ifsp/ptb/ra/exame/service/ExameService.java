@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -62,9 +63,16 @@ public class ExameService
         return exameRepository.getExamePorId(idExame);
     }
 
-    public EventoModel novaAtividade(EventoDTO evento)
+    public EventoDTO novaAtividade(EventoDTO eventoDto)
     {
-        return eventoRepository.save(new EventoModel(evento));
+        var eventoModel = new EventoModel();
+
+        BeanUtils.copyProperties(eventoDto, eventoModel);
+
+        EventoModel eventoSalvo = eventoRepository.save(eventoModel);
+        BeanUtils.copyProperties(eventoSalvo, eventoDto);
+
+        return eventoDto;
     }
 
     public ExameModel consultaExameMaisRecenteDoUsuario(Long idUsuario)

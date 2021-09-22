@@ -1,6 +1,7 @@
 package br.edu.ifsp.ptb.ra.exame.model;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,28 +12,14 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-
-import br.edu.ifsp.ptb.ra.exame.dto.EventoDTO;
 
 @Entity
 @Table(name = "TRA_EVENTO")
 public class EventoModel
 {
-
-    public EventoModel()
-    {
-    }
-
-    public EventoModel(EventoDTO dto)
-    {
-        this.exame = new ExameModel(dto.getIdExame());
-        this.descricao = dto.getAtividade();
-        this.sintoma = dto.getSintoma();
-        this.medicamento = dto.getMedicamento();
-        this.dataHora = dto.getDataHora();
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -62,59 +49,86 @@ public class EventoModel
     @JoinColumn(name = "ID_EXAME")
     private ExameModel exame;
 
-    public Long getId() {
+    @Transient
+    private String horaFormatada;
+
+    public Long getId()
+    {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Long id)
+    {
         this.id = id;
     }
 
-    public String getDescricao() {
+    public String getDescricao()
+    {
         return descricao;
     }
 
-    public void setDescricao(String descricao) {
+    public void setDescricao(String descricao)
+    {
         this.descricao = descricao;
     }
 
-    public String getSintoma() {
+    public String getSintoma()
+    {
         return sintoma;
     }
 
-    public void setSintoma(String sintoma) {
+    public void setSintoma(String sintoma)
+    {
         this.sintoma = sintoma;
     }
 
-    public LocalDateTime getDataHora() {
+    public LocalDateTime getDataHora()
+    {
         return dataHora;
     }
 
-    public void setDataHora(LocalDateTime dataHora) {
+    public void setDataHora(LocalDateTime dataHora)
+    {
         this.dataHora = dataHora;
+        setHoraFormatada();
     }
 
-    public Integer getPaSistolica() {
+    public Integer getPaSistolica()
+    {
         return paSistolica;
     }
 
-    public void setPaSistolica(Integer paSistolica) {
+    public void setPaSistolica(Integer paSistolica)
+    {
         this.paSistolica = paSistolica;
     }
 
-    public Integer getPaDiastolica() {
+    public Integer getPaDiastolica()
+    {
         return paDiastolica;
     }
 
-    public void setPaDiastolica(Integer paDiastolica) {
+    public void setPaDiastolica(Integer paDiastolica)
+    {
         this.paDiastolica = paDiastolica;
     }
 
-    public ExameModel getExame() {
+    public ExameModel getExame()
+    {
         return exame;
     }
 
     public void setExame(ExameModel exame) {
         this.exame = exame;
+    }
+
+    public String getHoraFormatada()
+    {
+        return horaFormatada;
+    }
+
+    public void setHoraFormatada()
+    {
+        this.horaFormatada = DateTimeFormatter.ofPattern("HH:mm").format(dataHora);
     }
 }
