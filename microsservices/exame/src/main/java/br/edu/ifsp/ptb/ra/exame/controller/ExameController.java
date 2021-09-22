@@ -22,14 +22,13 @@ import br.edu.ifsp.ptb.ra.exame.service.ExameService;
 @RequestMapping("/exame")
 public class ExameController
 {
-
     @Autowired
     private ExameService exameService;
 
     @PostMapping
-    public ResponseEntity<ExameModel> novoExame(@RequestBody ExameDTO exame)
+    public ResponseEntity<ExameDTO> novoExame(@RequestBody ExameDTO exame)
     {
-        ExameModel novoExame = exameService.novoExame(exame);
+        var novoExame = exameService.novoExame(exame);
 
         return ResponseEntity.ok(novoExame);
     }
