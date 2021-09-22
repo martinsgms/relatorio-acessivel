@@ -63,7 +63,7 @@ public class ExameService
         return exameRepository.getExamePorId(idExame);
     }
 
-    public EventoDTO novaAtividade(EventoDTO eventoDto)
+    public EventoDTO novoEvento(EventoDTO eventoDto)
     {
         var eventoModel = new EventoModel();
 

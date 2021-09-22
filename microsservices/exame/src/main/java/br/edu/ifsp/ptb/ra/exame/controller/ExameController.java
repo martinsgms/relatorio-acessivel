@@ -43,7 +43,7 @@ public class ExameController
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Exame não encontrado!");
 
         evento.setIdExame(idExame);
-        var novoEvento = exameService.novaAtividade(evento);
+        var novoEvento = exameService.novoEvento(evento);
 
         return ResponseEntity.ok(novoEvento);
     }
