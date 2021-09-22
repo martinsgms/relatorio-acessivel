@@ -2,8 +2,12 @@ package br.edu.ifsp.ptb.ra.exame.dto;
 
 import java.time.LocalDateTime;
 
+import org.springframework.beans.BeanUtils;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
+import br.edu.ifsp.ptb.ra.exame.model.EventoModel;
 
 @JsonInclude(Include.NON_NULL)
 public class EventoDTO 
@@ -15,6 +19,16 @@ public class EventoDTO
     private String medicamento;
     private LocalDateTime dataHora;
     private String horaFormatada;
+
+    public EventoDTO()
+    {
+    }
+
+    public EventoDTO(EventoModel model)
+    {
+        this.idExame = model.getExame().getId();
+        BeanUtils.copyProperties(model, this);
+    }
 
     public Long getIdExame()
     {

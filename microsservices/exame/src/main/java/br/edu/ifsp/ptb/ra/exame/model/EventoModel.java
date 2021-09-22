@@ -14,7 +14,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.springframework.beans.BeanUtils;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import br.edu.ifsp.ptb.ra.exame.dto.EventoDTO;
 
 @Entity
 @Table(name = "TRA_EVENTO")
@@ -51,6 +55,16 @@ public class EventoModel
     @Transient
     private String horaFormatada;
 
+    public EventoModel()
+    {
+    }
+
+    public EventoModel(EventoDTO dto)
+    {
+        exame = new ExameModel(dto.getIdExame());
+        BeanUtils.copyProperties(dto, this);
+    }
+
     public Long getId()
     {
         return id;
@@ -83,13 +97,13 @@ public class EventoModel
 
     public LocalDateTime getDataHora()
     {
+        setHoraFormatada(dataHora);
         return dataHora;
     }
 
     public void setDataHora(LocalDateTime dataHora)
     {
         this.dataHora = dataHora;
-        setHoraFormatada();
     }
 
     public Integer getPaSistolica()
@@ -126,7 +140,7 @@ public class EventoModel
         return horaFormatada;
     }
 
-    public void setHoraFormatada()
+    public void setHoraFormatada(LocalDateTime dataHora)
     {
         this.horaFormatada = DateTimeFormatter.ofPattern("HH:mm").format(dataHora);
     }

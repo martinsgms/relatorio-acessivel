@@ -2,6 +2,8 @@ package br.edu.ifsp.ptb.ra.exame.dto;
 
 import java.time.LocalDateTime;
 
+import org.springframework.beans.BeanUtils;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
@@ -25,12 +27,8 @@ public class ExameDTO
 
     public ExameDTO(ExameModel model)
     {
-        id = model.getId();
-        dataHoraExame = model.getDataHoraExame();
-        idExterno = model.getIdExterno();
-        intervaloAfericoes = model.getIntervaloAfericoes();
         status = new StatusExameDTO(model.getStatus());
-        setUsuario(model.getUsuario());
+        BeanUtils.copyProperties(model, this);
     }
 
     public Long getId()

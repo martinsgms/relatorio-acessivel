@@ -1,6 +1,8 @@
 package br.edu.ifsp.ptb.ra.exame.service;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -63,11 +65,19 @@ public class ExameService
         return new ExameDTO(exameRepository.getExamePorId(idExame));
     }
 
+    public List<EventoDTO> getEventoList(Long idExame)
+    {
+        var exame = exameRepository.getExamePorId(idExame);
+
+        if (exame == null)
+            return Collections.emptyList();
+
+        return exame.getEventos().stream().map(EventoDTO::new).collect(Collectors.toList());
+    }
+
     public EventoDTO novoEvento(EventoDTO eventoDto)
     {
-        var eventoModel = new EventoModel();
-
-        BeanUtils.copyProperties(eventoDto, eventoModel);
+        var eventoModel = new EventoModel(eventoDto);
 
         EventoModel eventoSalvo = eventoRepository.save(eventoModel);
         BeanUtils.copyProperties(eventoSalvo, eventoDto);
