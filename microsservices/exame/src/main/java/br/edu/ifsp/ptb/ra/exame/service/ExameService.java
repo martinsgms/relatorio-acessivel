@@ -35,7 +35,7 @@ public class ExameService
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ExameService.class);
 
-    public ExameModel novoExame(ExameDTO dto) 
+    public ExameDTO novoExame(ExameDTO dto)
     {
         LOGGER.info("criando novo exame para o usário {}", dto.getEmail());
 
@@ -48,9 +48,9 @@ public class ExameService
         return agendaNovoExame;
     }
 
-    public ExameModel agendaNovoExame(ExameModel model)
+    public ExameDTO agendaNovoExame(ExameModel model)
     {
-        return exameRepository.save(model);
+        return new ExameDTO(exameRepository.save(model));
     }
 
     public List<ExameModel> listaExamesUsuario(Long idUsuario)
