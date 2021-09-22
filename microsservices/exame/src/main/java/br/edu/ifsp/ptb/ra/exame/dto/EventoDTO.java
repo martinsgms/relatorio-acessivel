@@ -2,6 +2,10 @@ package br.edu.ifsp.ptb.ra.exame.dto;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
+@JsonInclude(Include.NON_NULL)
 public class EventoDTO 
 {
     private Long id;

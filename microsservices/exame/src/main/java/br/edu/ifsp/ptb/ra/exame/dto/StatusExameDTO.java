@@ -1,7 +1,11 @@
 package br.edu.ifsp.ptb.ra.exame.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 import br.edu.ifsp.ptb.ra.exame.model.StatusExameModel;
 
+@JsonInclude(Include.NON_NULL)
 public class StatusExameDTO
 {
     private String codigo;
