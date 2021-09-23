@@ -15,7 +15,6 @@ import br.edu.ifsp.ptb.ra.exame.dto.EventoDTO;
 import br.edu.ifsp.ptb.ra.exame.exception.EventoNaoEncontradoException;
 import br.edu.ifsp.ptb.ra.exame.exception.ExameNaoEncontradoException;
 import br.edu.ifsp.ptb.ra.exame.service.EventoService;
-import br.edu.ifsp.ptb.ra.exame.service.ExameService;
 
 @Controller
 @RequestMapping("/exame/evento")
@@ -23,9 +22,6 @@ public class EventoController
 {
     @Autowired
     private EventoService eventoService;
-
-    @Autowired
-    private ExameService exameService;
 
     @GetMapping("/{idEvento}")
     public ResponseEntity<EventoDTO> getEventoPorid(@PathVariable Long idEvento) throws EventoNaoEncontradoException
@@ -38,13 +34,11 @@ public class EventoController
     @PostMapping
     public ResponseEntity<EventoDTO> salvarEvento(@RequestBody EventoDTO evento) throws ExameNaoEncontradoException
     {
-        exameService.verificaSeExameExiste(evento.getIdExame());
-
         return ResponseEntity.ok(eventoService.salvaEvento(evento));
     }
 
     @PutMapping
-    public ResponseEntity<EventoDTO> atualizaEvento(@RequestBody EventoDTO evento) throws EventoNaoEncontradoException
+    public ResponseEntity<EventoDTO> atualizaEvento(@RequestBody EventoDTO evento) throws EventoNaoEncontradoException, ExameNaoEncontradoException
     {
         eventoService.verificaSeEventoExiste(evento.getId());
 

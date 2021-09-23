@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import br.edu.ifsp.ptb.ra.exame.dto.EventoDTO;
 import br.edu.ifsp.ptb.ra.exame.exception.EventoNaoEncontradoException;
+import br.edu.ifsp.ptb.ra.exame.exception.ExameNaoEncontradoException;
 import br.edu.ifsp.ptb.ra.exame.model.EventoModel;
 import br.edu.ifsp.ptb.ra.exame.repository.EventoRepository;
 
@@ -15,6 +16,9 @@ public class EventoService
     @Autowired
     private EventoRepository eventoRepository;
 
+    @Autowired
+    private ExameService exameService;
+
     public EventoDTO getEventoById(Long idEvento) throws EventoNaoEncontradoException
     {
         verificaSeEventoExiste(idEvento);
@@ -22,8 +26,10 @@ public class EventoService
         return new EventoDTO(eventoRepository.getOne(idEvento));
     }
 
-    public EventoDTO salvaEvento(EventoDTO eventoDto)
+    public EventoDTO salvaEvento(EventoDTO eventoDto) throws ExameNaoEncontradoException
     {
+        exameService.verificaSeExameExiste(eventoDto.getIdExame());
+
         var eventoModel = new EventoModel(eventoDto);
 
         EventoModel eventoSalvo = eventoRepository.save(eventoModel);
