@@ -1,6 +1,7 @@
 package br.edu.ifsp.ptb.ra.exame.model;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -13,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import br.edu.ifsp.ptb.ra.exame.dto.ExameDTO;
 import br.edu.ifsp.ptb.ra.exame.dto.UsuarioDTO;
@@ -21,22 +23,6 @@ import br.edu.ifsp.ptb.ra.exame.dto.UsuarioDTO;
 @Table(name = "TRA_EXAME")
 public class ExameModel 
 {
-    public ExameModel() {
-    }
-
-    public ExameModel(UsuarioDTO usuario, ExameDTO dto) {
-        this.usuario = usuario.getId();
-        this.idExterno = dto.getIdExterno();
-        this.intervaloAfericoes = dto.getIntervaloAfericoes();
-        this.dataHoraExame = dto.getData();
-        this.status = new StatusExameModel("AGE");
-    }
-
-    public ExameModel(Long idExame)
-    {
-        this.id = idExame;
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
@@ -64,68 +50,116 @@ public class ExameModel
     @Column(name = "NU_INTERVALO_AFERICAO")
     private Integer intervaloAfericoes;
 
-    public Long getId() {
+    @Transient
+    private String dataHoraFormatada;
+
+    public ExameModel()
+    {
+    }
+
+    public ExameModel(Long idExame)
+    {
+        this.id = idExame;
+    }
+
+    public ExameModel(UsuarioDTO usuario, ExameDTO dto)
+    {
+        this.usuario = usuario.getId();
+        this.idExterno = dto.getIdExterno();
+        this.intervaloAfericoes = dto.getIntervaloAfericoes();
+        this.dataHoraExame = dto.getData();
+        this.status = new StatusExameModel("AGE");
+    }
+
+    public Long getId()
+    {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Long id)
+    {
         this.id = id;
     }
 
-    public String getIdExterno() {
+    public String getIdExterno()
+    {
         return idExterno;
     }
 
-    public void setIdExterno(String idExterno) {
+    public void setIdExterno(String idExterno)
+    {
         this.idExterno = idExterno;
     }
 
-    public Long getServicoSaude() {
+    public Long getServicoSaude()
+    {
         return servicoSaude;
     }
 
-    public void setServicoSaude(Long servicoSaude) {
+    public void setServicoSaude(Long servicoSaude)
+    {
         this.servicoSaude = servicoSaude;
     }
 
-    public StatusExameModel getStatus() {
+    public StatusExameModel getStatus()
+    {
         return status;
     }
 
-    public void setStatus(StatusExameModel status) {
+    public void setStatus(StatusExameModel status)
+    {
         this.status = status;
     }
 
-    public LocalDateTime getDataHoraExame() {
+    public LocalDateTime getDataHoraExame()
+    {
+        setDataHoraFormatada(dataHoraExame);
         return dataHoraExame;
     }
 
-    public void setDataHoraExame(LocalDateTime dataHoraExame) {
+    public void setDataHoraExame(LocalDateTime dataHoraExame)
+    {
         this.dataHoraExame = dataHoraExame;
     }
 
-    public Long getUsuario() {
+    public Long getUsuario()
+    {
         return usuario;
     }
 
-    public void setUsuario(Long usuario) {
+    public void setUsuario(Long usuario)
+    {
         this.usuario = usuario;
     }
 
-    public List<EventoModel> getEventos() {
+    public List<EventoModel> getEventos()
+    {
         return eventos;
     }
 
-    public void setEventos(List<EventoModel> eventos) {
+    public void setEventos(List<EventoModel> eventos)
+    {
         this.eventos = eventos;
     }
 
-    public Integer getIntervaloAfericoes() {
+    public Integer getIntervaloAfericoes()
+    {
         return intervaloAfericoes;
     }
 
-    public void setIntervaloAfericoes(Integer intervaloAfericoes) {
+    public void setIntervaloAfericoes(Integer intervaloAfericoes)
+    {
         this.intervaloAfericoes = intervaloAfericoes;
+    }
+
+    public String getDataHoraFormatada()
+    {
+        return dataHoraFormatada;
+    }
+
+    public void setDataHoraFormatada(LocalDateTime dataHora)
+    {
+        this.dataHoraFormatada = DateTimeFormatter.ofPattern("dd/MM/yyyy • HH:mm").format(dataHora);
     }
 
     public ExameDTO toDTO() {

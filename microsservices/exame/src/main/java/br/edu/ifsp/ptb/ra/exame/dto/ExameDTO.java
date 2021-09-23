@@ -18,6 +18,7 @@ public class ExameDTO
     private LocalDateTime data;
     private String idExterno;
     private LocalDateTime dataHoraExame;
+    private String dataHoraFormatada;
     private Integer intervaloAfericoes;
     private StatusExameDTO status;
 
@@ -109,5 +110,15 @@ public class ExameDTO
     public void setUsuario(Long usuario)
     {
         this.usuario = usuario;
+    }
+
+    public String getDataHoraFormatada()
+    {
+        return dataHoraFormatada;
+    }
+
+    public void setDataHoraFormatada(String dataHoraFormatada)
+    {
+        this.dataHoraFormatada = dataHoraFormatada;
     }
 }
