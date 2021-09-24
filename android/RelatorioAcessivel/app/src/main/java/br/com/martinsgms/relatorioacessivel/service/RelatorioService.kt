@@ -1,6 +1,10 @@
 package br.com.martinsgms.relatorioacessivel.service
 
 import br.com.martinsgms.relatorioacessivel.config.HttpConfig
+import br.com.martinsgms.relatorioacessivel.model.EventoModel
+import com.github.kittinunf.fuel.core.ResponseDeserializable
+import com.github.kittinunf.fuel.coroutines.awaitObjectResponse
+import com.github.kittinunf.fuel.coroutines.awaitStringResponse
 import com.github.kittinunf.fuel.httpGet
 import com.google.gson.Gson
 
@@ -12,11 +16,10 @@ class RelatorioService {
         HttpConfig.config()
     }
 
-    fun getDiarioDeAtividades() {
+    suspend fun getEventos(idExame : Long) : Array<EventoModel> {
 
-        "/exame/usuario/1?apenasMaisRecente=true".httpGet()
-            .responseString { request, response, result ->
+        val (request, response, result) = "/exame/${idExame}/eventos".httpGet().awaitObjectResponse(EventoModel.Deserializer())
 
-            }
+        return result
     }
 }

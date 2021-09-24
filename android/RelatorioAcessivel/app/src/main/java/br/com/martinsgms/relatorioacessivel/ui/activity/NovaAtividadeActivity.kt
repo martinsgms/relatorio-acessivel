@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentContainerView
 import androidx.fragment.app.commit
 import br.com.martinsgms.relatorioacessivel.R
-import br.com.martinsgms.relatorioacessivel.model.AtividadeModel
+import br.com.martinsgms.relatorioacessivel.model.EventoModel
 import br.com.martinsgms.relatorioacessivel.ui.dao.RelatorioDAO
 import br.com.martinsgms.relatorioacessivel.ui.fragment.TimePickerFragment
 import br.com.martinsgms.relatorioacessivel.service.NovaAtividadeService
@@ -26,6 +26,7 @@ import java.util.*
 
 class NovaAtividadeActivity : AppCompatActivity(R.layout.activity_nova_atividade) {
 
+    private var idExame: Long ?= null
     private var atividadeEditText: TextInputLayout? = null
     private var sintomaEditText: TextInputLayout? = null
     private var medicamentosEditText: TextInputLayout? = null
@@ -48,7 +49,9 @@ class NovaAtividadeActivity : AppCompatActivity(R.layout.activity_nova_atividade
         configuraBotaoReturn()
         configuraTimePicker(savedInstanceState)
 
-        val editAtividade = intent.getParcelableExtra<AtividadeModel>("atividade")
+        val editAtividade = intent.getParcelableExtra<EventoModel>("evento")
+        this.idExame = intent.getLongExtra("idExame", 0)
+
         configuraSwitch(editAtividade)
 
         btnRegistrar?.setOnClickListener {
@@ -67,7 +70,7 @@ class NovaAtividadeActivity : AppCompatActivity(R.layout.activity_nova_atividade
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun criaAtividade() : AtividadeModel {
+    private fun criaAtividade() : EventoModel {
         val switch = findViewById<SwitchMaterial>(R.id.switch_horario)
 
         val atividade = atividadeEditText?.editText?.text.toString()
@@ -95,7 +98,8 @@ class NovaAtividadeActivity : AppCompatActivity(R.layout.activity_nova_atividade
         }
 
         Log.d("AA", "${LocalDateTime.of(LocalDate.now(), LocalTime.parse(hora))} $atividade $sintoma $medicamento")
-        return AtividadeModel(
+        return EventoModel(
+            this.idExame,
             LocalDateTime.of(LocalDate.now(), LocalTime.parse(hora)).toString(),
             atividade,
             sintoma,
@@ -103,14 +107,14 @@ class NovaAtividadeActivity : AppCompatActivity(R.layout.activity_nova_atividade
         )
     }
 
-    private fun configuraSwitch(editAtividade: AtividadeModel?) {
+    private fun configuraSwitch(editEvento: EventoModel?) {
         val switch = findViewById<SwitchMaterial>(R.id.switch_horario)
 
         switch.setOnClickListener {
             changeTimePickerVisibility(switch.isChecked)
         }
 
-        if (editAtividade != null) {
+        if (editEvento != null) {
             switch.isChecked = false
             return
         }
@@ -143,7 +147,7 @@ class NovaAtividadeActivity : AppCompatActivity(R.layout.activity_nova_atividade
     }
 
     fun onFragmentViewCreated(view: View) {
-        val editAtividade = intent.getParcelableExtra<AtividadeModel>("atividade") ?: return
+        val editAtividade = intent.getParcelableExtra<EventoModel>("atividade") ?: return
 
         val horaFrag = findViewById<EditText>(R.id.hora_fragment)
         horaFrag.setText(editAtividade.dataHora.toString())

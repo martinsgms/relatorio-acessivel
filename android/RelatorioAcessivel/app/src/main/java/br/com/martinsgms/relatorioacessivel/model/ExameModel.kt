@@ -12,7 +12,7 @@ data class ExameModel(
     val status: StatusModel?,
     val dataHoraExame: String?,
     val usuario: Long,
-    val eventos: List<AtividadeModel>?,
+    val eventos: List<EventoModel>?,
 ) : Parcelable {
 
     companion object {

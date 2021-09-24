@@ -19,7 +19,7 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//06/07/2021 • Em andamento
+
         val cardExame = findViewById<CardView>(R.id.card_exame_mais_recente)
         val clinicaDisplay = findViewById<TextView>(R.id.clinica)
         val dataStatusDisplay = findViewById<TextView>(R.id.data_status)

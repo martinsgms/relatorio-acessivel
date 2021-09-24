@@ -11,17 +11,20 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import br.com.martinsgms.relatorioacessivel.R
-import br.com.martinsgms.relatorioacessivel.model.AtividadeModel
+import br.com.martinsgms.relatorioacessivel.model.EventoModel
 import br.com.martinsgms.relatorioacessivel.model.ExameModel
+import br.com.martinsgms.relatorioacessivel.service.RelatorioService
 import br.com.martinsgms.relatorioacessivel.ui.adapter.RelatorioAdapter
 import br.com.martinsgms.relatorioacessivel.ui.dao.RelatorioDAO
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import kotlinx.coroutines.runBlocking
 
 class RelatorioActivity : AppCompatActivity(R.layout.activity_relatorio),
     RelatorioAdapter.OnClickAtividadeListener, RelatorioAdapter.OnLongClickAtividadeListener {
 
+    private var relatorioService = RelatorioService()
     private var exameModel: ExameModel ?= null
-    private var atividadePressionada: AtividadeModel ?= null
+    private var eventoPressionado: EventoModel ?= null
     private val relatorioDAO = RelatorioDAO()
     private val adapter = RelatorioAdapter(
         context = this,
@@ -39,15 +42,15 @@ class RelatorioActivity : AppCompatActivity(R.layout.activity_relatorio),
 
         this.exameModel = intent.getParcelableExtra("exameModel")
         Log.d("ExameModel-->", exameModel.toString())
-
-        //relatorioDAO.save(AtividadeModel(LocalTime.now(), "café", "dor de cabeça", "dipirona"))
-        //relatorioDAO.save(AtividadeModel(LocalTime.now(), "almoco", "enjoo", "paracetamol"))
     }
 
     override fun onResume() {
         super.onResume()
-        // método para atualizar apenas a lista de exames aqui
-        adapter.atualiza(exameModel?.eventos)
+
+        runBlocking {
+            adapter.atualiza(relatorioService.getEventos(exameModel!!.id))
+        }
+
     }
 
     override fun onCreateContextMenu(
@@ -64,6 +67,7 @@ class RelatorioActivity : AppCompatActivity(R.layout.activity_relatorio),
         val fab = findViewById<FloatingActionButton>(R.id.floatingActionButton)
         fab.setOnClickListener {
             val intent = Intent(this, NovaAtividadeActivity::class.java)
+            intent.putExtra("idExame", this.exameModel!!.id)
             startActivity(intent)
         }
     }
@@ -84,24 +88,25 @@ class RelatorioActivity : AppCompatActivity(R.layout.activity_relatorio),
         return true
     }
 
-    override fun OnClickAtividadeListener(atividade: AtividadeModel) {
-        Log.d("gmds", "${atividade.toString()}")
+    override fun OnClickAtividadeListener(evento: EventoModel) {
+        Log.d("gmds", "${evento.toString()}")
 
         val intent = Intent(this, NovaAtividadeActivity::class.java)
-        intent.putExtra("atividade", atividade)
+        intent.putExtra("idExame", evento.idExame)
+        intent.putExtra("evento", evento)
 
         startActivity(intent)
     }
 
-    override fun OnLongClickAtividadeListener(atividade: AtividadeModel): Boolean {
-        Log.d("long-click", "lg click - ${atividade.toString()}")
-        this.atividadePressionada = atividade
+    override fun OnLongClickAtividadeListener(evento: EventoModel): Boolean {
+        Log.d("long-click", "lg click - ${evento.toString()}")
+        this.eventoPressionado = evento
 
         return false
     }
 
     override fun onContextItemSelected(item: MenuItem): Boolean {
-        Log.d("remover", "rm - $atividadePressionada")
+        Log.d("remover", "rm - $eventoPressionado")
 
         return super.onContextItemSelected(item)
     }
