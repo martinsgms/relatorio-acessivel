@@ -5,6 +5,7 @@ import br.com.martinsgms.relatorioacessivel.model.EventoModel
 import com.github.kittinunf.fuel.core.ResponseDeserializable
 import com.github.kittinunf.fuel.coroutines.awaitObjectResponse
 import com.github.kittinunf.fuel.coroutines.awaitStringResponse
+import com.github.kittinunf.fuel.httpDelete
 import com.github.kittinunf.fuel.httpGet
 import com.google.gson.Gson
 
@@ -21,5 +22,10 @@ class RelatorioService {
         val (request, response, result) = "/exame/${idExame}/eventos".httpGet().awaitObjectResponse(EventoModel.Deserializer())
 
         return result
+    }
+
+    suspend fun removeEvento(idEvento : Long) {
+
+        "/exame/evento/${idEvento}".httpDelete().awaitStringResponse()
     }
 }

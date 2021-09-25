@@ -12,11 +12,13 @@ import androidx.fragment.app.FragmentContainerView
 import androidx.fragment.app.commit
 import br.com.martinsgms.relatorioacessivel.R
 import br.com.martinsgms.relatorioacessivel.model.EventoModel
+import br.com.martinsgms.relatorioacessivel.service.NovaAtividadeService
 import br.com.martinsgms.relatorioacessivel.ui.dao.RelatorioDAO
 import br.com.martinsgms.relatorioacessivel.ui.fragment.TimePickerFragment
-import br.com.martinsgms.relatorioacessivel.service.NovaAtividadeService
+import com.github.kittinunf.fuel.core.Method
 import com.google.android.material.switchmaterial.SwitchMaterial
 import com.google.android.material.textfield.TextInputLayout
+import kotlinx.coroutines.runBlocking
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -26,7 +28,9 @@ import java.util.*
 
 class NovaAtividadeActivity : AppCompatActivity(R.layout.activity_nova_atividade) {
 
-    private var idExame: Long ?= null
+    private var method: Method = Method.POST
+    private var idEvento: Long? = null
+    private var idExame: Long? = null
     private var atividadeEditText: TextInputLayout? = null
     private var sintomaEditText: TextInputLayout? = null
     private var medicamentosEditText: TextInputLayout? = null
@@ -35,7 +39,6 @@ class NovaAtividadeActivity : AppCompatActivity(R.layout.activity_nova_atividade
 
     private var novaAtividadeService = NovaAtividadeService()
     private val timePicker = TimePickerFragment()
-    private val relatorioDAO = RelatorioDAO()
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,16 +53,22 @@ class NovaAtividadeActivity : AppCompatActivity(R.layout.activity_nova_atividade
         configuraTimePicker(savedInstanceState)
 
         val editAtividade = intent.getParcelableExtra<EventoModel>("evento")
-        this.idExame = intent.getLongExtra("idExame", 0)
+        this.idExame = intent.getLongExtra("idExame", -1)
 
         configuraSwitch(editAtividade)
 
+        val context = this
         btnRegistrar?.setOnClickListener {
-            novaAtividadeService.salvaAtividade(criaAtividade())
-            finish()
+            runBlocking {
+                novaAtividadeService.salvaEvento(context.method, criaAtividade())
+                finish()
+            }
         }
 
         if (editAtividade != null) {
+            this.method = Method.PUT
+
+            this.idEvento = editAtividade.id
             atividadeEditText?.editText?.setText(editAtividade.descricao)
             sintomaEditText?.editText?.setText(editAtividade.sintoma)
             medicamentosEditText?.editText?.setText(editAtividade.medicamento)
@@ -99,6 +108,7 @@ class NovaAtividadeActivity : AppCompatActivity(R.layout.activity_nova_atividade
 
         Log.d("AA", "${LocalDateTime.of(LocalDate.now(), LocalTime.parse(hora))} $atividade $sintoma $medicamento")
         return EventoModel(
+            this.idEvento,
             this.idExame,
             LocalDateTime.of(LocalDate.now(), LocalTime.parse(hora)).toString(),
             atividade,

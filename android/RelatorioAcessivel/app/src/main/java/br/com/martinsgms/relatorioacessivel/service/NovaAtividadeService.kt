@@ -3,23 +3,35 @@ package br.com.martinsgms.relatorioacessivel.service
 import android.util.Log
 import br.com.martinsgms.relatorioacessivel.config.HttpConfig
 import br.com.martinsgms.relatorioacessivel.model.EventoModel
-import com.github.kittinunf.fuel.httpPost
+import com.github.kittinunf.fuel.Fuel
+import com.github.kittinunf.fuel.core.Method
+import com.github.kittinunf.fuel.coroutines.awaitStringResponse
+import com.github.kittinunf.fuel.httpDelete
 import com.google.gson.Gson
 
 class NovaAtividadeService {
 
-    var gson: Gson = Gson()
+    var gson = Gson()
 
     init {
         HttpConfig.config()
     }
 
-    fun salvaAtividade(model: EventoModel) {
+    suspend fun salvaEvento(method: Method, model: EventoModel) {
+        if (model.id != null && model.id == -1L)
+            model.id = null
+
+        if (model.idExame!! == -1L)
+            model.idExame = null
+
+        Log.d("gms-post", method.toString())
         Log.d("gms-post", model.toString())
-        "/exame/evento".httpPost()
+
+
+        val (request, response, result) = Fuel.request(method, "/exame/evento")
             .body(gson.toJson(model))
-            .responseString { request, response, result ->
-                Log.d("gms-post", result.get())
-            }
+            .awaitStringResponse()
+
+        Log.d("gms-post", result)
     }
 }

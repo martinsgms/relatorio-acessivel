@@ -6,18 +6,19 @@ import android.os.Parcelable
 import com.github.kittinunf.fuel.core.ResponseDeserializable
 import com.google.gson.Gson
 import kotlinx.parcelize.Parcelize
-import java.util.ArrayList
 
 @Parcelize
 data class EventoModel(
 
-    val idExame : Long?,
+    var id: Long?,
+    var idExame : Long?,
     val dataHora: String?,
     val descricao: String?,
     val sintoma: String?,
     val medicamento: String?,
 
     ) : Parcelable {
+
 
     val horaFormatada: String? = null
 

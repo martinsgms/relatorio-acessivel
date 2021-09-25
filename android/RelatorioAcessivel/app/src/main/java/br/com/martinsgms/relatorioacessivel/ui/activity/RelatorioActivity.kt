@@ -46,7 +46,7 @@ class RelatorioActivity : AppCompatActivity(R.layout.activity_relatorio),
 
     override fun onResume() {
         super.onResume()
-
+        Log.d("atualizou", "atualizou")
         runBlocking {
             adapter.atualiza(relatorioService.getEventos(exameModel!!.id))
         }
@@ -65,9 +65,12 @@ class RelatorioActivity : AppCompatActivity(R.layout.activity_relatorio),
 
     private fun configuraFab() {
         val fab = findViewById<FloatingActionButton>(R.id.floatingActionButton)
+
         fab.setOnClickListener {
             val intent = Intent(this, NovaAtividadeActivity::class.java)
+
             intent.putExtra("idExame", this.exameModel!!.id)
+
             startActivity(intent)
         }
     }
@@ -107,6 +110,12 @@ class RelatorioActivity : AppCompatActivity(R.layout.activity_relatorio),
 
     override fun onContextItemSelected(item: MenuItem): Boolean {
         Log.d("remover", "rm - $eventoPressionado")
+
+        runBlocking {
+            relatorioService.removeEvento(eventoPressionado?.id!!)
+        }
+
+        this.onResume()
 
         return super.onContextItemSelected(item)
     }

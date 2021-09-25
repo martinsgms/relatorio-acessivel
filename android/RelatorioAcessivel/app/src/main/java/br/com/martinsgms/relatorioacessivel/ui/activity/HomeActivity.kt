@@ -35,7 +35,7 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home) {
                 dataStatusDisplay.text = it
             }
 
-            cardExame.setOnClickListener() {
+            cardExame.setOnClickListener {
                 val intent = Intent(context, DetalheExameActivity::class.java)
                 intent.putExtra("exameModel", exameMaisRecenteModel)
                 startActivity(intent)
