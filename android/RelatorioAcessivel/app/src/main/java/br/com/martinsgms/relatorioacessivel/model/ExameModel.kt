@@ -13,9 +13,8 @@ data class ExameModel(
     val dataHoraExame: String?,
     val usuario: Long,
     val eventos: List<EventoModel>?,
+    val dataHoraFormatada: String
 ) : Parcelable {
-
-    val dataHoraFormatada : String? = null
 
     companion object {
         fun deserialize(content: String): ExameModel =
