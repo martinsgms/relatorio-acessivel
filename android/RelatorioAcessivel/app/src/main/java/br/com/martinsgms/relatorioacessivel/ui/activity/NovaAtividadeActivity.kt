@@ -97,8 +97,8 @@ class NovaAtividadeActivity : AppCompatActivity(R.layout.activity_nova_atividade
             horaEditText = findViewById(R.id.hora_fragment)
             
             hora = horaEditText?.text.toString()
-            Log.d("hora", hora);
-            //tratar hora em ponto ex 8:00
+            Log.d("relatorio_item_hora", hora);
+            //tratar relatorio_item_hora em ponto ex 8:00
             if (hora.split(":")[1].length == 1)
                 hora = hora.replace(":", ":0")
 

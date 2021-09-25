@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import br.com.martinsgms.relatorioacessivel.R
 import br.com.martinsgms.relatorioacessivel.model.EventoModel
@@ -21,13 +22,13 @@ class RelatorioAdapter(
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bind(evento: EventoModel) {
-            val horaView = itemView.findViewById<TextView>(R.id.hora)
+            val horaView = itemView.findViewById<TextView>(R.id.relatorio_item_hora)
             horaView.text = evento.horaFormatada
 
-            val atividadeView = itemView.findViewById<TextView>(R.id.atividade)
+            val atividadeView = itemView.findViewById<TextView>(R.id.relatorio_item_evento)
             atividadeView.text = evento.descricao
 
-            val sintomasView = itemView.findViewById<TextView>(R.id.sintomas)
+            val sintomasView = itemView.findViewById<TextView>(R.id.relatorio_item_sintoma_medicamento)
             sintomasView.text = evento.sintoma
 
             if (!evento.medicamento.isNullOrBlank() && !evento.sintoma.isNullOrBlank())
@@ -37,7 +38,7 @@ class RelatorioAdapter(
                 sintomasView.text = evento.medicamento
         }
 
-        val cardView = itemView.findViewById<CardView>(R.id.card_view)
+        val cardView = itemView.findViewById<ConstraintLayout>(R.id.relatorio_item_registro)
     }
 
     interface OnClickAtividadeListener {

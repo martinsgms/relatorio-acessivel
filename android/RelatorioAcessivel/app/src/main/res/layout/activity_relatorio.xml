@@ -8,7 +8,6 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/activity_relatorio_rv"
-        android:layout_marginTop="16dp"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

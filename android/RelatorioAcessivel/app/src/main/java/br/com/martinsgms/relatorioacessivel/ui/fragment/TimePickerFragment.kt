@@ -51,7 +51,7 @@ class TimePickerFragment : Fragment() {
 
         val materialTimePicker = MaterialTimePicker.Builder()
             .setTimeFormat(clockFormat)
-            .setTitleText("Selecione a hora da atividade")
+            .setTitleText("Selecione a relatorio_item_hora da atividade")
             .build()
 
         materialTimePicker.show(childFragmentManager, "TAG")
