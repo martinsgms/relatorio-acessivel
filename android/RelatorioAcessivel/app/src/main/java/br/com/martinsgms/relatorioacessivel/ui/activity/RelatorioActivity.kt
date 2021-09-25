@@ -10,6 +10,7 @@ import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import br.com.martinsgms.relatorioacessivel.R
 import br.com.martinsgms.relatorioacessivel.model.EventoModel
 import br.com.martinsgms.relatorioacessivel.model.ExameModel
@@ -39,9 +40,18 @@ class RelatorioActivity : AppCompatActivity(R.layout.activity_relatorio),
         configuraRecyclerView()
         configuraBotaoReturn()
         configuraFab()
+        configuraSwipeRefresh()
 
         this.exameModel = intent.getParcelableExtra("exameModel")
         Log.d("ExameModel-->", exameModel.toString())
+    }
+
+    private fun configuraSwipeRefresh() {
+        val swipeRefresh = findViewById<SwipeRefreshLayout>(R.id.activity_relatorio_swipeRefresh)
+        swipeRefresh.setOnRefreshListener {
+            this.onResume()
+            swipeRefresh.isRefreshing = false
+        }
     }
 
     override fun onResume() {
@@ -50,7 +60,6 @@ class RelatorioActivity : AppCompatActivity(R.layout.activity_relatorio),
         runBlocking {
             adapter.atualiza(relatorioService.getEventos(exameModel!!.id))
         }
-
     }
 
     override fun onCreateContextMenu(
