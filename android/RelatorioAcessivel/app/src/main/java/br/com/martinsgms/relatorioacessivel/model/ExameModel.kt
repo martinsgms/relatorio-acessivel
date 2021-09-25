@@ -15,6 +15,8 @@ data class ExameModel(
     val eventos: List<EventoModel>?,
 ) : Parcelable {
 
+    val dataHoraFormatada : String? = null
+
     companion object {
         fun deserialize(content: String): ExameModel =
             Gson().fromJson(content, ExameModel::class.java)

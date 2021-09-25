@@ -7,7 +7,7 @@
     tools:context=".ui.activity.HomeActivity">
 
     <TextView
-        android:id="@+id/nome_usuario"
+        android:id="@+id/activity_home_nome_usuario"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -29,7 +29,7 @@
         android:text="Este é o seu exame mais recente"
         android:textColor="@color/black"
         android:textSize="20sp"
-        app:layout_constraintTop_toBottomOf="@id/nome_usuario" />
+        app:layout_constraintTop_toBottomOf="@id/activity_home_nome_usuario" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card_exame_mais_recente"
@@ -52,7 +52,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/clinica"
+                android:id="@+id/activity_home_clinica"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/white"
@@ -61,7 +61,7 @@
                 tools:text="Clincoor" />
 
             <TextView
-                android:id="@+id/data_status"
+                android:id="@+id/activity_home_data_exame"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:text="06/07/2021 às 8h30"
@@ -69,7 +69,7 @@
                 android:textSize="22sp" />
 
             <TextView
-                android:id="@+id/andamento"
+                android:id="@+id/activity_home_status_exame"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"

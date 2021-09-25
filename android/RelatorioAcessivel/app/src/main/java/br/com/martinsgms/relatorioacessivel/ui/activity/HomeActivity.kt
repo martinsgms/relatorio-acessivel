@@ -8,9 +8,7 @@ import androidx.cardview.widget.CardView
 import br.com.martinsgms.relatorioacessivel.R
 import br.com.martinsgms.relatorioacessivel.model.ExameModel
 import br.com.martinsgms.relatorioacessivel.service.HomeService
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.withContext
 
 class HomeActivity : AppCompatActivity(R.layout.activity_home) {
 
@@ -21,8 +19,9 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home) {
         super.onCreate(savedInstanceState)
 
         val cardExame = findViewById<CardView>(R.id.card_exame_mais_recente)
-        val clinicaDisplay = findViewById<TextView>(R.id.clinica)
-        val dataStatusDisplay = findViewById<TextView>(R.id.data_status)
+        val clinicaDisplay = findViewById<TextView>(R.id.activity_home_clinica)
+        val dataTextView = findViewById<TextView>(R.id.activity_home_data_exame)
+        val statusTextView = findViewById<TextView>(R.id.activity_home_status_exame)
 
         val context = this
 
@@ -31,9 +30,8 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home) {
             val exameMaisRecenteModel = homeService.getExameMaisRecente()
 
             //clinicaDisplay.text = exameMaisRecente!!.servicoSaude
-            (exameMaisRecenteModel.dataHoraExame + " • " + (exameMaisRecenteModel.status?.descricao)).also {
-                dataStatusDisplay.text = it
-            }
+            dataTextView.text = exameMaisRecenteModel.dataHoraFormatada
+            statusTextView.text = exameMaisRecenteModel.status!!.descricao
 
             cardExame.setOnClickListener {
                 val intent = Intent(context, DetalheExameActivity::class.java)
