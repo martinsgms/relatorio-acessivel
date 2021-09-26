@@ -9,4 +9,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="wine">#AD2B10</color>
     <color name="light_gray">#D2D2D2</color>
+    <color name="gray">#808080</color>
 </resources>

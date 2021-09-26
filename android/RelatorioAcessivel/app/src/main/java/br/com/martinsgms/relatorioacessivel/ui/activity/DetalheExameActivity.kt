@@ -22,7 +22,7 @@ class DetalheExameActivity : AppCompatActivity(R.layout.activity_detalhe_exame) 
         //val clinicaDisplay = findViewById<TextView>(R.id.activity_detalhe_exame_clinica)
         //clinicaDisplay.text = exameModel?.servicoSaude
 
-        val idExternoView = findViewById<TextView>(R.id.activity_detalhe_exame_id_exame)
+        val idExternoView = findViewById<TextView>(R.id.activity_detalhe_exame_id_externo)
         idExternoView.text = exameModel?.idExterno
 
         val dataExameView = findViewById<TextView>(R.id.activity_detalhe_exame_data)
@@ -31,7 +31,7 @@ class DetalheExameActivity : AppCompatActivity(R.layout.activity_detalhe_exame) 
         val statusExameView = findViewById<TextView>(R.id.activity_detalhe_exame_status)
         statusExameView.text = exameModel?.status?.descricao
 
-        val btnRelatorio = findViewById<Button>(R.id.activity_detalhe_atividade_relatorio)
+        val btnRelatorio = findViewById<Button>(R.id.activity_detalhe_exame_btn_diario)
 
         if (!exameModel?.status?.permiteEscrita!!) {
 
@@ -40,7 +40,7 @@ class DetalheExameActivity : AppCompatActivity(R.layout.activity_detalhe_exame) 
 
         } else {
 
-            btnRelatorio.setOnClickListener() {
+            btnRelatorio.setOnClickListener {
                 val intent = Intent(this, RelatorioActivity::class.java)
                 intent.putExtra("exameModel", exameModel)
 
