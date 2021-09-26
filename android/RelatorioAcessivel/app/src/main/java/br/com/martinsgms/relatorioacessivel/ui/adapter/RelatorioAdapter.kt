@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import br.com.martinsgms.relatorioacessivel.R
@@ -22,13 +21,13 @@ class RelatorioAdapter(
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bind(evento: EventoModel) {
-            val horaView = itemView.findViewById<TextView>(R.id.relatorio_item_hora)
+            val horaView = itemView.findViewById<TextView>(R.id.exame_item_data)
             horaView.text = evento.horaFormatada
 
-            val atividadeView = itemView.findViewById<TextView>(R.id.relatorio_item_evento)
+            val atividadeView = itemView.findViewById<TextView>(R.id.exame_item_servico_saude)
             atividadeView.text = evento.descricao
 
-            val sintomasView = itemView.findViewById<TextView>(R.id.relatorio_item_sintoma_medicamento)
+            val sintomasView = itemView.findViewById<TextView>(R.id.exame_item_status)
             sintomasView.text = evento.sintoma
 
             if (!evento.medicamento.isNullOrBlank() && !evento.sintoma.isNullOrBlank())

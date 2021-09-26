@@ -2,25 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relatorio_item_registro"
     android:layout_width="match_parent"
     android:layout_height="95dp"
-    tools:context=".ui.activity.RelatorioActivity"
-    android:id="@+id/relatorio_item_registro"
-    >
-
-    <TextView
-        tools:text="8:21"
-        android:id="@+id/exame_item_data"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:gravity="center"
-        />
+    tools:context=".ui.activity.RelatorioActivity">
 
     <TextView
         android:id="@+id/exame_item_servico_saude"
@@ -28,26 +13,37 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="8dp"
-        tools:text="Almoço"
-        android:textStyle="bold"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/exame_item_status"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/exame_item_data"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toStartOf="@+id/exame_item_data"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Clinicoor" />
 
     <TextView
         android:id="@+id/exame_item_status"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        tools:text="dor de cabeça • dipirona"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/exame_item_servico_saude"
         app:layout_constraintTop_toBottomOf="@+id/exame_item_servico_saude"
-        />
+        tools:text="Finalizado" />
 
+    <TextView
+        android:id="@+id/exame_item_data"
+        android:layout_width="78dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="28/01/2021" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
