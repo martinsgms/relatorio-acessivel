@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.RelativeLayout
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentContainerView
@@ -59,6 +60,7 @@ class NovaAtividadeActivity : AppCompatActivity(R.layout.activity_nova_atividade
 
         val context = this
         btnRegistrar?.setOnClickListener {
+            findViewById<RelativeLayout>(R.id.activity_nova_atividade_loadingPanel).visibility = View.VISIBLE
             runBlocking {
                 novaAtividadeService.salvaEvento(context.method, criaAtividade())
                 finish()

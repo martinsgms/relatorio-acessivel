@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.ContextMenu
 import android.view.MenuItem
 import android.view.View
+import android.widget.RelativeLayout
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
@@ -23,10 +24,10 @@ import kotlinx.coroutines.runBlocking
 class RelatorioActivity : AppCompatActivity(R.layout.activity_relatorio),
     RelatorioAdapter.OnClickAtividadeListener, RelatorioAdapter.OnLongClickAtividadeListener {
 
+    private var lp: RelativeLayout? = null
     private var relatorioService = RelatorioService()
     private var exameModel: ExameModel ?= null
     private var eventoPressionado: EventoModel ?= null
-    private val relatorioDAO = RelatorioDAO()
     private val adapter = RelatorioAdapter(
         context = this,
         onClickAtividadeListener = this,
@@ -41,6 +42,8 @@ class RelatorioActivity : AppCompatActivity(R.layout.activity_relatorio),
         configuraBotaoReturn()
         configuraFab()
         configuraSwipeRefresh()
+
+        this.lp =  findViewById(R.id.activity_relatorio_loadingPanel)
 
         this.exameModel = intent.getParcelableExtra("exameModel")
         Log.d("ExameModel-->", exameModel.toString())
@@ -57,6 +60,7 @@ class RelatorioActivity : AppCompatActivity(R.layout.activity_relatorio),
     override fun onResume() {
         super.onResume()
         Log.d("atualizou", "atualizou")
+
         runBlocking {
             adapter.atualiza(relatorioService.getEventos(exameModel!!.id))
         }
