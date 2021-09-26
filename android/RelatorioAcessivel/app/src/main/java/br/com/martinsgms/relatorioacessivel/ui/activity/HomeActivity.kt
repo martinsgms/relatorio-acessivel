@@ -18,8 +18,8 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val cardExame = findViewById<CardView>(R.id.card_exame_mais_recente)
-        val clinicaDisplay = findViewById<TextView>(R.id.activity_home_clinica)
+        val cardExame = findViewById<CardView>(R.id.activity_home_card_exame_mais_recente)
+        val clinicaDisplay = findViewById<TextView>(R.id.activity_home_servico_saude)
         val dataTextView = findViewById<TextView>(R.id.activity_home_data_exame)
         val statusTextView = findViewById<TextView>(R.id.activity_home_status_exame)
 
