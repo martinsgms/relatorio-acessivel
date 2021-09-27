@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="br.com.martinsgms.relatorioacessivel">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
     <application
         android:allowBackup="true"
         android:usesCleartextTraffic="true"
@@ -18,17 +22,22 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".ui.activity.RelatorioActivity"
             android:label="Meu relatório"/>
+
         <activity
             android:name=".ui.activity.DetalheExameActivity"
             android:label="Detalhes do seu exame"/>
+
         <activity
             android:name=".ui.activity.NovaAtividadeActivity"
             android:label="Nova atividade"/>
+
+        <activity
+            android:name=".ui.activity.MeusExamesActivity"
+            android:label="Meus exames"/>
     </application>
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
 </manifest>

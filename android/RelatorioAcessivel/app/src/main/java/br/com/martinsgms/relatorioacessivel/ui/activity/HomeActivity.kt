@@ -2,6 +2,7 @@ package br.com.martinsgms.relatorioacessivel.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
@@ -19,11 +20,17 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home) {
         super.onCreate(savedInstanceState)
 
         val cardExame = findViewById<CardView>(R.id.activity_home_card_exame_mais_recente)
-        val clinicaDisplay = findViewById<TextView>(R.id.activity_home_servico_saude)
+        val clinicaTextView = findViewById<TextView>(R.id.activity_home_servico_saude)
         val dataTextView = findViewById<TextView>(R.id.activity_home_data_exame)
         val statusTextView = findViewById<TextView>(R.id.activity_home_status_exame)
+        val btnMeusExames = findViewById<Button>(R.id.activity_home_meus_exames)
 
         val context = this
+        btnMeusExames.setOnClickListener {
+            val intent = Intent(context, MeusExamesActivity::class.java)
+            intent.putExtra("idUsuario", 1L)
+            startActivity(intent)
+        }
 
         runBlocking {
 

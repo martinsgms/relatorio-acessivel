@@ -19,7 +19,6 @@ data class EventoModel(
 
     ) : Parcelable {
 
-
     val horaFormatada: String? = null
 
     class Deserializer : ResponseDeserializable<Array<EventoModel>> {
