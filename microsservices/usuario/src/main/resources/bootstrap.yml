@@ -2,8 +2,8 @@ spring:
   application:
     name: app-usuario
   profiles:
-    active: dev #local, dev
+    active: local #local, dev
   cloud:
     config:
-      uri: http://svc-config-server
-      #uri: http://localhost:8888
+      uri: http://localhost:8888
+      #uri: http://svc-config-server
