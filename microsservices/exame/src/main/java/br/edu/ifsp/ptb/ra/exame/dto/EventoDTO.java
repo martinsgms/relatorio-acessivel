@@ -17,8 +17,8 @@ public class EventoDTO
     private String descricao;
     private String sintoma;
     private String medicamento;
-    private LocalDateTime dataHora;
-    private String horaFormatada;
+    private LocalDateTime timestampEvento;
+    private FormatosDataHoraDTO formatosDataHora;
 
     public EventoDTO()
     {
@@ -27,7 +27,18 @@ public class EventoDTO
     public EventoDTO(EventoModel model)
     {
         this.idExame = model.getExame().getId();
+        formatosDataHora = new FormatosDataHoraDTO(model.getTimestampEvento());
         BeanUtils.copyProperties(model, this);
+    }
+
+    public Long getId()
+    {
+        return id;
+    }
+
+    public void setId(Long id)
+    {
+        this.id = id;
     }
 
     public Long getIdExame()
@@ -70,33 +81,23 @@ public class EventoDTO
         this.medicamento = medicamento;
     }
 
-    public LocalDateTime getDataHora()
+    public LocalDateTime getTimestampEvento()
     {
-        return dataHora;
+        return timestampEvento;
     }
 
-    public void setDataHora(LocalDateTime dataHora)
+    public void setTimestampEvento(LocalDateTime timestampEvento)
     {
-        this.dataHora = dataHora;
+        this.timestampEvento = timestampEvento;
     }
 
-    public String getHoraFormatada()
+    public FormatosDataHoraDTO getFormatosDataHora()
     {
-        return horaFormatada;
+        return formatosDataHora;
     }
 
-    public void setHoraFormatada(String horaFormatada)
+    public void setFormatosDataHora(FormatosDataHoraDTO formatosDataHora)
     {
-        this.horaFormatada = horaFormatada;
-    }
-
-    public Long getId()
-    {
-        return id;
-    }
-
-    public void setId(Long id)
-    {
-        this.id = id;
+        this.formatosDataHora = formatosDataHora;
     }
 }

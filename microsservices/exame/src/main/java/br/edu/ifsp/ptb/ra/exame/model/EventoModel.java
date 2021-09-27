@@ -1,7 +1,6 @@
 package br.edu.ifsp.ptb.ra.exame.model;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,7 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import org.springframework.beans.BeanUtils;
 
@@ -39,7 +37,7 @@ public class EventoModel
     private String medicamento;
 
     @Column(name = "DH_EVENTO")
-    private LocalDateTime dataHora;
+    private LocalDateTime timestampEvento;
 
     @Column(name = "NU_PA_SISTOLICA")
     private Integer paSistolica;
@@ -51,9 +49,6 @@ public class EventoModel
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_EXAME")
     private ExameModel exame;
-
-    @Transient
-    private String horaFormatada;
 
     public EventoModel()
     {
@@ -95,15 +90,14 @@ public class EventoModel
         this.sintoma = sintoma;
     }
 
-    public LocalDateTime getDataHora()
+    public LocalDateTime getTimestampEvento()
     {
-        setHoraFormatada(dataHora);
-        return dataHora;
+        return timestampEvento;
     }
 
-    public void setDataHora(LocalDateTime dataHora)
+    public void setTimestampEvento(LocalDateTime timestampEvento)
     {
-        this.dataHora = dataHora;
+        this.timestampEvento = timestampEvento;
     }
 
     public Integer getPaSistolica()
@@ -133,16 +127,6 @@ public class EventoModel
 
     public void setExame(ExameModel exame) {
         this.exame = exame;
-    }
-
-    public String getHoraFormatada()
-    {
-        return horaFormatada;
-    }
-
-    public void setHoraFormatada(LocalDateTime dataHora)
-    {
-        this.horaFormatada = DateTimeFormatter.ofPattern("HH:mm").format(dataHora);
     }
 
     public String getMedicamento()

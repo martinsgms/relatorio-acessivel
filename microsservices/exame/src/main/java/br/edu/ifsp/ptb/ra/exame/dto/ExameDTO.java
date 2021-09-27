@@ -15,11 +15,10 @@ public class ExameDTO
     private Long id;
     private String email;
     private Long usuario;
-    private LocalDateTime data;
+    private LocalDateTime timestampExame;
     private String idExterno;
-    private LocalDateTime dataHoraExame;
-    private String dataHoraFormatada;
     private Integer intervaloAfericoes;
+    private FormatosDataHoraDTO formatosDataHora;
     private StatusExameDTO status;
 
     public ExameDTO()
@@ -29,6 +28,7 @@ public class ExameDTO
     public ExameDTO(ExameModel model)
     {
         status = new StatusExameDTO(model.getStatus());
+        formatosDataHora = new FormatosDataHoraDTO(model.getTimestampExame());
         BeanUtils.copyProperties(model, this);
     }
 
@@ -42,36 +42,6 @@ public class ExameDTO
         this.id = id;
     }
 
-    public StatusExameDTO getStatus()
-    {
-        return status;
-    }
-
-    public void setStatus(StatusExameDTO status)
-    {
-        this.status = status;
-    }
-
-    public LocalDateTime getDataHoraExame()
-    {
-        return dataHoraExame;
-    }
-
-    public void setDataHoraExame(LocalDateTime dataHoraExame)
-    {
-        this.dataHoraExame = dataHoraExame;
-    }
-
-    public Integer getIntervaloAfericoes()
-    {
-        return intervaloAfericoes;
-    }
-
-    public void setIntervaloAfericoes(Integer intervaloAfericoes)
-    {
-        this.intervaloAfericoes = intervaloAfericoes;
-    }
-
     public String getEmail()
     {
         return email;
@@ -80,26 +50,6 @@ public class ExameDTO
     public void setEmail(String email)
     {
         this.email = email;
-    }
-
-    public LocalDateTime getData()
-    {
-        return data;
-    }
-
-    public void setData(LocalDateTime data)
-    {
-        this.data = data;
-    }
-
-    public String getIdExterno()
-    {
-        return idExterno;
-    }
-
-    public void setIdExterno(String idExterno)
-    {
-        this.idExterno = idExterno;
     }
 
     public Long getUsuario()
@@ -112,13 +62,53 @@ public class ExameDTO
         this.usuario = usuario;
     }
 
-    public String getDataHoraFormatada()
+    public LocalDateTime getTimestampExame()
     {
-        return dataHoraFormatada;
+        return timestampExame;
     }
 
-    public void setDataHoraFormatada(String dataHoraFormatada)
+    public void setTimestampExame(LocalDateTime timestampExame)
     {
-        this.dataHoraFormatada = dataHoraFormatada;
+        this.timestampExame = timestampExame;
+    }
+
+    public String getIdExterno()
+    {
+        return idExterno;
+    }
+
+    public void setIdExterno(String idExterno)
+    {
+        this.idExterno = idExterno;
+    }
+
+    public FormatosDataHoraDTO getFormatosDataHora()
+    {
+        return formatosDataHora;
+    }
+
+    public void setFormatosDataHora(FormatosDataHoraDTO formatosDataHora)
+    {
+        this.formatosDataHora = formatosDataHora;
+    }
+
+    public Integer getIntervaloAfericoes()
+    {
+        return intervaloAfericoes;
+    }
+
+    public void setIntervaloAfericoes(Integer intervaloAfericoes)
+    {
+        this.intervaloAfericoes = intervaloAfericoes;
+    }
+
+    public StatusExameDTO getStatus()
+    {
+        return status;
+    }
+
+    public void setStatus(StatusExameDTO status)
+    {
+        this.status = status;
     }
 }

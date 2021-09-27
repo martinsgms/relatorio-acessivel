@@ -1,7 +1,6 @@
 package br.edu.ifsp.ptb.ra.exame.model;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -14,7 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
+
+import org.springframework.beans.BeanUtils;
 
 import br.edu.ifsp.ptb.ra.exame.dto.ExameDTO;
 import br.edu.ifsp.ptb.ra.exame.dto.UsuarioDTO;
@@ -39,7 +39,7 @@ public class ExameModel
     private StatusExameModel status;
 
     @Column(name = "DH_EXAME")
-    private LocalDateTime dataHoraExame;
+    private LocalDateTime timestampExame;
 
     @Column(name = "ID_USUARIO")
     private Long usuario;
@@ -49,9 +49,6 @@ public class ExameModel
 
     @Column(name = "NU_INTERVALO_AFERICAO")
     private Integer intervaloAfericoes;
-
-    @Transient
-    private String dataHoraFormatada;
 
     public ExameModel()
     {
@@ -65,10 +62,8 @@ public class ExameModel
     public ExameModel(UsuarioDTO usuario, ExameDTO dto)
     {
         this.usuario = usuario.getId();
-        this.idExterno = dto.getIdExterno();
-        this.intervaloAfericoes = dto.getIntervaloAfericoes();
-        this.dataHoraExame = dto.getData();
         this.status = new StatusExameModel("AGE");
+        BeanUtils.copyProperties(dto, this);
     }
 
     public Long getId()
@@ -111,15 +106,14 @@ public class ExameModel
         this.status = status;
     }
 
-    public LocalDateTime getDataHoraExame()
+    public LocalDateTime getTimestampExame()
     {
-        setDataHoraFormatada(dataHoraExame);
-        return dataHoraExame;
+        return timestampExame;
     }
 
-    public void setDataHoraExame(LocalDateTime dataHoraExame)
+    public void setTimestampExame(LocalDateTime dataHoraExame)
     {
-        this.dataHoraExame = dataHoraExame;
+        this.timestampExame = dataHoraExame;
     }
 
     public Long getUsuario()
@@ -150,25 +144,5 @@ public class ExameModel
     public void setIntervaloAfericoes(Integer intervaloAfericoes)
     {
         this.intervaloAfericoes = intervaloAfericoes;
-    }
-
-    public String getDataHoraFormatada()
-    {
-        return dataHoraFormatada;
-    }
-
-    public void setDataHoraFormatada(LocalDateTime dataHora)
-    {
-        this.dataHoraFormatada = DateTimeFormatter.ofPattern("dd/MM/yyyy • HH:mm").format(dataHora);
-    }
-
-    public ExameDTO toDTO() {
-        var dto = new ExameDTO();
-
-        dto.setData(dataHoraExame);
-        dto.setIdExterno(idExterno);
-        dto.setIntervaloAfericoes(intervaloAfericoes);
-
-        return dto;
     }
 }
