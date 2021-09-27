@@ -20,6 +20,9 @@ public class ExameService
     private ExameRepository exameRepository;
 
     @Autowired
+    private EventoService eventoService;
+
+    @Autowired
     private UsuarioService usuarioService;
 
     public ExameDTO novoExame(ExameDTO dto)
@@ -43,9 +46,7 @@ public class ExameService
     {
         verificaSeExameExiste(idExame);
 
-        var exame = exameRepository.getOne(idExame);
-
-        return exame.getEventos().stream().map(EventoDTO::new).collect(Collectors.toList());
+        return eventoService.getEventosDoExame(idExame);
     }
 
     public ExameDTO detalheExame(Long idExame) throws ExameNaoEncontradoException

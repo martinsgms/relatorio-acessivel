@@ -1,5 +1,8 @@
 package br.edu.ifsp.ptb.ra.exame.service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,5 +54,10 @@ public class EventoService
         {
             throw new EventoNaoEncontradoException(idEvento);
         }
+    }
+
+    public List<EventoDTO> getEventosDoExame(Long idExame)
+    {
+        return eventoRepository.getEventosDoExame(idExame).stream().map(EventoDTO::new).collect(Collectors.toList());
     }
 }
