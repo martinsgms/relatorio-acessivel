@@ -1,1 +1,0 @@
-INSERT INTO TRA_USUARIO ( NM_NOME , TE_EMAIL ) VALUES ('Daiana', 'daiana@gmail.com');
