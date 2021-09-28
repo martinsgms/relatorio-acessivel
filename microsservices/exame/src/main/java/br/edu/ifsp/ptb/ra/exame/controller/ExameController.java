@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import br.edu.ifsp.ptb.ra.exame.dto.EventoDTO;
 import br.edu.ifsp.ptb.ra.exame.dto.ExameDTO;
-import br.edu.ifsp.ptb.ra.exame.exception.ExameNaoEncontradoException;
+import br.edu.ifsp.ptb.ra.exame.exception.ServiceException;
 import br.edu.ifsp.ptb.ra.exame.service.ExameService;
 
 @Controller
@@ -25,7 +25,7 @@ public class ExameController
     private ExameService exameService;
 
     @PostMapping
-    public ResponseEntity<ExameDTO> novoExame(@RequestBody ExameDTO exame)
+    public ResponseEntity<ExameDTO> novoExame(@RequestBody ExameDTO exame) throws ServiceException
     {
         var novoExame = exameService.novoExame(exame);
 
@@ -33,7 +33,7 @@ public class ExameController
     }
 
     @GetMapping("/{idExame}")
-    public ResponseEntity<ExameDTO> detalheExame(@PathVariable Long idExame) throws ExameNaoEncontradoException
+    public ResponseEntity<ExameDTO> detalheExame(@PathVariable Long idExame) throws ServiceException
     {
         var exame = exameService.detalheExame(idExame);
 
@@ -52,7 +52,7 @@ public class ExameController
     }
 
     @GetMapping("/{idExame}/eventos")
-    public ResponseEntity<List<EventoDTO>> eventosDoExame(@PathVariable Long idExame) throws ExameNaoEncontradoException
+    public ResponseEntity<List<EventoDTO>> eventosDoExame(@PathVariable Long idExame) throws ServiceException
     {
         var eventos = exameService.getEventoList(idExame);
 

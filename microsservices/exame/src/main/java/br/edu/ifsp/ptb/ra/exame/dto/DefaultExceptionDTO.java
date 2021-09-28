@@ -4,14 +4,14 @@ import java.time.LocalDateTime;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class DefaultErrorDTO
+public class DefaultExceptionDTO
 {
     private LocalDateTime timestamp = LocalDateTime.now();
     private String path;
     private String error;
     private String message;
 
-    public DefaultErrorDTO(Exception exception, HttpServletRequest request)
+    public DefaultExceptionDTO(Exception exception, HttpServletRequest request)
     {
         error = exception.getClass().getSimpleName();
         message = exception.getMessage();

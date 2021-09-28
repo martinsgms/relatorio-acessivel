@@ -7,31 +7,16 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import br.edu.ifsp.ptb.ra.exame.dto.DefaultErrorDTO;
-import br.edu.ifsp.ptb.ra.exame.exception.EventoNaoEncontradoException;
-import br.edu.ifsp.ptb.ra.exame.exception.ExameNaoEncontradoException;
+import br.edu.ifsp.ptb.ra.exame.dto.DefaultExceptionDTO;
+import br.edu.ifsp.ptb.ra.exame.exception.ServiceException;
 
 @RestControllerAdvice
 public class ExceptionHandlerControllerAdvice
 {
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    @ExceptionHandler(ExameNaoEncontradoException.class)
-    public DefaultErrorDTO exameNaoEncontrado(ExameNaoEncontradoException exception, HttpServletRequest request)
-    {
-        return new DefaultErrorDTO(exception, request);
-    }
-
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    @ExceptionHandler(EventoNaoEncontradoException.class)
-    public DefaultErrorDTO eventoNaoEncontrado(EventoNaoEncontradoException exception, HttpServletRequest request)
-    {
-        return new DefaultErrorDTO(exception, request);
-    }
-
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    @ExceptionHandler(Exception.class)
-    public DefaultErrorDTO defaultError(ExameNaoEncontradoException exception, HttpServletRequest request)
+    @ExceptionHandler(ServiceException.class)
+    public DefaultExceptionDTO serviceException(ServiceException exception, HttpServletRequest request)
     {
-        return new DefaultErrorDTO(exception, request);
+        return new DefaultExceptionDTO(exception, request);
     }
 }

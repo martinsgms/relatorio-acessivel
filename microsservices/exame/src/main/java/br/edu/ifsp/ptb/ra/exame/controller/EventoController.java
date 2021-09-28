@@ -12,8 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import br.edu.ifsp.ptb.ra.exame.dto.EventoDTO;
-import br.edu.ifsp.ptb.ra.exame.exception.EventoNaoEncontradoException;
-import br.edu.ifsp.ptb.ra.exame.exception.ExameNaoEncontradoException;
+import br.edu.ifsp.ptb.ra.exame.exception.ServiceException;
 import br.edu.ifsp.ptb.ra.exame.service.EventoService;
 
 @Controller
@@ -24,7 +23,7 @@ public class EventoController
     private EventoService eventoService;
 
     @GetMapping("/{idEvento}")
-    public ResponseEntity<EventoDTO> getEventoPorid(@PathVariable Long idEvento) throws EventoNaoEncontradoException
+    public ResponseEntity<EventoDTO> getEventoPorid(@PathVariable Long idEvento) throws ServiceException
     {
         var evento = eventoService.getEventoById(idEvento);
 
@@ -32,13 +31,13 @@ public class EventoController
     }
 
     @PostMapping
-    public ResponseEntity<EventoDTO> salvarEvento(@RequestBody EventoDTO evento) throws ExameNaoEncontradoException
+    public ResponseEntity<EventoDTO> salvarEvento(@RequestBody EventoDTO evento) throws ServiceException
     {
         return ResponseEntity.ok(eventoService.salvaEvento(evento));
     }
 
     @PutMapping
-    public ResponseEntity<EventoDTO> atualizaEvento(@RequestBody EventoDTO evento) throws EventoNaoEncontradoException, ExameNaoEncontradoException
+    public ResponseEntity<EventoDTO> atualizaEvento(@RequestBody EventoDTO evento) throws ServiceException
     {
         eventoService.verificaSeEventoExiste(evento.getId());
 
@@ -46,7 +45,7 @@ public class EventoController
     }
 
     @DeleteMapping("/{idEvento}")
-    public ResponseEntity<Void> removeEvento(@PathVariable Long idEvento) throws EventoNaoEncontradoException
+    public ResponseEntity<Void> removeEvento(@PathVariable Long idEvento) throws ServiceException
     {
         eventoService.removeEvento(idEvento);
 

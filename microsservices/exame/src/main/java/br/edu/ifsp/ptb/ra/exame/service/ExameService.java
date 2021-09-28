@@ -1,5 +1,10 @@
 package br.edu.ifsp.ptb.ra.exame.service;
 
+import static br.edu.ifsp.ptb.ra.exame.common.ErrorMessageBuilder.RECURSO_EXAME;
+import static br.edu.ifsp.ptb.ra.exame.common.ErrorMessageBuilder.RECURSO_SERVICO_SAUDE;
+import static br.edu.ifsp.ptb.ra.exame.common.ErrorMessageBuilder.RECURSO_USUARIO;
+import static br.edu.ifsp.ptb.ra.exame.common.ErrorMessageBuilder.recursoInexistente;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -9,7 +14,7 @@ import org.springframework.stereotype.Service;
 import br.edu.ifsp.ptb.ra.exame.dto.EventoDTO;
 import br.edu.ifsp.ptb.ra.exame.dto.ExameDTO;
 import br.edu.ifsp.ptb.ra.exame.dto.UsuarioDTO;
-import br.edu.ifsp.ptb.ra.exame.exception.ExameNaoEncontradoException;
+import br.edu.ifsp.ptb.ra.exame.exception.ServiceException;
 import br.edu.ifsp.ptb.ra.exame.model.ExameModel;
 import br.edu.ifsp.ptb.ra.exame.repository.ExameRepository;
 
@@ -28,13 +33,18 @@ public class ExameService
     @Autowired
     private ServicoSaudeService servicoSaudeService;
 
-    public ExameDTO novoExame(ExameDTO dto)
+    public ExameDTO novoExame(ExameDTO dto) throws ServiceException
     {
         UsuarioDTO usuario = usuarioService.buscaUsuarioPorEmail(dto.getEmail());
 
+        if (usuario == null)
+        {
+            throw new ServiceException(recursoInexistente(RECURSO_USUARIO, dto.getEmail()));
+        }
+
         if (!servicoSaudeService.verificaSeServicoSaudeExiste(dto.getIdServicoSaude()))
         {
-
+            throw new ServiceException(recursoInexistente(RECURSO_SERVICO_SAUDE, dto.getIdServicoSaude()));
         }
 
         return agendaNovoExame(new ExameModel(usuario, dto));
@@ -50,14 +60,14 @@ public class ExameService
         return exameRepository.listExamesUsuario(idUsuario).stream().map(ExameDTO::new).collect(Collectors.toList());
     }
 
-    public List<EventoDTO> getEventoList(Long idExame) throws ExameNaoEncontradoException
+    public List<EventoDTO> getEventoList(Long idExame) throws ServiceException
     {
         verificaSeExameExiste(idExame);
 
         return eventoService.getEventosDoExame(idExame);
     }
 
-    public ExameDTO detalheExame(Long idExame) throws ExameNaoEncontradoException
+    public ExameDTO detalheExame(Long idExame) throws ServiceException
     {
         verificaSeExameExiste(idExame);
 
@@ -66,11 +76,11 @@ public class ExameService
         return new ExameDTO(exame);
     }
 
-    public void verificaSeExameExiste(Long idExame) throws ExameNaoEncontradoException
+    public void verificaSeExameExiste(Long idExame) throws ServiceException
     {
         if (!exameRepository.existsById(idExame))
         {
-            throw new ExameNaoEncontradoException(idExame);
+            throw new ServiceException(recursoInexistente(RECURSO_EXAME, idExame));
         }
     }
 }
