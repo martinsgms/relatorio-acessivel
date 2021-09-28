@@ -13,6 +13,7 @@ import br.edu.ifsp.ptb.ra.exame.model.ExameModel;
 public class ExameDTO 
 {
     private Long id;
+    private Long idServicoSaude;
     private String email;
     private Long usuario;
     private LocalDateTime timestampExame;
@@ -110,5 +111,15 @@ public class ExameDTO
     public void setStatus(StatusExameDTO status)
     {
         this.status = status;
+    }
+
+    public Long getIdServicoSaude()
+    {
+        return idServicoSaude;
+    }
+
+    public void setIdServicoSaude(Long idServicoSaude)
+    {
+        this.idServicoSaude = idServicoSaude;
     }
 }

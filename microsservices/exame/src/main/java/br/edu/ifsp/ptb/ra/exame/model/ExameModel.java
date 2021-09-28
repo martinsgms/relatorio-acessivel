@@ -31,9 +31,6 @@ public class ExameModel
     @Column(name = "ID_EXTERNO")
     private String idExterno;
 
-    @Column(name = "ID_SERVICO_SAUDE")
-    private Long servicoSaude;
-
     @ManyToOne
     @JoinColumn(name = "CD_STATUS")
     private StatusExameModel status;
@@ -43,6 +40,9 @@ public class ExameModel
 
     @Column(name = "ID_USUARIO")
     private Long usuario;
+
+    @Column(name = "ID_SERVICO_SAUDE")
+    private Long idServicoSaude;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "exame")
     private List<EventoModel> eventos;
@@ -61,9 +61,9 @@ public class ExameModel
 
     public ExameModel(UsuarioDTO usuario, ExameDTO dto)
     {
+        BeanUtils.copyProperties(dto, this);
         this.usuario = usuario.getId();
         this.status = new StatusExameModel("AGE");
-        BeanUtils.copyProperties(dto, this);
     }
 
     public Long getId()
@@ -84,16 +84,6 @@ public class ExameModel
     public void setIdExterno(String idExterno)
     {
         this.idExterno = idExterno;
-    }
-
-    public Long getServicoSaude()
-    {
-        return servicoSaude;
-    }
-
-    public void setServicoSaude(Long servicoSaude)
-    {
-        this.servicoSaude = servicoSaude;
     }
 
     public StatusExameModel getStatus()
@@ -144,5 +134,15 @@ public class ExameModel
     public void setIntervaloAfericoes(Integer intervaloAfericoes)
     {
         this.intervaloAfericoes = intervaloAfericoes;
+    }
+
+    public Long getIdServicoSaude()
+    {
+        return idServicoSaude;
+    }
+
+    public void setIdServicoSaude(Long idServicoSaude)
+    {
+        this.idServicoSaude = idServicoSaude;
     }
 }

@@ -25,9 +25,17 @@ public class ExameService
     @Autowired
     private UsuarioService usuarioService;
 
+    @Autowired
+    private ServicoSaudeService servicoSaudeService;
+
     public ExameDTO novoExame(ExameDTO dto)
     {
         UsuarioDTO usuario = usuarioService.buscaUsuarioPorEmail(dto.getEmail());
+
+        if (!servicoSaudeService.verificaSeServicoSaudeExiste(dto.getIdServicoSaude()))
+        {
+
+        }
 
         return agendaNovoExame(new ExameModel(usuario, dto));
     }

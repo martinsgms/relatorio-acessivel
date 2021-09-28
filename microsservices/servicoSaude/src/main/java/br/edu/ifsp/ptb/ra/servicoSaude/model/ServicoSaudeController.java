@@ -23,4 +23,10 @@ public class ServicoSaudeController
     {
         return ResponseEntity.ok(servicoSaudeService.getServicoSaudePorId(idServicoSaude));
     }
+
+    @GetMapping("/{idServicoSaude}/existe")
+    public ResponseEntity<Boolean> verificaSeServicoSaudeExiste(@PathVariable Long idServicoSaude)
+    {
+        return ResponseEntity.ok(servicoSaudeService.verificaSeServicoSaudeExiste(idServicoSaude));
+    }
 }

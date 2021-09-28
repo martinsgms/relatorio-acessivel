@@ -18,4 +18,9 @@ public class ServicoSaudeService
         return new ServicoSaudeDTO(servicoSaudeRepository.getOne(idServicoSaude));
     }
 
+    public boolean verificaSeServicoSaudeExiste(Long idServicoSaude)
+    {
+        return servicoSaudeRepository.existsById(idServicoSaude);
+    }
+
 }
