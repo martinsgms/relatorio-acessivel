@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: app-servicoSaude
+  profiles:
+    active: local #local, dev
+  cloud:
+    config:
+      uri: http://localhost:8888
+      #uri: http://svc-config-server
