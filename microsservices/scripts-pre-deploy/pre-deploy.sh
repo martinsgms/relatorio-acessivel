@@ -5,6 +5,7 @@ start_time="$(date -u +%s)"
 printf "\nremovendo imagens...\n"
 docker rmi $(docker images -q martinsgms/ra-app-usuario)
 docker rmi $(docker images -q martinsgms/ra-app-exame)
+docker rmi $(docker images -q martinsgms/ra-app-servicoSaude)
 docker rmi $(docker images -q martinsgms/ra-gateway-server)
 docker rmi $(docker images -q martinsgms/ra-config-server)
 docker rmi $(docker images -q martinsgms/ra-eureka-serve)

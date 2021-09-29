@@ -30,3 +30,9 @@ services:
         container_name: ra-app-usuario
         ports:
             - "8081:8081"
+    app-servicoSaude:
+        build: ../servicoSaude/
+        image: martinsgms/ra-app-servicosaude:v0.1
+        container_name: ra-app-servicosaude
+        ports:
+            - "8081:8081"
