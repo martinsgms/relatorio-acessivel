@@ -179,7 +179,55 @@ insert into tra_servico_saude (
     'Praça da Sé',
     'Sé',
     'São Paulo',
-    'Sé',
+    'SP',
     223,
     'https://goo.gl/maps/7pWVsXTs7o9QvpGR9'
+);
+
+insert into tra_servico_saude (
+    nm_completo,
+    nm_curto,
+    nu_cnpj,
+    te_cep,
+    nm_logradouro,
+    nm_bairro,
+    nm_cidade,
+    nm_estado,
+    nu_numero_lote,
+    te_link_maps
+) values (
+    'Hospitais Associados Saúde Saudável do Brasil LTDA',
+    'Hospital Saúde Saudável',
+    '56235623784578',
+    '06145088',
+    'Rua Apóstolo Pedro',
+    'Conceição',
+    'Osasco',
+    'SP',
+    444,
+    'https://goo.gl/maps/s1dy2rSduDnmDRgS9'
+);
+
+insert into tra_servico_saude (
+    nm_completo,
+    nm_curto,
+    nu_cnpj,
+    te_cep,
+    nm_logradouro,
+    nm_bairro,
+    nm_cidade,
+    nm_estado,
+    nu_numero_lote,
+    te_link_maps
+) values (
+    'Clínica de Serviços Médicos Dr. Kleber LTDA',
+    'Clínica Dr. Kleber',
+    '12341234762376',
+    '02405030',
+    'Rua Dom Henrique Mourão',
+    'Santana',
+    'São Paulo',
+    'SP',
+    345,
+    'https://goo.gl/maps/zXbLsGWVnsBP2iyUA'
 );
