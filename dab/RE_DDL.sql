@@ -107,7 +107,9 @@ create table tra_servico_saude (
     nm_cidade varchar(100),
     nm_estado varchar(50),
     nu_numero_lote int not null,
-    te_link_maps varchar(100)
+    te_link_maps varchar(100),
+    te_link_whats varchar(100),
+    dh_cadastro timestamp
 );
 
 -- PK
@@ -170,7 +172,9 @@ insert into tra_servico_saude (
     nm_cidade,
     nm_estado,
     nu_numero_lote,
-    te_link_maps
+    te_link_maps,
+    te_link_whats,
+    dh_cadastro
 ) values (
     'Clínica HeartCare Serviços de Assistência à Saúde LTDA',
     'HeartCare',
@@ -181,7 +185,9 @@ insert into tra_servico_saude (
     'São Paulo',
     'SP',
     223,
-    'https://goo.gl/maps/7pWVsXTs7o9QvpGR9'
+    'https://goo.gl/maps/7pWVsXTs7o9QvpGR9',
+    'https://wa.me/',
+    current_timestamp
 );
 
 insert into tra_servico_saude (
@@ -194,7 +200,9 @@ insert into tra_servico_saude (
     nm_cidade,
     nm_estado,
     nu_numero_lote,
-    te_link_maps
+    te_link_maps,
+    te_link_whats,
+    dh_cadastro
 ) values (
     'Hospitais Associados Saúde Saudável do Brasil LTDA',
     'Hospital Saúde Saudável',
@@ -205,7 +213,9 @@ insert into tra_servico_saude (
     'Osasco',
     'SP',
     444,
-    'https://goo.gl/maps/s1dy2rSduDnmDRgS9'
+    'https://goo.gl/maps/s1dy2rSduDnmDRgS9',
+    'https://wa.me/',
+    current_timestamp
 );
 
 insert into tra_servico_saude (
@@ -218,7 +228,9 @@ insert into tra_servico_saude (
     nm_cidade,
     nm_estado,
     nu_numero_lote,
-    te_link_maps
+    te_link_maps,
+    te_link_whats,
+    dh_cadastro
 ) values (
     'Clínica de Serviços Médicos Dr. Kleber LTDA',
     'Clínica Dr. Kleber',
@@ -229,5 +241,7 @@ insert into tra_servico_saude (
     'São Paulo',
     'SP',
     345,
-    'https://goo.gl/maps/zXbLsGWVnsBP2iyUA'
+    'https://goo.gl/maps/zXbLsGWVnsBP2iyUA',
+    'https://wa.me/',
+    current_timestamp
 );

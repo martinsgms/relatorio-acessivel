@@ -47,6 +47,12 @@ public class ServicoSaudeModel
     @Column(name = "TE_LINK_MAPS")
     private String linkMaps;
 
+    @Column(name = "TE_LINK_WHATS")
+    private String linkWhats;
+
+    @Column(name = "DH_CADASTRO")
+    private String dtCadastro;
+
     public ServicoSaudeModel()
     {
     }
@@ -159,6 +165,26 @@ public class ServicoSaudeModel
     public void setLinkMaps(String linkMaps)
     {
         this.linkMaps = linkMaps;
+    }
+
+    public String getLinkWhats()
+    {
+        return linkWhats;
+    }
+
+    public void setLinkWhats(String linkWhats)
+    {
+        this.linkWhats = linkWhats;
+    }
+
+    public String getDtCadastro()
+    {
+        return dtCadastro;
+    }
+
+    public void setDtCadastro(String dtCadastro)
+    {
+        this.dtCadastro = dtCadastro;
     }
 
 }

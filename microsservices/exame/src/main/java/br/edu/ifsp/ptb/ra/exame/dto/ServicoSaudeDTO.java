@@ -18,6 +18,7 @@ public class ServicoSaudeDTO
     private String estado;
     private String lote;
     private String linkMaps;
+    private String linkWhats;
 
     public Long getId()
     {
@@ -127,5 +128,15 @@ public class ServicoSaudeDTO
     public void setLinkMaps(String linkMaps)
     {
         this.linkMaps = linkMaps;
+    }
+
+    public String getLinkWhats()
+    {
+        return linkWhats;
+    }
+
+    public void setLinkWhats(String linkWhats)
+    {
+        this.linkWhats = linkWhats;
     }
 }
