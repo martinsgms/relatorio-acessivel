@@ -37,7 +37,7 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home) {
             val exameMaisRecenteModel = homeService.getExameMaisRecente()
 
             servicoSaudeTextView.text = exameMaisRecenteModel.servicoSaude.nome
-            dataTextView.text = exameMaisRecenteModel.formatosDataHora.dataHora
+            dataTextView.text = exameMaisRecenteModel.formatosDataHora.semanaDiaMesAnoExtenso
             statusTextView.text = exameMaisRecenteModel.status.descricao
 
             cardExame.setOnClickListener {

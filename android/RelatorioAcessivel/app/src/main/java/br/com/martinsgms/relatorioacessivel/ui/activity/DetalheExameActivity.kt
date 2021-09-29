@@ -21,21 +21,21 @@ class DetalheExameActivity : AppCompatActivity(R.layout.activity_detalhe_exame) 
 
         val exameModel = intent.getParcelableExtra<ExameModel>("exameModel")
 
-        //val clinicaDisplay = findViewById<TextView>(R.id.activity_detalhe_exame_clinica)
-        //clinicaDisplay.text = exameModel?.servicoSaude
+        val clinicaDisplay = findViewById<TextView>(R.id.activity_detalhe_exame_servico_saude)
+        clinicaDisplay.text = exameModel!!.servicoSaude.nome
 
         val idExternoView = findViewById<TextView>(R.id.activity_detalhe_exame_id_externo)
-        idExternoView.text = exameModel?.idExterno
+        idExternoView.text = exameModel.idExterno
 
         val dataExameView = findViewById<TextView>(R.id.activity_detalhe_exame_data)
-        dataExameView.text = exameModel?.formatosDataHora?.dataHora
+        dataExameView.text = exameModel.formatosDataHora.semanaDiaMesAnoHoraExtenso
 
         val statusExameView = findViewById<TextView>(R.id.activity_detalhe_exame_status)
-        statusExameView.text = exameModel?.status?.descricao
+        statusExameView.text = exameModel.status.descricao
 
         val btnRelatorio = findViewById<Button>(R.id.activity_detalhe_exame_btn_diario)
 
-        if (!exameModel?.status?.permiteEscrita!!) {
+        if (!exameModel.status.permiteEscrita) {
 
             btnRelatorio.isEnabled = false
             btnRelatorio.isClickable = false

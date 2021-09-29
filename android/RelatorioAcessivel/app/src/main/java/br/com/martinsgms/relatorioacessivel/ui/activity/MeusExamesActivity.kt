@@ -11,6 +11,8 @@ import kotlinx.coroutines.runBlocking
 
 class MeusExamesActivity : AppCompatActivity(R.layout.activity_meus_exames) {
 
+    private var idUsuario: Long = -1
+
     private val adapter = MeusExamesAdapter(
         context = this
     )
@@ -24,10 +26,17 @@ class MeusExamesActivity : AppCompatActivity(R.layout.activity_meus_exames) {
         configuraRecyclerView()
         configuraSwipeRefresh()
 
-        val idUsuario = intent.getLongExtra("idUsuario", -1)
+        this.idUsuario = intent.getLongExtra("idUsuario", -1)
 
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        val self = this
         runBlocking {
-            adapter.atualiza(meusExamesService.getExamesDoUsuario(idUsuario))
+            adapter.atualiza(meusExamesService.getExamesDoUsuario(self.idUsuario))
         }
     }
 
