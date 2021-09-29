@@ -58,7 +58,15 @@ public class ExameService
 
     public List<ExameDTO> listaExamesUsuario(Long idUsuario)
     {
-        return exameRepository.listExamesUsuario(idUsuario).stream().map(ExameDTO::new).collect(Collectors.toList());
+        List<ExameDTO> exames = exameRepository.listExamesUsuario(idUsuario).stream().map(ExameDTO::new).collect(Collectors.toList());
+
+        exames.forEach(e ->
+        {
+            ServicoSaudeDTO servicoSaude = servicoSaudeService.getIdentificacao(e.getIdServicoSaude());
+            e.setServicoSaude(servicoSaude);
+        });
+
+        return exames;
     }
 
     public List<EventoDTO> getEventoList(Long idExame) throws ServiceException
