@@ -1,5 +1,8 @@
 package br.edu.ifsp.ptb.ra.servicoSaude.service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +29,11 @@ public class ServicoSaudeService
     public ServicoSaudeDTO getIdentificacao(Long idServicoSaude)
     {
         return new ServicoSaudeDTO(servicoSaudeRepository.getIdentificacao(idServicoSaude));
+    }
+
+    public List<ServicoSaudeDTO> findAll()
+    {
+        return servicoSaudeRepository.findAll().stream().map(ServicoSaudeDTO::new).collect(Collectors.toList());
     }
 
 }

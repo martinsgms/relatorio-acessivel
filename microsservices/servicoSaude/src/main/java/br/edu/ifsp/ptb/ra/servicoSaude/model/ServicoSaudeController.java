@@ -1,5 +1,7 @@
 package br.edu.ifsp.ptb.ra.servicoSaude.model;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +18,12 @@ public class ServicoSaudeController
 {
     @Autowired
     private ServicoSaudeService servicoSaudeService;
+
+    @GetMapping
+    public ResponseEntity<List<ServicoSaudeDTO>> findAll()
+    {
+        return ResponseEntity.ok(servicoSaudeService.findAll());
+    }
 
     @GetMapping("/{idServicoSaude}")
     public ResponseEntity<ServicoSaudeDTO> getServicoSaudePorId(@PathVariable Long idServicoSaude)
