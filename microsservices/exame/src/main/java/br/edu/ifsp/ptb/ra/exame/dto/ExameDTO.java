@@ -13,12 +13,13 @@ import br.edu.ifsp.ptb.ra.exame.model.ExameModel;
 public class ExameDTO 
 {
     private Long id;
-    private Long idServicoSaude;
     private String email;
     private Long usuario;
     private LocalDateTime timestampExame;
     private String idExterno;
     private Integer intervaloAfericoes;
+    private Long idServicoSaude;
+    private ServicoSaudeDTO servicoSaude;
     private FormatosDataHoraDTO formatosDataHora;
     private StatusExameDTO status;
 
@@ -121,5 +122,15 @@ public class ExameDTO
     public void setIdServicoSaude(Long idServicoSaude)
     {
         this.idServicoSaude = idServicoSaude;
+    }
+
+    public ServicoSaudeDTO getServicoSaude()
+    {
+        return servicoSaude;
+    }
+
+    public void setServicoSaude(ServicoSaudeDTO servicoSaude)
+    {
+        this.servicoSaude = servicoSaude;
     }
 }

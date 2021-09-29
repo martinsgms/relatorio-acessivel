@@ -23,4 +23,9 @@ public class ServicoSaudeService
         return servicoSaudeRepository.existsById(idServicoSaude);
     }
 
+    public ServicoSaudeDTO getIdentificacao(Long idServicoSaude)
+    {
+        return new ServicoSaudeDTO(servicoSaudeRepository.getIdentificacao(idServicoSaude));
+    }
+
 }

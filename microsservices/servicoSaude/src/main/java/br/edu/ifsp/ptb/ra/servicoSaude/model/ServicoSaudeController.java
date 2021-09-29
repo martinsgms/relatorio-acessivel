@@ -14,7 +14,6 @@ import br.edu.ifsp.ptb.ra.servicoSaude.service.ServicoSaudeService;
 @RequestMapping("/servico-saude")
 public class ServicoSaudeController
 {
-
     @Autowired
     private ServicoSaudeService servicoSaudeService;
 
@@ -22,6 +21,12 @@ public class ServicoSaudeController
     public ResponseEntity<ServicoSaudeDTO> getServicoSaudePorId(@PathVariable Long idServicoSaude)
     {
         return ResponseEntity.ok(servicoSaudeService.getServicoSaudePorId(idServicoSaude));
+    }
+
+    @GetMapping("/{idServicoSaude}/identificacao")
+    public ResponseEntity<ServicoSaudeDTO> getIdentificacao(@PathVariable Long idServicoSaude)
+    {
+        return ResponseEntity.ok(servicoSaudeService.getIdentificacao(idServicoSaude));
     }
 
     @GetMapping("/{idServicoSaude}/existe")

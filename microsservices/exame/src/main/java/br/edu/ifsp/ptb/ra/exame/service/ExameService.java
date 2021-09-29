@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import br.edu.ifsp.ptb.ra.exame.dto.EventoDTO;
 import br.edu.ifsp.ptb.ra.exame.dto.ExameDTO;
+import br.edu.ifsp.ptb.ra.exame.dto.ServicoSaudeDTO;
 import br.edu.ifsp.ptb.ra.exame.dto.UsuarioDTO;
 import br.edu.ifsp.ptb.ra.exame.exception.ServiceException;
 import br.edu.ifsp.ptb.ra.exame.model.ExameModel;
@@ -72,8 +73,12 @@ public class ExameService
         verificaSeExameExiste(idExame);
 
         var exame = exameRepository.getOne(idExame);
+        var exameDTO = new ExameDTO(exame);
 
-        return new ExameDTO(exame);
+        ServicoSaudeDTO servicoSaude = servicoSaudeService.getIdentificacao(exame.getIdServicoSaude());
+        exameDTO.setServicoSaude(servicoSaude);
+
+        return exameDTO;
     }
 
     public void verificaSeExameExiste(Long idExame) throws ServiceException

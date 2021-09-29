@@ -1,12 +1,7 @@
-package br.edu.ifsp.ptb.ra.servicoSaude.dto;
-
-import org.springframework.beans.BeanUtils;
+package br.edu.ifsp.ptb.ra.exame.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
-
-import br.edu.ifsp.ptb.ra.servicoSaude.model.ServicoSaudeModel;
-import br.edu.ifsp.ptb.ra.servicoSaude.projection.IdentificacaoServicoSaudeProjection;
 
 @JsonInclude(Include.NON_NULL)
 public class ServicoSaudeDTO
@@ -23,17 +18,6 @@ public class ServicoSaudeDTO
     private String estado;
     private String lote;
     private String linkMaps;
-
-    public ServicoSaudeDTO(ServicoSaudeModel model)
-    {
-        BeanUtils.copyProperties(model, this);
-    }
-
-    public ServicoSaudeDTO(IdentificacaoServicoSaudeProjection projection)
-    {
-        id = projection.getId();
-        nome = projection.getNome();
-    }
 
     public Long getId()
     {
