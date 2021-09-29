@@ -20,10 +20,10 @@ class MeusExamesAdapter(val context: Context, exames: Array<ExameModel> = emptyA
         fun bind(exame: ExameModel) {
 
             val dataTextView = itemView.findViewById<TextView>(R.id.exame_item_data)
-            dataTextView.text = exame.dataHoraFormatada
+            dataTextView.text = exame.formatosDataHora.data
 
-            //val servicoSaudeTextView = itemView.findViewById<TextView>(R.id.exame_item_servico_saude)
-            //servicoSaudeTextView.text = exame.servicoSaude
+            val servicoSaudeTextView = itemView.findViewById<TextView>(R.id.exame_item_servico_saude)
+            servicoSaudeTextView.text = exame.servicoSaude.nome
 
             val statusTextView = itemView.findViewById<TextView>(R.id.exame_item_status)
             statusTextView.text = exame.status!!.descricao

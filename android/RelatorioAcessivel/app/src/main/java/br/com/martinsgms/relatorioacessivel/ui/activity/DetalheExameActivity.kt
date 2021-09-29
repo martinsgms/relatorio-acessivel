@@ -28,7 +28,7 @@ class DetalheExameActivity : AppCompatActivity(R.layout.activity_detalhe_exame) 
         idExternoView.text = exameModel?.idExterno
 
         val dataExameView = findViewById<TextView>(R.id.activity_detalhe_exame_data)
-        dataExameView.text = exameModel?.dataHoraFormatada
+        dataExameView.text = exameModel?.formatosDataHora?.dataHora
 
         val statusExameView = findViewById<TextView>(R.id.activity_detalhe_exame_status)
         statusExameView.text = exameModel?.status?.descricao

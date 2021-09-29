@@ -1,6 +1,7 @@
 package br.com.martinsgms.relatorioacessivel.model
 
 import android.os.Parcelable
+import br.com.martinsgms.relatorioacessivel.dto.FormatosDataHoraDTO
 import com.github.kittinunf.fuel.core.ResponseDeserializable
 import com.google.gson.Gson
 import kotlinx.parcelize.Parcelize
@@ -8,13 +9,11 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class ExameModel(
     val id: Long,
-    val idExterno: String?,
-    val servicoSaude: String?,
-    val status: StatusModel?,
-    val dataHoraExame: String?,
     val usuario: Long,
-    val eventos: List<EventoModel>?,
-    val dataHoraFormatada: String
+    val idExterno: String?,
+    val status: StatusModel,
+    val servicoSaude: ServicoSaudeModel,
+    val formatosDataHora : FormatosDataHoraDTO
 ) : Parcelable {
 
     class Deserializer : ResponseDeserializable<Array<ExameModel>> {

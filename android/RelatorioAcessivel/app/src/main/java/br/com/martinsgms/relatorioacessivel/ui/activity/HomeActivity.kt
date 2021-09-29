@@ -20,7 +20,7 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home) {
         super.onCreate(savedInstanceState)
 
         val cardExame = findViewById<CardView>(R.id.activity_home_card_exame_mais_recente)
-        val clinicaTextView = findViewById<TextView>(R.id.activity_home_servico_saude)
+        val servicoSaudeTextView = findViewById<TextView>(R.id.activity_home_servico_saude)
         val dataTextView = findViewById<TextView>(R.id.activity_home_data_exame)
         val statusTextView = findViewById<TextView>(R.id.activity_home_status_exame)
         val btnMeusExames = findViewById<Button>(R.id.activity_home_meus_exames)
@@ -36,9 +36,9 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home) {
 
             val exameMaisRecenteModel = homeService.getExameMaisRecente()
 
-            //clinicaDisplay.text = exameMaisRecente!!.servicoSaude
-            dataTextView.text = exameMaisRecenteModel.dataHoraFormatada
-            statusTextView.text = exameMaisRecenteModel.status!!.descricao
+            servicoSaudeTextView.text = exameMaisRecenteModel.servicoSaude.nome
+            dataTextView.text = exameMaisRecenteModel.formatosDataHora.dataHora
+            statusTextView.text = exameMaisRecenteModel.status.descricao
 
             cardExame.setOnClickListener {
                 val intent = Intent(context, DetalheExameActivity::class.java)

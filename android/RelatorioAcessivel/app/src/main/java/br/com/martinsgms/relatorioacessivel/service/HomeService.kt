@@ -1,5 +1,6 @@
 package br.com.martinsgms.relatorioacessivel.service
 
+import android.util.Log
 import br.com.martinsgms.relatorioacessivel.config.HttpConfig
 import br.com.martinsgms.relatorioacessivel.model.ExameModel
 import com.github.kittinunf.fuel.coroutines.awaitStringResponse
