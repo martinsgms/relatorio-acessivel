@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-servicosaude-deployment
+spec:
+  template:
+    metadata:
+      name: app-servicosaude
+      labels:
+        app: app-servicosaude
+    spec:
+      containers:
+        - name: app-servicosaude
+          image: martinsgms/ra-app-servicosaude:v0.1
+          imagePullPolicy: Always
+          ports:
+          - containerPort: 8082
+  selector:
+    matchLabels:
+      app: app-servicosaude
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-app-servicosaude
+spec:
+  type: ClusterIP
+  selector:
+    app: app-servicosaude
+  ports:
+  - port: 80
+    targetPort: 8082
