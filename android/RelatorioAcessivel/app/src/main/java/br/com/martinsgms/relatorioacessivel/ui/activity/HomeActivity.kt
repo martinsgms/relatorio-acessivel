@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import br.com.martinsgms.relatorioacessivel.R
+import br.com.martinsgms.relatorioacessivel.model.UsuarioModel
 import br.com.martinsgms.relatorioacessivel.service.HomeService
 import kotlinx.coroutines.runBlocking
 
@@ -21,6 +22,15 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home) {
         configuraSwipeRefresh()
         configuraBtnMeusExames()
 
+        val usuario = UsuarioModel(2L, "Gabriel", "gmartins@gmail.com")
+
+        val btnMeusDados = findViewById<Button>(R.id.activity_home_meus_dados)
+        val context = this
+        btnMeusDados.setOnClickListener {
+            val intent = Intent(context, MeusDadosActivity::class.java)
+            intent.putExtra("usuario", usuario)
+            startActivity(intent)
+        }
     }
 
     private fun configuraBtnMeusExames() {

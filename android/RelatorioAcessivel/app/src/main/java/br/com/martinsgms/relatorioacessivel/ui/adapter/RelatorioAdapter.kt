@@ -22,7 +22,8 @@ class RelatorioAdapter(
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bind(evento: EventoModel) {
             val horaView = itemView.findViewById<TextView>(R.id.exame_item_data)
-            horaView.text = evento.horaFormatada
+            //horaView.text = "${evento.formatosDataHora!!.data}\n${evento.formatosDataHora.hora}"
+            horaView.text = evento.formatosDataHora!!.hora
 
             val atividadeView = itemView.findViewById<TextView>(R.id.exame_item_servico_saude)
             atividadeView.text = evento.descricao

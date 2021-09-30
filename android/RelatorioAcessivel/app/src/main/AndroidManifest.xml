@@ -38,6 +38,11 @@
         <activity
             android:name=".ui.activity.MeusExamesActivity"
             android:label="Meus exames"/>
+
+        <activity
+            android:name=".ui.activity.MeusDadosActivity"
+            android:label="Meus dados"/>
+
     </application>
 
 </manifest>
