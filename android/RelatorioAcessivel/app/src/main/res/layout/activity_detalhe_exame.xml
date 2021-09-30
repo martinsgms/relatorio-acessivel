@@ -38,7 +38,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="32dp"
         android:text="Código"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
         android:textColor="@android:color/background_dark"
@@ -77,8 +77,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        tools:text="11/08/2021 08:50"
-        android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Title"
+        tools:text="terça-feira, 12 de outrubro de 2021 às 09:22"
+        android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"
         android:textColor="@color/gray"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/activity_detalhe_exame_data_label" />
@@ -115,7 +115,7 @@
         android:gravity="center"
         android:visibility="invisible"
         tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="-38dp">
+        tools:layout_editor_absoluteY="0dp">
 
         <ProgressBar
             android:layout_width="wrap_content"
