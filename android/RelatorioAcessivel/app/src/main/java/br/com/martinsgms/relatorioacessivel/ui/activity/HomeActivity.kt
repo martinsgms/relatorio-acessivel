@@ -21,7 +21,17 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home) {
 
         configuraSwipeRefresh()
         configuraBtnMeusExames()
+        configuraBtnMeusDados()
 
+        val btnBuscarServicosSaude = findViewById<Button>(R.id.activity_home_buscar_servicos)
+        val context = this
+        btnBuscarServicosSaude.setOnClickListener {
+            val i = Intent(context, BuscarServicosSaudeActivity::class.java)
+            startActivity(i)
+        }
+    }
+
+    private fun configuraBtnMeusDados() {
         val usuario = UsuarioModel(2L, "Gabriel", "gmartins@gmail.com")
 
         val btnMeusDados = findViewById<Button>(R.id.activity_home_meus_dados)

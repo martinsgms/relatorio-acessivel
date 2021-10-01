@@ -5,14 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import br.com.martinsgms.relatorioacessivel.R
-import br.com.martinsgms.relatorioacessivel.model.EventoModel
 import br.com.martinsgms.relatorioacessivel.model.ExameModel
 
-class MeusExamesAdapter(val context: Context, exames: Array<ExameModel> = emptyArray()) :
-    RecyclerView.Adapter<MeusExamesAdapter.ViewHolder>() {
+class MeusExamesAdapter(
+    val context: Context,
+    exames: Array<ExameModel> = emptyArray()
+) : RecyclerView.Adapter<MeusExamesAdapter.ViewHolder>() {
 
     private val exames = exames.toMutableList()
 

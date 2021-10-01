@@ -43,6 +43,10 @@
             android:name=".ui.activity.MeusDadosActivity"
             android:label="Meus dados"/>
 
+        <activity
+            android:name=".ui.activity.BuscarServicosSaudeActivity"
+            android:label="Buscar Serviços de Saúde"/>
+
     </application>
 
 </manifest>

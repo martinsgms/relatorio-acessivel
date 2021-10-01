@@ -1,6 +1,8 @@
 package br.com.martinsgms.relatorioacessivel.model
 
 import android.os.Parcelable
+import com.github.kittinunf.fuel.core.ResponseDeserializable
+import com.google.gson.Gson
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -18,5 +20,10 @@ data class ServicoSaudeModel(
     var linkMaps: String?,
     var linkWhats: String?,
 ) : Parcelable {
+
+    class Deserializer : ResponseDeserializable<Array<ServicoSaudeModel>> {
+        override fun deserialize(content: String): Array<ServicoSaudeModel> =
+            Gson().fromJson(content, Array<ServicoSaudeModel>::class.java)
+    }
 
 }
