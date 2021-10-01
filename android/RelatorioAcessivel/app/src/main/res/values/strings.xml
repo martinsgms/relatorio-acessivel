@@ -10,4 +10,5 @@
     <string name="servico_saude_item_enviar_mensagem">
         <u>ENVIAR MENSAGEM</u>
     </string>
+    <string name="activity_buscar_servicos_saude_pesquisar">Pesquisar</string>
 </resources>

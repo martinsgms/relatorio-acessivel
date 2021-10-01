@@ -17,7 +17,6 @@ import br.com.martinsgms.relatorioacessivel.model.EventoModel
 import br.com.martinsgms.relatorioacessivel.model.ExameModel
 import br.com.martinsgms.relatorioacessivel.service.RelatorioService
 import br.com.martinsgms.relatorioacessivel.ui.adapter.RelatorioAdapter
-import br.com.martinsgms.relatorioacessivel.ui.dao.RelatorioDAO
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.runBlocking
 
