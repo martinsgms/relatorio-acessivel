@@ -16,4 +16,6 @@ public interface ExameRepository extends JpaRepository<ExameModel, Long>
 
     @Query(value = "select * from radb.tra_exame where id_usuario = :idUsuario order by dh_exame desc limit 1", nativeQuery = true)
     ExameModel getExameMaisRecenteDoUsuario(Long idUsuario);
+
+    ExameModel findByIdExterno(String idExterno);
 }

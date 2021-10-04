@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import br.edu.ifsp.ptb.ra.exame.dto.EventoDTO;
 import br.edu.ifsp.ptb.ra.exame.dto.ExameDTO;
+import br.edu.ifsp.ptb.ra.exame.dto.QuadroPaDTO;
 import br.edu.ifsp.ptb.ra.exame.dto.ServicoSaudeDTO;
 import br.edu.ifsp.ptb.ra.exame.dto.UsuarioDTO;
 import br.edu.ifsp.ptb.ra.exame.exception.ServiceException;
@@ -33,6 +34,12 @@ public class ExameService
 
     @Autowired
     private ServicoSaudeService servicoSaudeService;
+
+    @Autowired
+    private AfericaoPaService afericaoPaService;
+
+    @Autowired
+    private RelacionadorEventoAfericaoService relacionadorService;
 
     public ExameDTO novoExame(ExameDTO dto) throws ServiceException
     {
@@ -95,5 +102,31 @@ public class ExameService
         {
             throw new ServiceException(recursoInexistente(RECURSO_EXAME, idExame));
         }
+    }
+
+    public QuadroPaDTO getDiarioAtividades(String idExternoExame) throws ServiceException
+    {
+        ExameDTO exameDTO = getExamePorIdExterno(idExternoExame);
+
+        QuadroPaDTO quadroPA = afericaoPaService.getQuadroAfericoesPA(idExternoExame);
+
+        return relacionadorService.relaciona(quadroPA, exameDTO);
+    }
+
+    private ExameDTO getExamePorIdExterno(String idExternoExame) throws ServiceException
+    {
+        ExameModel exameModel = exameRepository.findByIdExterno(idExternoExame);
+
+        if (exameModel == null)
+        {
+            throw new ServiceException(recursoInexistente(RECURSO_EXAME, idExternoExame));
+        }
+
+        ExameDTO exameDTO = new ExameDTO(exameModel);
+
+        List<EventoDTO> eventoList = getEventoList(exameModel.getId());
+        exameDTO.setEventos(eventoList);
+
+        return exameDTO;
     }
 }

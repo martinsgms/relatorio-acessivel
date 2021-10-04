@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import br.edu.ifsp.ptb.ra.exame.dto.EventoDTO;
 import br.edu.ifsp.ptb.ra.exame.dto.ExameDTO;
+import br.edu.ifsp.ptb.ra.exame.dto.QuadroPaDTO;
 import br.edu.ifsp.ptb.ra.exame.exception.ServiceException;
 import br.edu.ifsp.ptb.ra.exame.service.ExameService;
 
@@ -57,5 +58,11 @@ public class ExameController
         var eventos = exameService.getEventoList(idExame);
 
         return ResponseEntity.ok(eventos);
+    }
+
+    @GetMapping("/{idExternoExame}/diario")
+    public ResponseEntity<QuadroPaDTO> diarioAtividades(@PathVariable String idExternoExame) throws ServiceException
+    {
+        return ResponseEntity.ok(exameService.getDiarioAtividades(idExternoExame));
     }
 }

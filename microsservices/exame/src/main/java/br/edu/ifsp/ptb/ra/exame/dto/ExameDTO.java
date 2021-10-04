@@ -1,9 +1,13 @@
 package br.edu.ifsp.ptb.ra.exame.dto;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.BeanUtils;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
@@ -23,6 +27,9 @@ public class ExameDTO
     private FormatosDataHoraDTO formatosDataHora;
     private StatusExameDTO status;
 
+    @JsonIgnore
+    private List<EventoDTO> eventos = new ArrayList<>();
+
     public ExameDTO()
     {
     }
@@ -31,6 +38,7 @@ public class ExameDTO
     {
         status = new StatusExameDTO(model.getStatus());
         formatosDataHora = new FormatosDataHoraDTO(model.getTimestampExame());
+        eventos.addAll(model.getEventos().stream().map(EventoDTO::new).collect(Collectors.toList()));
         BeanUtils.copyProperties(model, this);
     }
 
@@ -132,5 +140,15 @@ public class ExameDTO
     public void setServicoSaude(ServicoSaudeDTO servicoSaude)
     {
         this.servicoSaude = servicoSaude;
+    }
+
+    public List<EventoDTO> getEventos()
+    {
+        return eventos;
+    }
+
+    public void setEventos(List<EventoDTO> eventos)
+    {
+        this.eventos = eventos;
     }
 }

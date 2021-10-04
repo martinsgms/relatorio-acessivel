@@ -4,9 +4,13 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class FormatosDataHoraDTO
 {
+    @JsonIgnore
     private LocalDateTime timestamp;
+
     private String dataHora;
     private String data;
     private String hora;

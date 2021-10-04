@@ -1,9 +1,11 @@
 package br.edu.ifsp.ptb.ra.exame.dto;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 import org.springframework.beans.BeanUtils;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
@@ -29,6 +31,13 @@ public class EventoDTO
         this.idExame = model.getExame().getId();
         formatosDataHora = new FormatosDataHoraDTO(model.getTimestampEvento());
         BeanUtils.copyProperties(model, this);
+    }
+
+    public EventoDTO(String descricao, LocalDateTime timestampEvento)
+    {
+        super();
+        this.descricao = descricao;
+        this.timestampEvento = timestampEvento;
     }
 
     public Long getId()
@@ -84,6 +93,17 @@ public class EventoDTO
     public LocalDateTime getTimestampEvento()
     {
         return timestampEvento;
+    }
+
+    @JsonIgnore
+    public Long getEpochSeconds()
+    {
+        return timestampEvento.atZone(ZoneId.of("GMT")).toEpochSecond();
+    }
+
+    public Long getDiffBetween(LocalDateTime quadroPaRecord)
+    {
+        return quadroPaRecord.atZone(ZoneId.of("GMT")).toEpochSecond() - getEpochSeconds();
     }
 
     public void setTimestampEvento(LocalDateTime timestampEvento)
