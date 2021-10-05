@@ -160,88 +160,201 @@ alter table tra_exame modify id_servico_saude bigint not null;
 /*-----------------------------------------------------------------------------------------------*/
 /*-----------------------------------------------------------------------------------------------*/
 
+-- inserindo usuários
 insert into tra_usuario (te_email, nm_nome) values('daiana@gmail.com', 'daiana');
 
-insert into tra_servico_saude (
-    nm_completo,
-    nm_curto,
-    nu_cnpj,
-    te_cep,
-    nm_logradouro,
-    nm_bairro,
-    nm_cidade,
-    nm_estado,
-    nu_numero_lote,
-    te_link_maps,
-    te_link_whats,
-    dh_cadastro
-) values (
-    'Clínica HeartCare Serviços de Assistência à Saúde LTDA',
-    'HeartCare',
-    '09127823563478',
-    '01001000',
-    'Praça da Sé',
-    'Sé',
-    'São Paulo',
-    'SP',
-    223,
-    'https://goo.gl/maps/7pWVsXTs7o9QvpGR9',
-    'https://wa.me/',
-    current_timestamp
-);
+-- inserindo serviços de saúde
+    insert into tra_servico_saude (
+        nm_completo,
+        nm_curto,
+        nu_cnpj,
+        te_cep,
+        nm_logradouro,
+        nm_bairro,
+        nm_cidade,
+        nm_estado,
+        nu_numero_lote,
+        te_link_maps,
+        te_link_whats,
+        dh_cadastro
+    ) values (
+        'Clínica HeartCare Serviços de Assistência à Saúde LTDA',
+        'HeartCare',
+        '09127823563478',
+        '01001000',
+        'Praça da Sé',
+        'Sé',
+        'São Paulo',
+        'SP',
+        223,
+        'https://goo.gl/maps/7pWVsXTs7o9QvpGR9',
+        'https://wa.me/',
+        current_timestamp
+    );
 
-insert into tra_servico_saude (
-    nm_completo,
-    nm_curto,
-    nu_cnpj,
-    te_cep,
-    nm_logradouro,
-    nm_bairro,
-    nm_cidade,
-    nm_estado,
-    nu_numero_lote,
-    te_link_maps,
-    te_link_whats,
-    dh_cadastro
-) values (
-    'Hospitais Associados Saúde Saudável do Brasil LTDA',
-    'Hospital Saúde Saudável',
-    '56235623784578',
-    '06145088',
-    'Rua Apóstolo Pedro',
-    'Conceição',
-    'Osasco',
-    'SP',
-    444,
-    'https://goo.gl/maps/s1dy2rSduDnmDRgS9',
-    'https://wa.me/',
-    current_timestamp
-);
+    insert into tra_servico_saude (
+        nm_completo,
+        nm_curto,
+        nu_cnpj,
+        te_cep,
+        nm_logradouro,
+        nm_bairro,
+        nm_cidade,
+        nm_estado,
+        nu_numero_lote,
+        te_link_maps,
+        te_link_whats,
+        dh_cadastro
+    ) values (
+        'Hospitais Associados Saúde Saudável do Brasil LTDA',
+        'Hospital Saúde Saudável',
+        '56235623784578',
+        '06145088',
+        'Rua Apóstolo Pedro',
+        'Conceição',
+        'Osasco',
+        'SP',
+        444,
+        'https://goo.gl/maps/s1dy2rSduDnmDRgS9',
+        'https://wa.me/',
+        current_timestamp
+    );
 
-insert into tra_servico_saude (
-    nm_completo,
-    nm_curto,
-    nu_cnpj,
-    te_cep,
-    nm_logradouro,
-    nm_bairro,
-    nm_cidade,
-    nm_estado,
-    nu_numero_lote,
-    te_link_maps,
-    te_link_whats,
-    dh_cadastro
-) values (
-    'Clínica de Serviços Médicos Dr. Kleber LTDA',
-    'Clínica Dr. Kleber',
-    '12341234762376',
-    '02405030',
-    'Rua Dom Henrique Mourão',
-    'Santana',
-    'São Paulo',
-    'SP',
-    345,
-    'https://goo.gl/maps/zXbLsGWVnsBP2iyUA',
-    'https://wa.me/',
-    current_timestamp
-);
+    insert into tra_servico_saude (
+        nm_completo,
+        nm_curto,
+        nu_cnpj,
+        te_cep,
+        nm_logradouro,
+        nm_bairro,
+        nm_cidade,
+        nm_estado,
+        nu_numero_lote,
+        te_link_maps,
+        te_link_whats,
+        dh_cadastro
+    ) values (
+        'Clínica de Serviços Médicos Dr. Kleber LTDA',
+        'Clínica Dr. Kleber',
+        '12341234762376',
+        '02405030',
+        'Rua Dom Henrique Mourão',
+        'Santana',
+        'São Paulo',
+        'SP',
+        345,
+        'https://goo.gl/maps/zXbLsGWVnsBP2iyUA',
+        'https://wa.me/',
+        current_timestamp
+    );
+
+-- criando o exame 1
+    insert into tra_exame (
+        dh_exame,
+        id_externo,
+        nu_intervalo_afericao,
+        id_usuario,
+        id_servico_saude,
+        cd_status
+    )
+    values('2021-10-01 08:00:00', 'ext-4321', 15, 1, 1, 'AGE');
+
+-- inserindo eventos para o exame 1
+    insert into tra_evento (
+        dh_evento,
+        ds_evento,
+        ds_sintoma,
+        ds_medicamento,
+        id_exame
+    )
+    values('2021-10-01 8:37:20', 'instalação equipamento', null, null, 1);
+
+    insert into tra_evento (
+        dh_evento,
+        ds_evento,
+        ds_sintoma,
+        ds_medicamento,
+        id_exame
+    )
+    values('2021-10-01 9:46:44', 'café da manhã', 'dor de cabeça', 'dipirona', 1);
+
+    insert into tra_evento (
+        dh_evento,
+        ds_evento,
+        ds_sintoma,
+        ds_medicamento,
+        id_exame
+    )
+    values('2021-10-01 13:22:05', 'almoço', 'enjôo', 'omeprazol', 1);
+
+    insert into tra_evento (
+        dh_evento,
+        ds_evento,
+        ds_sintoma,
+        ds_medicamento,
+        id_exame
+    )
+    values('2021-10-01 16:44:05', 'café da tarde', 'dor no peito', 'medicação xpto', 1);
+
+    insert into tra_evento (
+        dh_evento,
+        ds_evento,
+        ds_sintoma,
+        ds_medicamento,
+        id_exame
+    )
+    values('2021-10-01 18:00:50', 'medicação a', 'dor no peito', 'remédio y', 1);
+
+    insert into tra_evento (
+        dh_evento,
+        ds_evento,
+        ds_sintoma,
+        ds_medicamento,
+        id_exame
+    )
+    values('2021-10-01 20:22:05', 'jantar', null, 'remédio x', 1);
+
+    insert into tra_evento (
+        dh_evento,
+        ds_evento,
+        ds_sintoma,
+        ds_medicamento,
+        id_exame
+    )
+    values('2021-10-01 22:00:50', 'medicação b', 'dor no peito', 'remédio b', 1);
+
+    insert into tra_evento (
+        dh_evento,
+        ds_evento,
+        ds_sintoma,
+        ds_medicamento,
+        id_exame
+    )
+    values('2021-10-01 23:50:47', 'dormir', 'ansiedade', 'calmante', 1);
+
+    insert into tra_evento (
+        dh_evento,
+        ds_evento,
+        ds_sintoma,
+        ds_medicamento,
+        id_exame
+    )
+    values('2021-10-02 6:20:41', 'acordar', null, null, 1);
+
+    insert into tra_evento (
+        dh_evento,
+        ds_evento,
+        ds_sintoma,
+        ds_medicamento,
+        id_exame
+    )
+    values('2021-10-02 06:30:27', 'café da manhã', 'tontura e taquicardia', null, 1);
+
+    insert into tra_evento (
+        dh_evento,
+        ds_evento,
+        ds_sintoma,
+        ds_medicamento,
+        id_exame
+    )
+    values('2021-10-02 07:40:10', 'remoção do equipamento', null, null, 1);
