@@ -13,6 +13,7 @@ public class FormatosDataHoraDTO
 
     private String dataHora;
     private String data;
+    private String diaMes;
     private String hora;
     private String semanaDiaMesAnoExtenso;
     private String semanaDiaMesAnoHoraExtenso;
@@ -21,6 +22,7 @@ public class FormatosDataHoraDTO
     {
         setTimestamp(timestamp);
         setData();
+        setDiaMes();
         setHora();
         setDataHora();
         setSemanaDiaMesAnoExtenso();
@@ -85,5 +87,15 @@ public class FormatosDataHoraDTO
     public void setHora()
     {
         this.hora = DateTimeFormatter.ofPattern("HH:mm").format(timestamp);
+    }
+
+    public String getDiaMes()
+    {
+        return diaMes;
+    }
+
+    public void setDiaMes()
+    {
+        this.diaMes = DateTimeFormatter.ofPattern("dd/MM").format(timestamp);
     }
 }
