@@ -2,8 +2,7 @@ spring:
   application:
     name: app-servicoSaude
   profiles:
-    active: local #local, dev
+    active: ${RA_ENV}
   cloud:
     config:
-      uri: http://localhost:8888
-      #uri: http://svc-config-server
+      uri: ${RA_CONFIG_SERVER_URI}
