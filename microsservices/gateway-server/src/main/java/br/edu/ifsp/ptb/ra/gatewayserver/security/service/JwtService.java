@@ -1,9 +1,8 @@
-package br.edu.ifsp.ptb.ra.gatewayserver.security;
+package br.edu.ifsp.ptb.ra.gatewayserver.security.service;
 
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import br.edu.ifsp.ptb.ra.gatewayserver.model.UsuarioModel;
@@ -12,36 +11,33 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
 @Service
-public class TokenService
+public class JwtService
 {
-
     @Value("${ra.jwt.expiration}")
     private String expiration;
 
     @Value("${ra.jwt.secret}")
     private String secret;
 
-    public String generate(Authentication authenticate)
+    public String generateToken(UsuarioModel principal)
     {
-        UsuarioModel principal = (UsuarioModel) authenticate.getPrincipal();
-
         return Jwts.builder()
-                       .setIssuer("RA Server")
-                       .setSubject(principal.getId().toString())
-                       .setIssuedAt(new Date())
-                       .setExpiration(new Date(new Date().getTime() + Long.valueOf(expiration)))
-                       .signWith(SignatureAlgorithm.HS256, secret)
-                       .compact();
+                .setIssuer("RA Server")
+                .setSubject(principal.getId().toString())
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(new Date().getTime() + Long.valueOf(expiration)))
+                .signWith(SignatureAlgorithm.HS256, secret)
+                .compact();
     }
 
-    public boolean isTokenValido(String token)
+    public boolean isValidToken(String token)
     {
         return !isTokenExpired(token);
     }
 
-    public String getUsernameFromToken(String token)
+    public Long getUserIdFromToken(String token)
     {
-        return getClaims(token).getSubject();
+        return Long.valueOf(getClaims(token).getSubject());
     }
 
     public Date getExpirationDate(String token)

@@ -1,16 +1,9 @@
 package br.edu.ifsp.ptb.ra.gatewayserver.dto;
 
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-
-public class LoginDTO
+public class AuthRequestDTO
 {
     private String email;
     private String senha;
-
-    public UsernamePasswordAuthenticationToken covert()
-    {
-        return new UsernamePasswordAuthenticationToken(email, senha);
-    }
 
     public String getEmail()
     {

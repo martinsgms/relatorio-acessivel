@@ -2,11 +2,9 @@ package br.edu.ifsp.ptb.ra.gatewayserver;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
-import org.springframework.web.reactive.config.EnableWebFlux;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-@EnableWebFluxSecurity
-@EnableWebFlux
 @SpringBootApplication
 public class GatewayServerApplication
 {
@@ -14,5 +12,11 @@ public class GatewayServerApplication
     public static void main(String[] args)
     {
         SpringApplication.run(GatewayServerApplication.class, args);
+    }
+
+    @Bean
+    public BCryptPasswordEncoder getBCryptPasswordEncoder()
+    {
+        return new BCryptPasswordEncoder();
     }
 }

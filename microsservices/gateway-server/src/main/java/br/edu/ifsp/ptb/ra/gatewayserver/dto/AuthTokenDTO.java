@@ -1,18 +1,18 @@
 package br.edu.ifsp.ptb.ra.gatewayserver.dto;
 
-public class TokenDTO
+public class AuthTokenDTO
 {
     private String token;
     private String tipo;
 
-    public TokenDTO()
+    public AuthTokenDTO()
     {
     }
 
-    public TokenDTO(String token, String tipo)
+    public AuthTokenDTO(String token)
     {
         this.token = token;
-        this.tipo = tipo;
+        this.tipo = "Bearer ";
     }
 
     public String getToken()
