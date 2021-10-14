@@ -1,8 +1,12 @@
 package br.edu.ifsp.ptb.ra.exame.controller;
 
+import java.io.ByteArrayInputStream;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -64,5 +68,20 @@ public class ExameController
     public ResponseEntity<QuadroPaDTO> diarioAtividades(@PathVariable String idExternoExame) throws ServiceException
     {
         return ResponseEntity.ok(exameService.getDiarioAtividades(idExternoExame));
+    }
+
+    @GetMapping(value = "/{idExternoExame}/diario/pdf", produces = MediaType.APPLICATION_PDF_VALUE)
+    public ResponseEntity<?> diarioAtividadesPdf(@PathVariable String idExternoExame) throws ServiceException
+    {
+        QuadroPaDTO diarioAtividades = exameService.getDiarioAtividades(idExternoExame);
+        ByteArrayInputStream bis = DiarioAtividadesPdfBuilder.build(diarioAtividades);
+
+        var headers = new HttpHeaders();
+        headers.add("Content-Disposition", "inline; filename=20211014-HEARTCARE-MAPA-IEX-12983979X-DIARIO_ATIVIDADES.pdf");
+
+        return ResponseEntity.ok()
+                .headers(headers)
+                .contentType(MediaType.APPLICATION_PDF)
+                .body(new InputStreamResource(bis));
     }
 }
