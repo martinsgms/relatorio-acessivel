@@ -1,28 +1,14 @@
-package br.edu.ifsp.ptb.ra.usuario.model;
+package br.edu.ifsp.ptb.ra.gatewayserver.dto;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
-@Entity
-@Table(name = "TRA_USUARIO")
-public class UsuarioModel
+@JsonInclude(Include.NON_NULL)
+public class UsuarioDTO
 {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
     private Long id;
-
-    @Column(name = "NM_NOME")
     private String nome;
-
-    @Column(name = "TE_EMAIL")
     private String email;
-
-    @Column(name = "TE_SENHA")
     private String senha;
 
     public Long getId()
