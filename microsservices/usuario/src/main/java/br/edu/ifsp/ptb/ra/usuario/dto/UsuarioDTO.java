@@ -13,10 +13,17 @@ public class UsuarioDTO
     private Long id;
     private String nome;
     private String email;
+    private String senha;
+    private String novaSenha;
+
+    public UsuarioDTO()
+    {
+    }
 
     public UsuarioDTO(UsuarioModel model)
     {
         BeanUtils.copyProperties(model, this);
+        senha = null;
     }
 
     public Long getId()
@@ -47,6 +54,26 @@ public class UsuarioDTO
     public void setEmail(String email)
     {
         this.email = email;
+    }
+
+    public String getSenha()
+    {
+        return senha;
+    }
+
+    public void setSenha(String senha)
+    {
+        this.senha = senha;
+    }
+
+    public String getNovaSenha()
+    {
+        return novaSenha;
+    }
+
+    public void setNovaSenha(String novaSenha)
+    {
+        this.novaSenha = novaSenha;
     }
 }
 

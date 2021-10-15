@@ -39,6 +39,7 @@ public class SecurityConfigurations
                 .authorizeExchange()
                 .pathMatchers(HttpMethod.OPTIONS).permitAll()
                 .pathMatchers(HttpMethod.POST, "/login").permitAll()
+                .pathMatchers(HttpMethod.POST, "/usuario").permitAll()
                 .anyExchange().authenticated()
                 .and().build();
     }

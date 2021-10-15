@@ -7,6 +7,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.springframework.beans.BeanUtils;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import br.edu.ifsp.ptb.ra.usuario.dto.UsuarioDTO;
+
 @Entity
 @Table(name = "TRA_USUARIO")
 public class UsuarioModel
@@ -24,6 +29,16 @@ public class UsuarioModel
 
     @Column(name = "TE_SENHA")
     private String senha;
+
+    public UsuarioModel()
+    {
+    }
+
+    public UsuarioModel(UsuarioDTO dto)
+    {
+        BeanUtils.copyProperties(dto, this);
+        senha = new BCryptPasswordEncoder().encode(dto.getSenha());
+    }
 
     public Long getId()
     {

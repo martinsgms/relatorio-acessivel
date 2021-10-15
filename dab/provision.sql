@@ -21,8 +21,9 @@ use radb;
 
 create table tra_usuario (
     id bigint,
-    te_email varchar(100) not null,
-    nm_nome varchar(100)
+    te_email varchar(100) not null unique,
+    nm_nome varchar(100),
+    te_senha varchar(200)
 );
 
 -- PK
@@ -100,7 +101,7 @@ create table tra_servico_saude (
     id bigint,
     nm_completo varchar(255) not null,
     nm_curto varchar(100),
-    nu_cnpj varchar(14) not null,
+    nu_cnpj varchar(14) not null unique,
     te_cep varchar(8) not null,
     nm_logradouro varchar(100),
     nm_bairro varchar(100),
