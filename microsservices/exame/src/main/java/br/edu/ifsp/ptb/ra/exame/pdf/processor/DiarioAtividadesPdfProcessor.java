@@ -30,7 +30,7 @@ public class DiarioAtividadesPdfProcessor
 
         try
         {
-            Paragraph header = DiarioAtividadesPdfHeaderWriter.write();
+            Paragraph header = DiarioAtividadesPdfHeaderWriter.write(diarioAtividades);
             Paragraph title = DiarioAtividadesPdfTitleWriter.write();
             PdfPTable table = DiarioAtividadesPdfTableWriter.write(diarioAtividades);
             Paragraph footer = DiarioAtividadesPdfFooterWriter.write();

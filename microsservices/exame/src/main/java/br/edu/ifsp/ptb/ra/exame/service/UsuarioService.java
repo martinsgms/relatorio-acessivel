@@ -13,9 +13,9 @@ public class UsuarioService
     @Autowired
     private UsuarioClient usuarioClient;
 
-    public UsuarioDTO buscaUsuarioPorEmail(String email)
+    public UsuarioDTO buscaUsuario(Object identificador)
     {
-        ResponseEntity<UsuarioDTO> response = usuarioClient.buscaUsuarioPorEmail(email);
+        ResponseEntity<UsuarioDTO> response = usuarioClient.buscaUsuario(identificador);
 
         return response.getBody();
     }

@@ -34,6 +34,7 @@ public class ServicoSaudeDTO
     {
         id = projection.getId();
         nome = projection.getNome();
+        nomeCompleto = projection.getNomeCompleto();
     }
 
     public Long getId()

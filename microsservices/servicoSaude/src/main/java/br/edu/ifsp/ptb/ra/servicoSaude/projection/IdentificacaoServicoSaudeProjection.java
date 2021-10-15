@@ -4,6 +4,6 @@ public interface IdentificacaoServicoSaudeProjection
 {
 
     Long getId();
-
     String getNome();
+    String getNomeCompleto();
 }

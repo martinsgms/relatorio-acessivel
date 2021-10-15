@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.edu.ifsp.ptb.ra.usuario.dto.UsuarioDTO;
 import br.edu.ifsp.ptb.ra.usuario.model.UsuarioModel;
 import br.edu.ifsp.ptb.ra.usuario.repository.UsuarioRepository;
 
@@ -16,11 +17,15 @@ public class UsuarioService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UsuarioService.class);
 
-    public UsuarioModel buscaUsuarioPorEmail(String chave)
+    public UsuarioDTO buscaUsuarioPorEmail(String chave)
     {
         LOGGER.info("buscando email: {}", chave);
 
-        return usuarioRepository.findByEmail(chave);
+        return new UsuarioDTO(usuarioRepository.findByEmail(chave).orElse(new UsuarioModel()));
     }
 
+    public UsuarioDTO findById(Long id)
+    {
+        return new UsuarioDTO(usuarioRepository.findById(id).orElse(new UsuarioModel()));
+    }
 }

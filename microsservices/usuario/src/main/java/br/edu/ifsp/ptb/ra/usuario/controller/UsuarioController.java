@@ -4,10 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import br.edu.ifsp.ptb.ra.usuario.model.UsuarioModel;
+import br.edu.ifsp.ptb.ra.usuario.dto.UsuarioDTO;
 import br.edu.ifsp.ptb.ra.usuario.service.UsuarioService;
 
 @Controller
@@ -17,10 +17,16 @@ public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
 
-    @GetMapping("/{email}")
-    public ResponseEntity<UsuarioModel> buscaUsuarioPorEmail(@PathVariable String email)
+    @GetMapping
+    public ResponseEntity<UsuarioDTO> buscaUsuario(@RequestParam Object identificador)
     {
-        return ResponseEntity.ok(usuarioService.buscaUsuarioPorEmail(email));
-    }
+        try
+        {
+            return ResponseEntity.ok(usuarioService.findById(Long.parseLong(identificador.toString())));
 
+        } catch (Exception e)
+        {
+            return ResponseEntity.ok(usuarioService.buscaUsuarioPorEmail((String) identificador));
+        }
+    }
 }

@@ -19,6 +19,7 @@ import br.edu.ifsp.ptb.ra.exame.dto.UsuarioDTO;
 import br.edu.ifsp.ptb.ra.exame.exception.ServiceException;
 import br.edu.ifsp.ptb.ra.exame.model.ExameModel;
 import br.edu.ifsp.ptb.ra.exame.repository.ExameRepository;
+import br.edu.ifsp.ptb.ra.exame.util.DateTimeUtils;
 
 @Service
 public class ExameService 
@@ -43,7 +44,7 @@ public class ExameService
 
     public ExameDTO novoExame(ExameDTO dto) throws ServiceException
     {
-        UsuarioDTO usuario = usuarioService.buscaUsuarioPorEmail(dto.getEmail());
+        UsuarioDTO usuario = usuarioService.buscaUsuario(dto.getEmail());
 
         if (usuario == null)
         {
@@ -107,8 +108,16 @@ public class ExameService
     public QuadroPaDTO getDiarioAtividades(String idExternoExame) throws ServiceException
     {
         ExameDTO exameDTO = getExamePorIdExterno(idExternoExame);
+        UsuarioDTO usuarioDTO = usuarioService.buscaUsuario(exameDTO.getUsuario());
+        ServicoSaudeDTO servicoSaudeDTO = servicoSaudeService.getIdentificacao(exameDTO.getIdServicoSaude());
 
         QuadroPaDTO quadroPA = afericaoPaService.getQuadroAfericoesPA(idExternoExame);
+
+        quadroPA.setIdExternoExame(exameDTO.getIdExterno());
+        quadroPA.setNomePaciente(usuarioDTO.getNome());
+        quadroPA.setNomeServicoSaude(servicoSaudeDTO.getNome());
+        quadroPA.setNomeCompletoServicoSaude(servicoSaudeDTO.getNomeCompleto());
+        quadroPA.setDataHoraInstalacao(DateTimeUtils.getDataHora(quadroPA.getAfericoes().get(0).getTimestamp()));
 
         return relacionadorService.relaciona(quadroPA, exameDTO);
     }

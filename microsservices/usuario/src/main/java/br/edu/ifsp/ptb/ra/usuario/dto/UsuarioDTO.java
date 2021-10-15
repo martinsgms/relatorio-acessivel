@@ -1,7 +1,11 @@
-package br.edu.ifsp.ptb.ra.exame.dto;
+package br.edu.ifsp.ptb.ra.usuario.dto;
+
+import org.springframework.beans.BeanUtils;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
+import br.edu.ifsp.ptb.ra.usuario.model.UsuarioModel;
 
 @JsonInclude(Include.NON_NULL)
 public class UsuarioDTO
@@ -9,6 +13,11 @@ public class UsuarioDTO
     private Long id;
     private String nome;
     private String email;
+
+    public UsuarioDTO(UsuarioModel model)
+    {
+        BeanUtils.copyProperties(model, this);
+    }
 
     public Long getId()
     {
@@ -40,3 +49,4 @@ public class UsuarioDTO
         this.email = email;
     }
 }
+

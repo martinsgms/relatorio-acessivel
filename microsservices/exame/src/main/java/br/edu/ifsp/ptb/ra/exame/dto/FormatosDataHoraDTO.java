@@ -6,6 +6,8 @@ import java.util.Locale;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import br.edu.ifsp.ptb.ra.exame.util.DateTimeUtils;
+
 public class FormatosDataHoraDTO
 {
     @JsonIgnore
@@ -46,7 +48,7 @@ public class FormatosDataHoraDTO
 
     public void setDataHora()
     {
-        this.dataHora = DateTimeFormatter.ofPattern("dd/MM/yyyy à's' HH:mm").format(timestamp);
+        this.dataHora = DateTimeUtils.getDataHora(timestamp);
     }
 
     public String getData()
@@ -76,7 +78,7 @@ public class FormatosDataHoraDTO
 
     public void setSemanaDiaMesAnoHoraExtenso()
     {
-        this.semanaDiaMesAnoHoraExtenso = DateTimeFormatter.ofPattern("EEEE, d 'de' MMMM 'de' yyyy 'às' HH:mm", new Locale ("pt", "BR")).format(timestamp);
+        this.semanaDiaMesAnoHoraExtenso = DateTimeUtils.getSemanaDiaMesAnoHoraExtenso(timestamp);
     }
 
     public String getHora()

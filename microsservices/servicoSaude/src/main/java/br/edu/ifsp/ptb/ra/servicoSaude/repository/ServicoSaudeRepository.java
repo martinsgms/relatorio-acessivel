@@ -10,6 +10,6 @@ import br.edu.ifsp.ptb.ra.servicoSaude.projection.IdentificacaoServicoSaudeProje
 @Repository
 public interface ServicoSaudeRepository extends JpaRepository<ServicoSaudeModel, Long>
 {
-    @Query(value = "select ss.id, ss.nm_curto nome from radb.tra_servico_saude ss where ss.id = :idServicoSaude", nativeQuery = true)
+    @Query(value = "select ss.id, ss.nm_curto nome, ss.nm_completo nomeCompleto from radb.tra_servico_saude ss where ss.id = :idServicoSaude", nativeQuery = true)
     IdentificacaoServicoSaudeProjection getIdentificacao(Long idServicoSaude);
 }
