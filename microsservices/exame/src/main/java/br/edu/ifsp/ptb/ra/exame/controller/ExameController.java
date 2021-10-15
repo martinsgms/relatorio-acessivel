@@ -20,6 +20,7 @@ import br.edu.ifsp.ptb.ra.exame.dto.EventoDTO;
 import br.edu.ifsp.ptb.ra.exame.dto.ExameDTO;
 import br.edu.ifsp.ptb.ra.exame.dto.QuadroPaDTO;
 import br.edu.ifsp.ptb.ra.exame.exception.ServiceException;
+import br.edu.ifsp.ptb.ra.exame.pdf.processor.DiarioAtividadesPdfProcessor;
 import br.edu.ifsp.ptb.ra.exame.service.ExameService;
 
 @Controller
@@ -74,7 +75,7 @@ public class ExameController
     public ResponseEntity<?> diarioAtividadesPdf(@PathVariable String idExternoExame) throws ServiceException
     {
         QuadroPaDTO diarioAtividades = exameService.getDiarioAtividades(idExternoExame);
-        ByteArrayInputStream bis = DiarioAtividadesPdfBuilder.build(diarioAtividades);
+        ByteArrayInputStream resource = DiarioAtividadesPdfProcessor.process(diarioAtividades);
 
         var headers = new HttpHeaders();
         headers.add("Content-Disposition", "inline; filename=20211014-HEARTCARE-MAPA-IEX-12983979X-DIARIO_ATIVIDADES.pdf");
@@ -82,6 +83,6 @@ public class ExameController
         return ResponseEntity.ok()
                 .headers(headers)
                 .contentType(MediaType.APPLICATION_PDF)
-                .body(new InputStreamResource(bis));
+                .body(new InputStreamResource(resource));
     }
 }
