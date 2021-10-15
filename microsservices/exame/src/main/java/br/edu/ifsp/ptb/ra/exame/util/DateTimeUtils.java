@@ -15,4 +15,9 @@ public class DateTimeUtils
     {
         return DateTimeFormatter.ofPattern("EEEE, d 'de' MMMM 'de' yyyy 'às' HH:mm", new Locale ("pt", "BR")).format(timestamp);
     }
+
+    public static String getAnoMesDiaFilename(LocalDateTime timestamp)
+    {
+        return DateTimeFormatter.ofPattern("yyyyMMdd").format(timestamp);
+    }
 }

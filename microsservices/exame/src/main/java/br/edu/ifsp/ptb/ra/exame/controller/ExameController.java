@@ -78,7 +78,7 @@ public class ExameController
         ByteArrayInputStream resource = DiarioAtividadesPdfProcessor.process(diarioAtividades);
 
         var headers = new HttpHeaders();
-        headers.add("Content-Disposition", "inline; filename=20211014-HEARTCARE-MAPA-IEX-12983979X-DIARIO_ATIVIDADES.pdf");
+        headers.add("Content-Disposition", "inline; filename=" + diarioAtividades.getFileName() + ".pdf");
 
         return ResponseEntity.ok()
                 .headers(headers)

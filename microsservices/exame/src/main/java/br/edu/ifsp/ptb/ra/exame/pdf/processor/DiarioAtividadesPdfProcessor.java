@@ -62,7 +62,7 @@ public class DiarioAtividadesPdfProcessor
     {
         document.addSubject("HEARTCARE-MAPA-DIARIO_ATIVIDADES");
         document.addKeywords("www.examemapa.tech");
-        document.addAuthor("Sistema Diario de Atvidades Inteligente");
+        document.addAuthor("Sistema Diario MAPA Inteligente");
         document.addCreator("iText");
     }
 }

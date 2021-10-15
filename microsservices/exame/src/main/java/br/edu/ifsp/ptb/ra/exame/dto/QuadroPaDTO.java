@@ -1,10 +1,14 @@
 package br.edu.ifsp.ptb.ra.exame.dto;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
+import br.edu.ifsp.ptb.ra.exame.util.DateTimeUtils;
 
 @JsonInclude(Include.NON_NULL)
 public class QuadroPaDTO
@@ -74,5 +78,21 @@ public class QuadroPaDTO
     public void setDataHoraInstalacao(String dataHoraInstalacao)
     {
         this.dataHoraInstalacao = dataHoraInstalacao;
+    }
+
+    @JsonIgnore
+    private LocalDateTime getDataHoraInstalacaoAsTimestamp()
+    {
+        return getAfericoes().get(0).getTimestamp();
+    }
+
+    @JsonIgnore
+    public String getFileName()
+    {
+        return DateTimeUtils.getAnoMesDiaFilename(getDataHoraInstalacaoAsTimestamp())
+                + "-" + nomeServicoSaude.toUpperCase()
+                + "-MAPA-"
+                + idExternoExame
+                + "-DIARIO_ATIVIDADES";
     }
 }
