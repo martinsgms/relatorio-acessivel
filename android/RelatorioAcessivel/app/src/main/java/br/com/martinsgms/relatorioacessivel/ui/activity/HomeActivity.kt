@@ -32,7 +32,7 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home) {
     }
 
     private fun configuraBtnMeusDados() {
-        val usuario = UsuarioModel(2L, "Gabriel", "gmartins@gmail.com")
+        val usuario = UsuarioModel("Gabriel", "gmartins@gmail.com")
 
         val btnMeusDados = findViewById<Button>(R.id.activity_home_meus_dados)
         val context = this

@@ -8,45 +8,45 @@
 
     <application
         android:allowBackup="true"
-        android:usesCleartextTraffic="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.RelatorioAcessivel">
+        android:theme="@style/Theme.RelatorioAcessivel"
+        android:usesCleartextTraffic="true">
 
-        <activity android:name=".ui.activity.HomeActivity">
+        <activity
+            android:name=".ui.activity.ui.login.LoginActivity"
+            android:label="@string/title_activity_login">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
+
+        <activity android:name=".ui.activity.HomeActivity"/>
 
         <activity
             android:name=".ui.activity.RelatorioActivity"
-            android:label="Meu relatório"/>
-
+            android:label="Meu relatório" />
         <activity
             android:name=".ui.activity.DetalheExameActivity"
-            android:label="Detalhes do seu exame"/>
-
+            android:label="Detalhes do seu exame" />
         <activity
             android:name=".ui.activity.NovaAtividadeActivity"
-            android:label="Nova atividade"/>
-
+            android:label="Nova atividade" />
         <activity
             android:name=".ui.activity.MeusExamesActivity"
-            android:label="Meus exames"/>
-
+            android:label="Meus exames" />
         <activity
             android:name=".ui.activity.MeusDadosActivity"
-            android:label="Meus dados"/>
-
+            android:label="Meus dados" />
         <activity
             android:name=".ui.activity.BuscarServicosSaudeActivity"
-            android:label="Buscar Serviços de Saúde"/>
-
+            android:label="Buscar Serviços de Saúde" />
     </application>
 
 </manifest>

@@ -10,7 +10,6 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class EventoModel(
-
     var id: Long?,
     var idExame: Long?,
     val dataHora: String?,

@@ -5,7 +5,6 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class FormatosDataHoraDTO(
-    var timestamp: String,
     var dataHora: String,
     var data: String,
     var hora: String,

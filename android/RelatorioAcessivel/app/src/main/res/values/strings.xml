@@ -11,4 +11,14 @@
         <u>ENVIAR MENSAGEM</u>
     </string>
     <string name="activity_buscar_servicos_saude_pesquisar">Pesquisar</string>
+    <string name="title_activity_login">Diário MAPA Inteligente</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Senha</string>
+    <string name="action_sign_in">Entrar</string>
+    <string name="cadastro">Cadastre-se</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Bem-vindo(a)!"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Falha no login"</string>
 </resources>
