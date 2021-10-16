@@ -27,7 +27,13 @@ public class AuthService
     {
         return usuarioService.findByEmail(dto.getEmail())
                 .filter(userDetails -> passwordEncoder.matches(dto.getSenha(), userDetails.getPassword()))
-                .map(userDetails -> ResponseEntity.ok(new AuthTokenDTO(jwtService.generateToken(userDetails))))
+                .map(userDetails ->
+                {
+                    String token = jwtService.generateToken(userDetails);
+                    Long userId = jwtService.getUserIdFromToken(token);
+
+                    return ResponseEntity.ok(new AuthTokenDTO(token, userId));
+                })
                 .switchIfEmpty(Mono.just(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build()));
     }
 }
