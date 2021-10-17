@@ -23,7 +23,7 @@ class RelatorioAdapter(
         fun bind(evento: EventoModel) {
             val horaView = itemView.findViewById<TextView>(R.id.exame_item_data)
             //horaView.text = "${evento.formatosDataHora!!.data}\n${evento.formatosDataHora.hora}"
-            horaView.text = evento.formatosDataHora!!.hora
+            horaView.text = "${evento.formatosDataHora!!.diaMes}\n${evento.formatosDataHora.hora}"
 
             val atividadeView = itemView.findViewById<TextView>(R.id.exame_item_servico_saude)
             atividadeView.text = evento.descricao

@@ -1,7 +1,7 @@
 package br.com.martinsgms.relatorioacessivel.ui.activity.data
 
-import br.com.martinsgms.relatorioacessivel.service.TokenDTO
-import br.com.martinsgms.relatorioacessivel.ui.activity.data.model.LoggedInUser
+import br.com.martinsgms.relatorioacessivel.dto.TokenDTO
+
 
 /**
  * Class that requests authentication and user information from the remote data source and

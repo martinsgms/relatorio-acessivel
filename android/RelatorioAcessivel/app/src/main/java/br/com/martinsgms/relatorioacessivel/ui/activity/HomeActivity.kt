@@ -2,12 +2,14 @@ package br.com.martinsgms.relatorioacessivel.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import br.com.martinsgms.relatorioacessivel.R
+import br.com.martinsgms.relatorioacessivel.config.HttpConfig
 import br.com.martinsgms.relatorioacessivel.model.UsuarioModel
 import br.com.martinsgms.relatorioacessivel.service.HomeService
 import kotlinx.coroutines.runBlocking
@@ -21,25 +23,12 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home) {
 
         configuraSwipeRefresh()
         configuraBtnMeusExames()
-        configuraBtnMeusDados()
 
         val btnBuscarServicosSaude = findViewById<Button>(R.id.activity_home_buscar_servicos)
         val context = this
         btnBuscarServicosSaude.setOnClickListener {
             val i = Intent(context, BuscarServicosSaudeActivity::class.java)
             startActivity(i)
-        }
-    }
-
-    private fun configuraBtnMeusDados() {
-        val usuario = UsuarioModel("Gabriel", "gmartins@gmail.com")
-
-        val btnMeusDados = findViewById<Button>(R.id.activity_home_meus_dados)
-        val context = this
-        btnMeusDados.setOnClickListener {
-            val intent = Intent(context, MeusDadosActivity::class.java)
-            intent.putExtra("usuario", usuario)
-            startActivity(intent)
         }
     }
 
@@ -56,16 +45,20 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home) {
     override fun onResume() {
         super.onResume()
 
+        val nomeUsuarioTextView = findViewById<TextView>(R.id.activity_home_nome_usuario)
         val cardExame = findViewById<CardView>(R.id.activity_home_card_exame_mais_recente)
         val servicoSaudeTextView = findViewById<TextView>(R.id.activity_home_servico_saude)
         val dataTextView = findViewById<TextView>(R.id.activity_home_data_exame)
         val statusTextView = findViewById<TextView>(R.id.activity_home_status_exame)
+        val btnMeusDados = findViewById<Button>(R.id.activity_home_meus_dados)
 
         val self = this
         runBlocking {
 
             val exameMaisRecenteModel = homeService.getExameMaisRecente()
+            val usuarioModel = homeService.getDadosUsuario()
 
+            "Olá, ${usuarioModel.nome}".also { nomeUsuarioTextView.text = it }
             servicoSaudeTextView.text = exameMaisRecenteModel.servicoSaude.nome
             dataTextView.text = exameMaisRecenteModel.formatosDataHora.semanaDiaMesAnoExtenso
             statusTextView.text = exameMaisRecenteModel.status.descricao
@@ -73,6 +66,12 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home) {
             cardExame.setOnClickListener {
                 val intent = Intent(self, DetalheExameActivity::class.java)
                 intent.putExtra("exameModel", exameMaisRecenteModel)
+                startActivity(intent)
+            }
+
+            btnMeusDados.setOnClickListener {
+                val intent = Intent(self, MeusDadosActivity::class.java)
+                intent.putExtra("usuario", usuarioModel)
                 startActivity(intent)
             }
         }

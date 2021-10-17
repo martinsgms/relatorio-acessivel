@@ -2,6 +2,7 @@ package br.com.martinsgms.relatorioacessivel.service
 
 import android.util.Log
 import br.com.martinsgms.relatorioacessivel.config.HttpConfig
+import br.com.martinsgms.relatorioacessivel.dto.TokenDTO
 import br.com.martinsgms.relatorioacessivel.model.UsuarioModel
 import com.github.kittinunf.fuel.coroutines.awaitObjectResponse
 import com.github.kittinunf.fuel.httpPost

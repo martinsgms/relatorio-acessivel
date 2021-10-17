@@ -1,6 +1,7 @@
 package br.com.martinsgms.relatorioacessivel.ui.activity
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import br.com.martinsgms.relatorioacessivel.R
@@ -17,6 +18,8 @@ class MeusDadosActivity : AppCompatActivity(R.layout.activity_meus_dados) {
 
     private fun preencheDadosDoUsuario() {
         val usuarioModel = intent.getParcelableExtra<UsuarioModel>("usuario")
+
+        Log.d("usu", "${usuarioModel?.nome}")
 
         val nomeTextView = findViewById<TextView>(R.id.activity_meus_dados_nome)
         nomeTextView.text = usuarioModel!!.nome

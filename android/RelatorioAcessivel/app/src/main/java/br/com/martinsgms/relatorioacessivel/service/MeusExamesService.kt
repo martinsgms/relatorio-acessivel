@@ -13,7 +13,7 @@ class MeusExamesService {
 
     suspend fun getExamesDoUsuario(idUsuario: Long): Array<ExameModel> {
 
-        val (request, response, result) = "/exame/usuario/${idUsuario}".httpGet()
+        val (request, response, result) = "/exame/usuario/${HttpConfig.userId}".httpGet()
             .awaitObjectResponse(ExameModel.Deserializer())
 
         return result

@@ -24,9 +24,7 @@ class NovaAtividadeService {
         if (model.idExame!! == -1L)
             model.idExame = null
 
-        Log.d("gms-post", method.toString())
-        Log.d("gms-post", model.toString())
-
+        Log.d("gms-post", HttpConfig.token)
 
         val (request, response, result) = Fuel.request(method, "/exame/evento")
             .body(gson.toJson(model))

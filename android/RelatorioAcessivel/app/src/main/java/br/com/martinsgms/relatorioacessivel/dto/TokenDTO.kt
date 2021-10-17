@@ -1,4 +1,4 @@
-package br.com.martinsgms.relatorioacessivel.service
+package br.com.martinsgms.relatorioacessivel.dto
 
 import android.os.Parcelable
 import com.github.kittinunf.fuel.core.ResponseDeserializable
@@ -7,6 +7,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 class TokenDTO(
+    val userId: Long,
     val token: String,
     val tipo: String,
 ) : Parcelable {

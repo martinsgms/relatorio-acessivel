@@ -14,7 +14,6 @@ import androidx.fragment.app.commit
 import br.com.martinsgms.relatorioacessivel.R
 import br.com.martinsgms.relatorioacessivel.model.EventoModel
 import br.com.martinsgms.relatorioacessivel.service.NovaAtividadeService
-import br.com.martinsgms.relatorioacessivel.ui.dao.RelatorioDAO
 import br.com.martinsgms.relatorioacessivel.ui.fragment.TimePickerFragment
 import com.github.kittinunf.fuel.core.Method
 import com.google.android.material.switchmaterial.SwitchMaterial
@@ -162,6 +161,6 @@ class NovaAtividadeActivity : AppCompatActivity(R.layout.activity_nova_atividade
         val editAtividade = intent.getParcelableExtra<EventoModel>("atividade") ?: return
 
         val horaFrag = findViewById<EditText>(R.id.hora_fragment)
-        horaFrag.setText(editAtividade.dataHora.toString())
+        horaFrag.setText(editAtividade.timestampEvento.toString())
     }
 }
