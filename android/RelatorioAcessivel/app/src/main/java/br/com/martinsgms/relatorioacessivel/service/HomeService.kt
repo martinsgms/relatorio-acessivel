@@ -15,17 +15,19 @@ class HomeService {
         HttpConfig.config()
     }
 
-    suspend fun getExameMaisRecente(): ExameModel {
+    suspend fun getExameMaisRecente(token : String): ExameModel {
 
         val (request, response, result) = "/exame/usuario/${HttpConfig.userId}?apenasMaisRecente=true".httpGet()
+            .header("Authorization" to "Bearer $token")
             .awaitStringResponse()
 
         return ExameModel.deserialize(result)
     }
 
-    suspend fun getDadosUsuario(): UsuarioModel {
+    suspend fun getDadosUsuario(token : String): UsuarioModel {
 
         val (request, response, result) = "/usuario?identificador=${HttpConfig.userId}".httpGet()
+            .header("Authorization" to "Bearer $token")
             .awaitObjectResponse(UsuarioModel.Deserializer())
 
         return result

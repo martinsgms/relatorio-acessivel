@@ -57,10 +57,12 @@ class LoginActivity : AppCompatActivity() {
             loading.visibility = View.GONE
             if (loginResult.error != null) {
                 showLoginFailed(loginResult.error)
+                return@Observer
             }
             if (loginResult.success != null) {
                 updateUiWithUser(loginResult.success)
             }
+
             setResult(Activity.RESULT_OK)
 
             val intent = Intent(this, HomeActivity::class.java)
@@ -98,7 +100,17 @@ class LoginActivity : AppCompatActivity() {
 
             login.setOnClickListener {
                 loading.visibility = View.VISIBLE
-                loginViewModel.login(username.text.toString(), password.text.toString())
+                val tokenDTO = loginViewModel.login(username.text.toString(), password.text.toString())
+
+                if(tokenDTO!!.token != "") {
+                    val sharedPreferences = getSharedPreferences("token_sp", MODE_PRIVATE)
+
+                    with (sharedPreferences.edit()) {
+                        putString("JWT_TOKEN", tokenDTO.token)
+                        putLong("USER_ID", tokenDTO.userId)
+                        commit()
+                    }
+                }
             }
         }
     }

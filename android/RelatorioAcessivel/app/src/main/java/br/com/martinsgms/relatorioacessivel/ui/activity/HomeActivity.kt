@@ -1,5 +1,6 @@
 package br.com.martinsgms.relatorioacessivel.ui.activity
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -16,6 +17,7 @@ import kotlinx.coroutines.runBlocking
 
 class HomeActivity : AppCompatActivity(R.layout.activity_home) {
 
+    private var token: String? = null
     var homeService = HomeService()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,6 +25,10 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home) {
 
         configuraSwipeRefresh()
         configuraBtnMeusExames()
+
+        val sharedPref = getSharedPreferences("token_sp", Context.MODE_PRIVATE)
+        val token = sharedPref.getString("JWT_TOKEN", null)
+        this.token = token
 
         val btnBuscarServicosSaude = findViewById<Button>(R.id.activity_home_buscar_servicos)
         val context = this
@@ -55,8 +61,8 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home) {
         val self = this
         runBlocking {
 
-            val exameMaisRecenteModel = homeService.getExameMaisRecente()
-            val usuarioModel = homeService.getDadosUsuario()
+            val exameMaisRecenteModel = homeService.getExameMaisRecente(self.token!!)
+            val usuarioModel = homeService.getDadosUsuario(self.token!!)
 
             "Olá, ${usuarioModel.nome}".also { nomeUsuarioTextView.text = it }
             servicoSaudeTextView.text = exameMaisRecenteModel.servicoSaude.nome

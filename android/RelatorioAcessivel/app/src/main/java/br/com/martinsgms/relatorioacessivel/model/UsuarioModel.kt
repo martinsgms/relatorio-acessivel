@@ -10,10 +10,10 @@ class UsuarioModel(
     val id: Long?,
     val nome: String?,
     val email: String?,
-    val senha: String?,
+    var senha: String?,
     ) : Parcelable {
 
-    val novaSenha: String? = null
+    var novaSenha: String? = null
 
     class Deserializer : ResponseDeserializable<UsuarioModel> {
         override fun deserialize(content: String): UsuarioModel =

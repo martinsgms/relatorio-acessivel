@@ -18,17 +18,13 @@
         <activity
             android:name=".ui.activity.ui.login.LoginActivity"
             android:label="@string/title_activity_login">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
-
-        <activity android:name=".ui.activity.HomeActivity"/>
-
+        <activity android:name=".ui.activity.HomeActivity" />
         <activity
             android:name=".ui.activity.RelatorioActivity"
             android:label="Meu relatório" />
@@ -47,6 +43,9 @@
         <activity
             android:name=".ui.activity.BuscarServicosSaudeActivity"
             android:label="Buscar Serviços de Saúde" />
+        <activity
+            android:name=".ui.activity.AtualizarSenhaActivity"
+            android:label="Atualizar senha" />
     </application>
 
 </manifest>

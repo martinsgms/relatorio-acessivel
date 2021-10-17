@@ -1,5 +1,6 @@
 package br.com.martinsgms.relatorioacessivel.ui.activity.data
 
+import android.util.Log
 import br.com.martinsgms.relatorioacessivel.dto.TokenDTO
 
 
@@ -33,8 +34,12 @@ class LoginRepository(val dataSource: LoginDataSource) {
         val result = dataSource.login(username, password)
 
         if (result is Result.Success) {
+            Log.d("resullttaaaaa", "${result.data}")
             setLoggedInUser(result.data)
+            return result
         }
+
+        Log.d("resulltt", result.toString())
 
         return result!!
     }

@@ -1,7 +1,9 @@
 package br.com.martinsgms.relatorioacessivel.config
 
+import android.content.Context
 import android.util.Log
 import com.github.kittinunf.fuel.core.FuelManager
+
 
 class HttpConfig {
 
@@ -14,6 +16,7 @@ class HttpConfig {
         var BASE_HEADERS = mapOf("Content-Type" to "application/json")
 
         fun config() {
+
             BASE_HEADERS = mapOf("Content-Type" to "application/json", "Authorization" to "Bearer $token")
             Log.d("headddd", userId.toString())
             FuelManager.instance.basePath = BASE_PATH_LOCAL
@@ -21,6 +24,7 @@ class HttpConfig {
         }
 
         fun addTokenAndUserId(token: String, userId: Long) {
+
             this.token = token
             this.userId = userId
         }

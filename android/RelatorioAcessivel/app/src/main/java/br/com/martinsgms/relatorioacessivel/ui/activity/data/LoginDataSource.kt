@@ -1,6 +1,9 @@
 package br.com.martinsgms.relatorioacessivel.ui.activity.data
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.util.Log
+import br.com.martinsgms.relatorioacessivel.R
 import br.com.martinsgms.relatorioacessivel.config.HttpConfig
 import br.com.martinsgms.relatorioacessivel.dto.TokenDTO
 import br.com.martinsgms.relatorioacessivel.model.UsuarioModel
@@ -26,6 +29,8 @@ class LoginDataSource {
             }
 
             Log.d("token", tokenJWT.token)
+
+
             HttpConfig.addTokenAndUserId(tokenJWT.token, tokenJWT.userId)
 
             return Result.Success(tokenJWT)

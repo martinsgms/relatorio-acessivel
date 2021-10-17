@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import android.util.Patterns
 import br.com.martinsgms.relatorioacessivel.R
+import br.com.martinsgms.relatorioacessivel.dto.TokenDTO
 import br.com.martinsgms.relatorioacessivel.ui.activity.data.LoginRepository
 import br.com.martinsgms.relatorioacessivel.ui.activity.data.Result
 
@@ -16,18 +17,17 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
     private val _loginResult = MutableLiveData<LoginResult>()
     val loginResult: LiveData<LoginResult> = _loginResult
 
-    fun login(username: String, password: String) {
+    fun login(username: String, password: String) : TokenDTO? {
         // can be launched in a separate asynchronous job
-        val result = loginRepository.login(username, password)
+        val result : Result<TokenDTO> = loginRepository.login(username, password)
 
         if (result is Result.Success) {
             _loginResult.value = LoginResult(success = LoggedInUserView(displayName = "result.data.displayName"))
-
-
-
+            return result.data
         } else {
             _loginResult.value = LoginResult(error = R.string.login_failed)
         }
+        return null
     }
 
     fun loginDataChanged(username: String, password: String) {
