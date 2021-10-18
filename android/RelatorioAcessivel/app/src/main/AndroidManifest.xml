@@ -46,6 +46,9 @@
         <activity
             android:name=".ui.activity.AtualizarSenhaActivity"
             android:label="Atualizar senha" />
+        <activity
+            android:name=".ui.activity.CadastroActivity"
+            android:label="Cadastre-se" />
     </application>
 
 </manifest>

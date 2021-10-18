@@ -22,10 +22,6 @@ class AtualizarSenhaService {
         Log.d("toks", "too->> $token")
         Log.d("json", "too->> ${gson.toJson(usuarioModel)}")
 
-//        val (request, response, result) = "/usuario/senha".httpPatch().body(gson.toJson(usuarioModel))
-//            .header("Content-Type" to "application/json", "Authorization" to "Bearer $token")
-//            .awaitStringResponse()
-
         val (request, response, result) = Fuel.request(Method.PUT, "/usuario/senha")
             .header("Content-Type" to "application/json", "Authorization" to "Bearer $token")
             .body(gson.toJson(usuarioModel))

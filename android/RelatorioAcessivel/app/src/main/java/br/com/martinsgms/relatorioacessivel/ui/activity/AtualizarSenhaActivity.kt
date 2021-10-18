@@ -2,7 +2,6 @@ package br.com.martinsgms.relatorioacessivel.ui.activity
 
 import android.content.Context
 import android.os.Bundle
-import android.os.Handler
 import android.util.Log
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
