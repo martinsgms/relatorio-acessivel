@@ -1,9 +1,10 @@
 package br.com.martinsgms.relatorioacessivel.ui.activity.ui.login
 
+import android.util.Log
+import android.util.Patterns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import android.util.Patterns
 import br.com.martinsgms.relatorioacessivel.R
 import br.com.martinsgms.relatorioacessivel.dto.TokenDTO
 import br.com.martinsgms.relatorioacessivel.ui.activity.data.LoginRepository
@@ -19,14 +20,21 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
 
     fun login(username: String, password: String) : TokenDTO? {
         // can be launched in a separate asynchronous job
-        val result : Result<TokenDTO> = loginRepository.login(username, password)
 
-        if (result is Result.Success) {
-            _loginResult.value = LoginResult(success = LoggedInUserView(displayName = "result.data.displayName"))
-            return result.data
-        } else {
-            _loginResult.value = LoginResult(error = R.string.login_failed)
+        try {
+            val result: Result<TokenDTO> = loginRepository.login(username, password)
+
+            if (result is Result.Success) {
+                _loginResult.value = LoginResult(success = LoggedInUserView(displayName = "result.data.displayName"))
+                return result.data
+            }
+        } catch (e: Exception) {
+
+            Log.d("LoginViewModel", "falha no login")
         }
+
+        _loginResult.value = LoginResult(error = R.string.login_failed)
+
         return null
     }
 
@@ -51,6 +59,6 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
 
     // A placeholder password validation check
     private fun isPasswordValid(password: String): Boolean {
-        return password.length > 5
+        return !password.isNullOrEmpty()
     }
 }

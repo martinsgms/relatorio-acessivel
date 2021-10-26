@@ -2,6 +2,7 @@ package br.com.martinsgms.relatorioacessivel.ui.activity.data
 
 import android.util.Log
 import br.com.martinsgms.relatorioacessivel.dto.TokenDTO
+import java.lang.RuntimeException
 
 
 /**
@@ -37,11 +38,10 @@ class LoginRepository(val dataSource: LoginDataSource) {
             Log.d("resullttaaaaa", "${result.data}")
             setLoggedInUser(result.data)
             return result
+
+        } else {
+            throw RuntimeException("Erro no login")
         }
-
-        Log.d("resulltt", result.toString())
-
-        return result!!
     }
 
     private fun setLoggedInUser(loggedInUser: TokenDTO) {

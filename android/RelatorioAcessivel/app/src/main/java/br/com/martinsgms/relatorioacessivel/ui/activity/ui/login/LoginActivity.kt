@@ -2,10 +2,12 @@ package br.com.martinsgms.relatorioacessivel.ui.activity.ui.login
 
 import android.app.Activity
 import android.content.Intent
+import android.opengl.Visibility
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import android.view.View.VISIBLE
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.Toast
@@ -33,6 +35,8 @@ class LoginActivity : AppCompatActivity() {
         val password = binding.password
         val login = binding.login
         val loading = binding.loading
+
+        login.isEnabled = false
 
         loginViewModel = ViewModelProvider(this, LoginViewModelFactory())
             .get(LoginViewModel::class.java)
@@ -102,7 +106,7 @@ class LoginActivity : AppCompatActivity() {
                 loading.visibility = View.VISIBLE
                 val tokenDTO = loginViewModel.login(username.text.toString(), password.text.toString())
 
-                if(tokenDTO!!.token != "") {
+                if(tokenDTO != null && tokenDTO.token != "") {
                     val sharedPreferences = getSharedPreferences("token_sp", MODE_PRIVATE)
 
                     with (sharedPreferences.edit()) {
@@ -110,6 +114,8 @@ class LoginActivity : AppCompatActivity() {
                         putLong("USER_ID", tokenDTO.userId)
                         commit()
                     }
+                } else {
+                    binding.activityLoginErrorMsg.visibility = VISIBLE
                 }
             }
             binding.activityLoginCadastro.setOnClickListener {
