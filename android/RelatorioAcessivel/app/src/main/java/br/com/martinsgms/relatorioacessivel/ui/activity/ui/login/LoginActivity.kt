@@ -17,7 +17,6 @@ import br.com.martinsgms.relatorioacessivel.R
 import br.com.martinsgms.relatorioacessivel.databinding.ActivityLoginBinding
 import br.com.martinsgms.relatorioacessivel.ui.activity.CadastroActivity
 import br.com.martinsgms.relatorioacessivel.ui.activity.HomeActivity
-import br.com.martinsgms.relatorioacessivel.ui.activity.MeusDadosActivity
 
 class LoginActivity : AppCompatActivity() {
 

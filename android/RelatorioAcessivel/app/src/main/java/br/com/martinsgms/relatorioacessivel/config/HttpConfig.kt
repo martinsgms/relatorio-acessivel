@@ -10,7 +10,7 @@ class HttpConfig {
     companion object Factory {
         var token = ""
         var userId = 0L
-        var BASE_PATH_LOCAL = "http://192.168.107.81"
+        var BASE_PATH_LOCAL = "http://172.18.41.49"
         var BASE_PATH_CLOUD = "http://ec2-44-195-80-58.compute-1.amazonaws.com:32168"
 
         var BASE_HEADERS = mapOf("Content-Type" to "application/json")

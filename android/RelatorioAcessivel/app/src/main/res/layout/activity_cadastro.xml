@@ -35,7 +35,9 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
-            android:hint="Seu nome"
+            android:hint="* Seu nome"
+            app:boxStrokeColor="@color/gray"
+            app:hintTextColor="@color/gray"
             android:inputType="textPassword"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -53,9 +55,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:hint="* Seu email"
+            app:boxStrokeColor="@color/gray"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
-            android:hint="Seu email"
+            app:hintTextColor="@color/gray"
             android:inputType="textPassword"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -63,7 +67,8 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -74,16 +79,19 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="32dp"
+            android:hint="* Crie uma senha"
+            app:boxStrokeColor="@color/gray"
             android:layout_marginEnd="16dp"
-            android:hint="Crie uma senha"
-            android:inputType="textPassword"
+            app:hintTextColor="@color/gray"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/activity_cadastro_email">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:selectAllOnFocus="true" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -93,17 +101,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:hint="* Repita a senha"
+            android:selectAllOnFocus="true"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
-            android:hint="Repita a senha"
-            android:inputType="textPassword"
+            app:boxStrokeColor="@color/gray"
+            app:hintTextColor="@color/gray"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/activity_cadastro_senha">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:selectAllOnFocus="true" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -118,7 +130,20 @@
             android:textColor="@color/wine"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/activity_cadastro_senha_repita"
-            tools:text="Erro: preencha os campos obrigatórios" />
+            tools:text="Campos inválidos: nome, email" />
+
+        <TextView
+            android:id="@+id/activity_cadastro_campos_obrigatorios"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="16dp"
+            android:text="* Campos Obrigatórios"
+            android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"
+            android:textColor="@color/gray"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/activity_cadastro_error_msg" />
 
         <Button
             android:id="@+id/activity_cadastro_cadastrar"
@@ -134,7 +159,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/activity_cadastro_error_msg"
+            app:layout_constraintTop_toBottomOf="@+id/activity_cadastro_campos_obrigatorios"
             app:layout_constraintVertical_bias="1" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
