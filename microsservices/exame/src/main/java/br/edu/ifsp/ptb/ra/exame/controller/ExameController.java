@@ -51,8 +51,10 @@ public class ExameController
     {
         List<ExameDTO> exames = exameService.listaExamesUsuario(idUsuario);
 
-        if (apenasMaisRecente)
+        if (apenasMaisRecente && !exames.isEmpty())
+        {
             return ResponseEntity.ok(exames.get(0));
+        }
 
         return ResponseEntity.ok(exames);
     }
