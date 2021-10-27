@@ -40,8 +40,6 @@ create table tra_evento (
     id bigint,
     dh_evento timestamp,
     ds_evento varchar(100) not null,
-    nu_pa_diastolica integer,
-    nu_pa_sistolica integer,
     ds_sintoma varchar(100),
     ds_medicamento varchar(100),
     id_exame bigint

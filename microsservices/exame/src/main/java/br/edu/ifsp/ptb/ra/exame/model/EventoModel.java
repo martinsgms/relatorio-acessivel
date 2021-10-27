@@ -39,12 +39,6 @@ public class EventoModel
     @Column(name = "DH_EVENTO")
     private LocalDateTime timestampEvento;
 
-    @Column(name = "NU_PA_SISTOLICA")
-    private Integer paSistolica;
-
-    @Column(name = "NU_PA_DIASTOLICA")
-    private Integer paDiastolica;
-
     @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_EXAME")
@@ -98,26 +92,6 @@ public class EventoModel
     public void setTimestampEvento(LocalDateTime timestampEvento)
     {
         this.timestampEvento = timestampEvento;
-    }
-
-    public Integer getPaSistolica()
-    {
-        return paSistolica;
-    }
-
-    public void setPaSistolica(Integer paSistolica)
-    {
-        this.paSistolica = paSistolica;
-    }
-
-    public Integer getPaDiastolica()
-    {
-        return paDiastolica;
-    }
-
-    public void setPaDiastolica(Integer paDiastolica)
-    {
-        this.paDiastolica = paDiastolica;
     }
 
     public ExameModel getExame()
