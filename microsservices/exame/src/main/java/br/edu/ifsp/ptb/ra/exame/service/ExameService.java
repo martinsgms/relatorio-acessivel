@@ -134,9 +134,9 @@ public class ExameService
         }
     }
 
-    public QuadroPaDTO getDiarioAtividades(String idExternoExame) throws ServiceException
+    public QuadroPaDTO getDiarioAtividades(Long idServicoSaude, String idExternoExame) throws ServiceException
     {
-        ExameDTO exameDTO = getExamePorIdExterno(idExternoExame);
+        ExameDTO exameDTO = getExamePorIdExternoEServicoDeSaude(idServicoSaude, idExternoExame);
         UsuarioDTO usuarioDTO = usuarioService.buscaUsuario(exameDTO.getUsuario());
         ServicoSaudeDTO servicoSaudeDTO = servicoSaudeService.getIdentificacao(exameDTO.getIdServicoSaude());
 
@@ -151,9 +151,10 @@ public class ExameService
         return relacionadorService.relaciona(quadroPA, exameDTO);
     }
 
-    private ExameDTO getExamePorIdExterno(String idExternoExame) throws ServiceException
+    private ExameDTO getExamePorIdExternoEServicoDeSaude(Long idServicoSaude, String idExternoExame)
+            throws ServiceException
     {
-        ExameModel exameModel = exameRepository.findByIdExterno(idExternoExame);
+        ExameModel exameModel = exameRepository.findByIdExternoAndIdServicoSaude(idExternoExame, idServicoSaude);
 
         if (exameModel == null)
         {

@@ -18,4 +18,6 @@ public interface ExameRepository extends JpaRepository<ExameModel, Long>
     ExameModel getExameMaisRecenteDoUsuario(Long idUsuario);
 
     ExameModel findByIdExterno(String idExterno);
+
+    ExameModel findByIdExternoAndIdServicoSaude(String idExternoExame, Long idServicoSaude);
 }

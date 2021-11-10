@@ -67,20 +67,21 @@ public class ExameController
         return ResponseEntity.ok(eventos);
     }
 
-    @GetMapping("/{idExternoExame}/diario")
-    public ResponseEntity<QuadroPaDTO> diarioAtividades(@PathVariable String idExternoExame) throws ServiceException
+    @GetMapping("/{idServicoSaude}/{idExternoExame}/diario")
+    public ResponseEntity<QuadroPaDTO> diarioAtividades(@PathVariable Long idServicoSaude, @PathVariable String idExternoExame) throws ServiceException
     {
-        QuadroPaDTO diarioAtividades = exameService.getDiarioAtividades(idExternoExame);
+        QuadroPaDTO diarioAtividades = exameService.getDiarioAtividades(idServicoSaude, idExternoExame);
 
         exameService.alteraStatusParaProcessado(idExternoExame);
 
         return ResponseEntity.ok(diarioAtividades);
     }
 
-    @GetMapping(value = "/{idExternoExame}/diario/pdf", produces = MediaType.APPLICATION_PDF_VALUE)
-    public ResponseEntity<?> diarioAtividadesPdf(@PathVariable String idExternoExame) throws ServiceException
+    @GetMapping(value = "/{idServicoSaude}/{idExternoExame}/diario/pdf", produces = MediaType.APPLICATION_PDF_VALUE)
+    public ResponseEntity<?> diarioAtividadesPdf(@PathVariable Long idServicoSaude, @PathVariable String idExternoExame)
+            throws ServiceException
     {
-        QuadroPaDTO diarioAtividades = exameService.getDiarioAtividades(idExternoExame);
+        QuadroPaDTO diarioAtividades = exameService.getDiarioAtividades(idServicoSaude, idExternoExame);
         ByteArrayInputStream resource = DiarioAtividadesPdfProcessor.process(diarioAtividades);
 
         var headers = new HttpHeaders();
