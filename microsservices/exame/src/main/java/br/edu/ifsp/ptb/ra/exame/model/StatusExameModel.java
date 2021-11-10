@@ -17,6 +17,12 @@ public class StatusExameModel
         this.codigo = codigo;
     }
 
+    public StatusExameModel(String codigo, String descricao)
+    {
+        this.descricao = descricao;
+        this.codigo = codigo;
+    }
+
     @Id
     @Column(name = "CD_STATUS")
     private String codigo;

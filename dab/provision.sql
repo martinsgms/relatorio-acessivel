@@ -58,7 +58,7 @@ alter table tra_evento modify id bigint auto_increment;
 create table tra_exame (
     id bigint,
     dh_exame timestamp not null,
-    id_externo varchar(100),
+    id_externo varchar(100) not null,
     nu_intervalo_afericao integer not null,
     id_usuario bigint,
     id_servico_saude bigint,
@@ -86,8 +86,9 @@ alter table tra_status_exame add constraint pk_tra_status_exame primary key (cd_
 
 -- CONFIG DATA
 insert into radb.tra_status_exame (cd_status, ds_descricao, in_permite_escrita) values ('AGE', 'AGENDADO', 0);
-insert into radb.tra_status_exame (cd_status, ds_descricao, in_permite_escrita) values ('AND', 'ANDAMENTO', 1);
-insert into radb.tra_status_exame (cd_status, ds_descricao, in_permite_escrita) values ('ENC', 'ENCERRADO', 0);
+insert into radb.tra_status_exame (cd_status, ds_descricao, in_permite_escrita) values ('AND', 'EM ANDAMENTO', 1);
+insert into radb.tra_status_exame (cd_status, ds_descricao, in_permite_escrita) values ('COL', 'COLETADO', 0);
+insert into radb.tra_status_exame (cd_status, ds_descricao, in_permite_escrita) values ('PROC', 'PROCESSADO', 0);
 
 /*-----------------------------------------------------------------------------------------------*/
 /*-----------------------------------------------------------------------------------------------*/

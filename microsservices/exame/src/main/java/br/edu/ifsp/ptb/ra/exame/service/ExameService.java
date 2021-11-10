@@ -5,9 +5,12 @@ import static br.edu.ifsp.ptb.ra.exame.common.ErrorMessageBuilder.RECURSO_SERVIC
 import static br.edu.ifsp.ptb.ra.exame.common.ErrorMessageBuilder.RECURSO_USUARIO;
 import static br.edu.ifsp.ptb.ra.exame.common.ErrorMessageBuilder.recursoInexistente;
 
+import java.time.LocalDateTime;
+import java.time.Period;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +21,7 @@ import br.edu.ifsp.ptb.ra.exame.dto.ServicoSaudeDTO;
 import br.edu.ifsp.ptb.ra.exame.dto.UsuarioDTO;
 import br.edu.ifsp.ptb.ra.exame.exception.ServiceException;
 import br.edu.ifsp.ptb.ra.exame.model.ExameModel;
+import br.edu.ifsp.ptb.ra.exame.model.StatusExameModel;
 import br.edu.ifsp.ptb.ra.exame.repository.ExameRepository;
 import br.edu.ifsp.ptb.ra.exame.util.DateTimeUtils;
 
@@ -89,12 +93,37 @@ public class ExameService
         verificaSeExameExiste(idExame);
 
         var exame = exameRepository.getOne(idExame);
-        var exameDTO = new ExameDTO(exame);
+
+        var exameDTO = new ExameDTO(alteraStatusExame(exame));
 
         ServicoSaudeDTO servicoSaude = servicoSaudeService.getIdentificacao(exame.getIdServicoSaude());
         exameDTO.setServicoSaude(servicoSaude);
 
         return exameDTO;
+    }
+
+    private ExameModel alteraStatusExame(ExameModel exame)
+    {
+        var hoje = LocalDateTime.now();
+        var dhInicioExame = exame.getTimestampExame();
+        var dhFimExame = dhInicioExame.plus(Period.ofDays(1));
+
+        if (exame.getStatus().getCodigo().equals("AGE") && (hoje.isEqual(dhInicioExame) || hoje.isAfter(dhInicioExame)))
+        {
+            exame.setStatus(new StatusExameModel("AND", "EM ANDAMENTO"));
+        }
+
+        if (exame.getStatus().getCodigo().equals("AND") && hoje.isAfter(dhFimExame))
+        {
+            exame.setStatus(new StatusExameModel("COL", "COLETADO"));
+        }
+
+        if (StringUtils.isBlank(exame.getStatus().getDescricao()))
+        {
+            return exameRepository.save(exame);
+        }
+
+        return exame;
     }
 
     public void verificaSeExameExiste(Long idExame) throws ServiceException
@@ -130,12 +159,20 @@ public class ExameService
         {
             throw new ServiceException(recursoInexistente(RECURSO_EXAME, idExternoExame));
         }
-
         ExameDTO exameDTO = new ExameDTO(exameModel);
 
         List<EventoDTO> eventoList = getEventoList(exameModel.getId());
         exameDTO.setEventos(eventoList);
 
         return exameDTO;
+    }
+
+    public void alteraStatusParaProcessado(String idExternoExame)
+    {
+        ExameModel exameModel = exameRepository.findByIdExterno(idExternoExame);
+
+        exameModel.setStatus(new StatusExameModel("PRO", "PROCESSADO"));
+
+        exameRepository.save(exameModel);
     }
 }

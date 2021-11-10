@@ -27,7 +27,7 @@
         <activity android:name=".ui.activity.HomeActivity" />
         <activity
             android:name=".ui.activity.RelatorioActivity"
-            android:label="Meu relatório" />
+            android:label="Meu diário" />
         <activity
             android:name=".ui.activity.DetalheExameActivity"
             android:label="Detalhes do seu exame" />

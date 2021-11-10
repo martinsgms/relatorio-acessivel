@@ -38,7 +38,12 @@ public class ExameDTO
     {
         status = new StatusExameDTO(model.getStatus());
         formatosDataHora = new FormatosDataHoraDTO(model.getTimestampExame());
-        eventos.addAll(model.getEventos().stream().map(EventoDTO::new).collect(Collectors.toList()));
+
+        if (model.getEventos() != null)
+        {
+            eventos.addAll(model.getEventos().stream().map(EventoDTO::new).collect(Collectors.toList()));
+        }
+
         BeanUtils.copyProperties(model, this);
     }
 

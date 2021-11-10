@@ -70,7 +70,11 @@ public class ExameController
     @GetMapping("/{idExternoExame}/diario")
     public ResponseEntity<QuadroPaDTO> diarioAtividades(@PathVariable String idExternoExame) throws ServiceException
     {
-        return ResponseEntity.ok(exameService.getDiarioAtividades(idExternoExame));
+        QuadroPaDTO diarioAtividades = exameService.getDiarioAtividades(idExternoExame);
+
+        exameService.alteraStatusParaProcessado(idExternoExame);
+
+        return ResponseEntity.ok(diarioAtividades);
     }
 
     @GetMapping(value = "/{idExternoExame}/diario/pdf", produces = MediaType.APPLICATION_PDF_VALUE)
@@ -82,9 +86,13 @@ public class ExameController
         var headers = new HttpHeaders();
         headers.add("Content-Disposition", "inline; filename=" + diarioAtividades.getFileName() + ".pdf");
 
+        InputStreamResource body = new InputStreamResource(resource);
+
+        exameService.alteraStatusParaProcessado(idExternoExame);
+
         return ResponseEntity.ok()
                 .headers(headers)
                 .contentType(MediaType.APPLICATION_PDF)
-                .body(new InputStreamResource(resource));
+                .body(body);
     }
 }
