@@ -1,13 +1,11 @@
 package br.com.martinsgms.relatorioacessivel.service
 
-import android.util.Log
 import br.com.martinsgms.relatorioacessivel.config.HttpConfig
 import br.com.martinsgms.relatorioacessivel.model.ExameModel
 import br.com.martinsgms.relatorioacessivel.model.UsuarioModel
 import com.github.kittinunf.fuel.coroutines.awaitObjectResponse
 import com.github.kittinunf.fuel.coroutines.awaitStringResponse
 import com.github.kittinunf.fuel.httpGet
-import com.github.kittinunf.fuel.httpPost
 
 class HomeService {
 
@@ -15,13 +13,22 @@ class HomeService {
         HttpConfig.config()
     }
 
-    suspend fun getExameMaisRecente(token : String): ExameModel {
+    suspend fun getExameMaisRecente(token: String): ExameModel? {
 
         val (request, response, result) = "/exame/usuario/${HttpConfig.userId}?apenasMaisRecente=true".httpGet()
             .header("Authorization" to "Bearer $token")
             .awaitStringResponse()
 
-        return ExameModel.deserialize(result)
+        return try {
+
+            ExameModel.deserialize(result)
+
+        } catch (e: Exception) {
+
+            null
+
+        }
+
     }
 
     suspend fun getDadosUsuario(token : String): UsuarioModel {

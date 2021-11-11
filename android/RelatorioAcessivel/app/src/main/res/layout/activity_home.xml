@@ -24,6 +24,7 @@
             android:layout_marginTop="32dp"
             android:layout_marginEnd="16dp"
             tools:text="Olá, Gabriel"
+            android:textStyle="bold"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
@@ -89,6 +90,45 @@
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>
+
+        <ImageView
+            android:id="@+id/activity_home_img_exame_not_found"
+            android:layout_width="400dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="32dp"
+            android:visibility="invisible"
+            app:layout_constraintTop_toBottomOf="@+id/activity_home_exame_mais_recente_label"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/img_not_found_foreground" />
+
+        <TextView
+            android:id="@+id/activity_home_txt_exame_not_found1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@color/wine"
+            android:textStyle="bold"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/activity_home_img_exame_not_found"
+            android:text="Você ainda não possui exames" />
+
+        <TextView
+            android:id="@+id/activity_home_txt_exame_not_found2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="14dp"
+            android:textAlignment="center"
+            android:textColor="@color/gray"
+            android:visibility="invisible"
+            android:textSize="17dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/activity_home_txt_exame_not_found1"
+            android:text="Busque por Serviços de Saúde e agende seu exame agora mesmo" />
 
         <Button
             android:id="@+id/activity_home_meus_exames"

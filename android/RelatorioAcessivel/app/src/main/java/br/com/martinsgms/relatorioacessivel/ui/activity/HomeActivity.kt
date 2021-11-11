@@ -3,15 +3,15 @@ package br.com.martinsgms.relatorioacessivel.ui.activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
+import android.view.View
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import br.com.martinsgms.relatorioacessivel.R
-import br.com.martinsgms.relatorioacessivel.config.HttpConfig
-import br.com.martinsgms.relatorioacessivel.model.UsuarioModel
 import br.com.martinsgms.relatorioacessivel.service.HomeService
 import kotlinx.coroutines.runBlocking
 
@@ -52,27 +52,68 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home) {
         super.onResume()
 
         val nomeUsuarioTextView = findViewById<TextView>(R.id.activity_home_nome_usuario)
+        val exameMaisRecenteLabel = findViewById<TextView>(R.id.activity_home_exame_mais_recente_label)
+        val txtNotFound1 = findViewById<TextView>(R.id.activity_home_txt_exame_not_found1)
+        val txtNotFound2 = findViewById<TextView>(R.id.activity_home_txt_exame_not_found2)
         val cardExame = findViewById<CardView>(R.id.activity_home_card_exame_mais_recente)
         val servicoSaudeTextView = findViewById<TextView>(R.id.activity_home_servico_saude)
         val dataTextView = findViewById<TextView>(R.id.activity_home_data_exame)
         val statusTextView = findViewById<TextView>(R.id.activity_home_status_exame)
         val btnMeusDados = findViewById<Button>(R.id.activity_home_meus_dados)
+        val btnMeusExames = findViewById<Button>(R.id.activity_home_meus_exames)
+        val imgExameNotFound = findViewById<ImageView>(R.id.activity_home_img_exame_not_found)
+        val btnBuscarServicosSaude = findViewById<Button>(R.id.activity_home_buscar_servicos)
 
         val self = this
         runBlocking {
 
             val exameMaisRecenteModel = homeService.getExameMaisRecente(self.token!!)
+
             val usuarioModel = homeService.getDadosUsuario(self.token!!)
 
             "Olá, ${usuarioModel.nome}".also { nomeUsuarioTextView.text = it }
-            servicoSaudeTextView.text = exameMaisRecenteModel.servicoSaude.nome
-            dataTextView.text = exameMaisRecenteModel.formatosDataHora.semanaDiaMesAnoExtenso
-            statusTextView.text = exameMaisRecenteModel.status.descricao
 
-            cardExame.setOnClickListener {
-                val intent = Intent(self, DetalheExameActivity::class.java)
-                intent.putExtra("exameModel", exameMaisRecenteModel)
-                startActivity(intent)
+            if (exameMaisRecenteModel != null) {
+
+                servicoSaudeTextView.text = exameMaisRecenteModel.servicoSaude.nome
+                dataTextView.text = exameMaisRecenteModel.formatosDataHora.semanaDiaMesAnoExtenso
+                statusTextView.text = exameMaisRecenteModel.status.descricao
+
+                cardExame.setOnClickListener {
+                    val intent = Intent(self, DetalheExameActivity::class.java)
+                    intent.putExtra("exameModel", exameMaisRecenteModel)
+                    startActivity(intent)
+                }
+                cardExame.visibility = View.VISIBLE
+                exameMaisRecenteLabel.visibility = View.VISIBLE
+                btnMeusExames.visibility = View.VISIBLE
+
+                imgExameNotFound.visibility = View.INVISIBLE
+                txtNotFound1.visibility = View.INVISIBLE
+                txtNotFound2.visibility = View.INVISIBLE
+
+                btnBuscarServicosSaude.setBackgroundColor(resources.getColor(R.color.white))
+                btnBuscarServicosSaude.setTextColor(resources.getColor(R.color.wine))
+
+                val btnMeusExamesParams = btnMeusExames.layoutParams as ConstraintLayout.LayoutParams
+                btnMeusExamesParams.topToBottom = cardExame.id
+            } else {
+                cardExame.visibility = View.INVISIBLE
+                exameMaisRecenteLabel.visibility = View.INVISIBLE
+                btnMeusExames.visibility = View.INVISIBLE
+
+                imgExameNotFound.visibility = View.VISIBLE
+                txtNotFound1.visibility = View.VISIBLE
+                txtNotFound2.visibility = View.VISIBLE
+
+                val btnMeusExamesParams = btnMeusExames.layoutParams as ConstraintLayout.LayoutParams
+                btnMeusExamesParams.topToBottom = imgExameNotFound.id
+
+                val btnBuscarServicosSaudeParams = btnBuscarServicosSaude.layoutParams as ConstraintLayout.LayoutParams
+                btnBuscarServicosSaudeParams.topToBottom = txtNotFound2.id
+
+                btnBuscarServicosSaude.setBackgroundColor(resources.getColor(R.color.wine))
+                btnBuscarServicosSaude.setTextColor(resources.getColor(R.color.white))
             }
 
             btnMeusDados.setOnClickListener {

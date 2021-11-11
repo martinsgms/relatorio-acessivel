@@ -1,9 +1,7 @@
 package br.com.martinsgms.relatorioacessivel.config
 
-import android.content.Context
 import android.util.Log
 import com.github.kittinunf.fuel.core.FuelManager
-
 
 class HttpConfig {
 
