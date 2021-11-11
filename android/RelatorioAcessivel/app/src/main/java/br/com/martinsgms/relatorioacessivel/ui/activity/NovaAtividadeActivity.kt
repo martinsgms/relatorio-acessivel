@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.RelativeLayout
+import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentContainerView
@@ -19,12 +20,12 @@ import com.github.kittinunf.fuel.core.Method
 import com.google.android.material.switchmaterial.SwitchMaterial
 import com.google.android.material.textfield.TextInputLayout
 import kotlinx.coroutines.runBlocking
+import java.lang.RuntimeException
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
 import java.util.*
-
 
 class NovaAtividadeActivity : AppCompatActivity(R.layout.activity_nova_atividade) {
 
@@ -35,6 +36,7 @@ class NovaAtividadeActivity : AppCompatActivity(R.layout.activity_nova_atividade
     private var sintomaEditText: TextInputLayout? = null
     private var medicamentosEditText: TextInputLayout? = null
     private var horaEditText: EditText? = null
+    private var txtErrorMsg: TextView? = null
     private var btnRegistrar: Button? = null
 
     private var novaAtividadeService = NovaAtividadeService()
@@ -48,6 +50,7 @@ class NovaAtividadeActivity : AppCompatActivity(R.layout.activity_nova_atividade
         sintomaEditText = findViewById(R.id.sintoma)
         medicamentosEditText = findViewById(R.id.medicamento)
         btnRegistrar = findViewById(R.id.activity_nova_atividade_registrar)
+        txtErrorMsg = findViewById(R.id.activity_nova_atividade_error_msg)
 
         configuraBotaoReturn()
         configuraTimePicker(savedInstanceState)
@@ -59,10 +62,14 @@ class NovaAtividadeActivity : AppCompatActivity(R.layout.activity_nova_atividade
 
         val context = this
         btnRegistrar?.setOnClickListener {
-            findViewById<RelativeLayout>(R.id.activity_nova_atividade_loadingPanel).visibility = View.VISIBLE
             runBlocking {
-                novaAtividadeService.salvaEvento(context.method, criaAtividade())
-                finish()
+                try {
+                    findViewById<RelativeLayout>(R.id.activity_nova_atividade_loadingPanel).visibility = View.VISIBLE
+                    novaAtividadeService.salvaEvento(context.method, criaAtividade())
+                    finish()
+                } catch (e:Exception) {
+                    findViewById<RelativeLayout>(R.id.activity_nova_atividade_loadingPanel).visibility = View.INVISIBLE
+                }
             }
         }
 
@@ -76,7 +83,6 @@ class NovaAtividadeActivity : AppCompatActivity(R.layout.activity_nova_atividade
 
             supportActionBar?.title = "Editar atividade"
         }
-
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -86,6 +92,11 @@ class NovaAtividadeActivity : AppCompatActivity(R.layout.activity_nova_atividade
         val atividade = atividadeEditText?.editText?.text.toString()
         val sintoma = sintomaEditText?.editText?.text.toString()
         val medicamento = medicamentosEditText?.editText?.text.toString()
+
+        if (atividade.isNullOrBlank()) {
+            txtErrorMsg!!.text = "Por favor, informe a atividade"
+            throw RuntimeException()
+        }
 
         var hora = ""
         if (switch.isChecked) {
@@ -98,13 +109,25 @@ class NovaAtividadeActivity : AppCompatActivity(R.layout.activity_nova_atividade
             horaEditText = findViewById(R.id.hora_fragment)
             
             hora = horaEditText?.text.toString()
-            Log.d("relatorio_item_hora", hora);
+
+            if (hora.isNullOrBlank()) {
+                txtErrorMsg!!.text = "Por favor, informe a hora"
+                throw RuntimeException()
+            }
+
+            Log.d("relatorio_item_hora-1", hora);
             //tratar relatorio_item_hora em ponto ex 8:00
-            if (hora.split(":")[1].length == 1)
+
+            if (hora.split(":")[1].isEmpty())
+                hora = hora.replace(":", ":00")
+
+            else if (hora.split(":")[1].length == 1)
                 hora = hora.replace(":", ":0")
 
             if (hora.split(":")[0].length == 1)
                 hora = "0".plus(hora)
+
+            Log.d("relatorio_item_hora-2", hora);
         }
 
         Log.d("AA", "${LocalDateTime.of(LocalDate.now(), LocalTime.parse(hora))} $atividade $sintoma $medicamento")

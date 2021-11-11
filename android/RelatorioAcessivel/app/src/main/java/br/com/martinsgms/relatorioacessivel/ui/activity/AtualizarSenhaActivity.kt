@@ -38,10 +38,26 @@ class AtualizarSenhaActivity : AppCompatActivity(R.layout.activity_atualizar_sen
         val btnSalvar = findViewById<Button>(R.id.activity_atualizar_senha_salvar)
         btnSalvar.setOnClickListener {
 
+            val senhaAtual = senhaAtualEditText.editText!!.text.toString()
             val novaSenha = novaSenhaEditText.editText!!.text.toString()
             val repitaSenha = repitaSenhaEditText.editText!!.text.toString()
 
             Log.d("atts", "$novaSenha --- $repitaSenha")
+
+            if (senhaAtual.isNullOrBlank()) {
+                erroMsgTextView.text = "Informe sua senha atual"
+                return@setOnClickListener
+            }
+
+            if (novaSenha.isNullOrBlank()) {
+                erroMsgTextView.text = "Informe a nova senha"
+                return@setOnClickListener
+            }
+
+            if (repitaSenha.isNullOrBlank()) {
+                erroMsgTextView.text = "Por favor, repita a senha"
+                return@setOnClickListener
+            }
 
             if (novaSenha != repitaSenha) {
                 erroMsgTextView.text = "As senhas não são iguais"
@@ -49,7 +65,7 @@ class AtualizarSenhaActivity : AppCompatActivity(R.layout.activity_atualizar_sen
             }
 
             usuarioModel!!.novaSenha = novaSenha
-            usuarioModel.senha = senhaAtualEditText.editText!!.text.toString()
+            usuarioModel.senha = senhaAtual
 
             Log.d("atts", "2222222222")
 
@@ -59,19 +75,24 @@ class AtualizarSenhaActivity : AppCompatActivity(R.layout.activity_atualizar_sen
                 Log.d("atts", "${usuarioModel.senha}")
                 Log.d("atts", "${usuarioModel.novaSenha}")
 
-                val response = atualizarSenhaService.atualizaSenha(usuarioModel, self.token!!)
+                try {
+                    val response = atualizarSenhaService.atualizaSenha(usuarioModel, self.token!!)
 
-                val builder = AlertDialog.Builder(self)
-                builder.setTitle("Aviso")
-                builder.setMessage(response)
-                builder.setPositiveButton("Ok") {_,_ ->
-                    finish()
+                    val builder = AlertDialog.Builder(self)
+                    builder.setTitle("Aviso")
+                    builder.setMessage(response)
+                    builder.setPositiveButton("Ok") { _, _ ->
+                        finish()
+                    }
+                    builder.setOnDismissListener {
+                        finish()
+                    }
+                    val dialog: AlertDialog = builder.create()
+                    dialog.show()
+
+                } catch (e: Exception) {
+                    erroMsgTextView.text = "Senha atual incorreta"
                 }
-                builder.setOnDismissListener{
-                    finish()
-                }
-                val dialog: AlertDialog = builder.create()
-                dialog.show()
             }
         }
     }

@@ -46,12 +46,11 @@ class TimePickerFragment : Fragment() {
     }
 
     private fun openTimePicker() {
-        val isSystem24HourFormat = DateFormat.is24HourFormat(requireContext())
-        val clockFormat = if (isSystem24HourFormat) TimeFormat.CLOCK_24H else TimeFormat.CLOCK_12H
+        val clockFormat = TimeFormat.CLOCK_24H
 
         val materialTimePicker = MaterialTimePicker.Builder()
             .setTimeFormat(clockFormat)
-            .setTitleText("Selecione a relatorio_item_hora da atividade")
+            .setTitleText("Selecione a hora da atividade")
             .build()
 
         materialTimePicker.show(childFragmentManager, "TAG")
