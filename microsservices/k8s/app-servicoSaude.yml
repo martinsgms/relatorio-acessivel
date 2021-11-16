@@ -11,7 +11,7 @@ spec:
     spec:
       containers:
         - name: app-servicosaude
-          image: martinsgms/ra-app-servicosaude:v0.1
+          image: martinsgms/ra-app-servicosaude:v0.2
           imagePullPolicy: Always
           ports:
           - containerPort: 8082

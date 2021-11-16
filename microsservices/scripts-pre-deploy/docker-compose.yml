@@ -2,31 +2,37 @@ version: "3.9"
 services:
     eureka-server:
         build: ../eureka-server/
-        image: martinsgms/ra-eureka-server:v0.1
+        image: martinsgms/ra-eureka-server:v0.2
         container_name: ra-eureka-server
         ports:
             - "8761:8761"
     config-server:
         build: ../config-server/
-        image: martinsgms/ra-config-server:v0.1
+        image: martinsgms/ra-config-server:v0.2
         container_name: ra-config-server
         ports:
             - "8888:8888"
     gateway-server:
         build: ../gateway-server/
-        image: martinsgms/ra-gateway-server:v0.1
+        image: martinsgms/ra-gateway-server:v0.2
         container_name: ra-gateway-server
         ports:
-            - "8888:8888"
+            - "5555:5555"
     app-exame:
         build: ../exame/
-        image: martinsgms/ra-app-exame:v0.1
+        image: martinsgms/ra-app-exame:v0.2
         container_name: ra-app-exame
         ports:
             - "8080:8080"
     app-usuario:
         build: ../usuario/
-        image: martinsgms/ra-app-usuario:v0.1
+        image: martinsgms/ra-app-usuario:v0.2
         container_name: ra-app-usuario
         ports:
             - "8081:8081"
+    app-servicoSaude:
+        build: ../servicoSaude/
+        image: martinsgms/ra-app-servicosaude:v0.2
+        container_name: ra-app-servicosaude
+        ports:
+            - "8082:8082"

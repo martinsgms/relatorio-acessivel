@@ -11,7 +11,7 @@ docker rmi $(docker images -q martinsgms/ra-config-server)
 docker rmi $(docker images -q martinsgms/ra-eureka-server)
 
 printf "\npacking...\n"
-./generate-all-packages.sh
+#./generate-all-packages.sh
 
 printf "\nbuilding imagens...\n"
 docker-compose build --no-cache
