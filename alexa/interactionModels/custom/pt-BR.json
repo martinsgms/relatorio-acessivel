@@ -1,0 +1,34 @@
+{
+  "interactionModel": {
+    "languageModel": {
+      "invocationName": "adicionar café da tarde ao diário inteligente",
+      "intents": [
+        {
+          "name": "AMAZON.NavigateHomeIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.CancelIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.HelpIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.StopIntent",
+          "samples": []
+        },
+        {
+          "name": "AddAtividadeIntent",
+          "slots": [],
+          "samples": [
+            "adicionar ao diário inteligente"
+          ]
+        }
+      ],
+      "types": []
+    }
+  },
+  "version": "6"
+}
